@@ -54,9 +54,6 @@ const ImgProfile = styled.img`
 `
 
 const Profile = ({email, password, userName, lastName, institute, degree}) => {
-
-
-
     return (
         <div>
             <BlockSectionModal flex_direction={'column'}>
@@ -155,9 +152,7 @@ const Profile = ({email, password, userName, lastName, institute, degree}) => {
                             />
                         </BlockInput>
                     </BlockRightModal>
-
                 </MainBlockInputs>
-
                 <MainBlockImgProfile>
                     <BlockError left={'0'} top={'0'}>
                         {(userName.isDirty && userName.isEmpty)

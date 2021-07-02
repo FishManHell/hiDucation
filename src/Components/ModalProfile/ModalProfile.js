@@ -52,7 +52,6 @@ const ModalProfile = ({openModal, setOpenModal}) => {
         degree.onClear()
     }
 
-
     return (
         <WrapperModal
             openModal={openModal}

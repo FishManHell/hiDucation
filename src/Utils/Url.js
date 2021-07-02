@@ -1,1 +1,1 @@
-export const base_url = 'https://virtserver.swaggerhub.com/GregorySheygam/himath-gaming/0.0.1'
+export const BASE_URL = 'https://virtserver.swaggerhub.com/GregorySheygam/himath-gaming/0.0.1'

@@ -29,7 +29,8 @@ export const useValidation = (value, validations) => {
                     break;
                 case 'isLastName':
                     regJustLettersNumbers.test((value)) ? setLastNameError(false) : setLastNameError(true)
-                default:
+                    break;
+                default :
                     return - 1
             }
         }

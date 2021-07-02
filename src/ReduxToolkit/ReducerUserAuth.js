@@ -1,7 +1,8 @@
 import {createAsyncThunk, createAction, createSlice} from "@reduxjs/toolkit";
+import {BASE_URL} from "../Utils/Url";
 
 export const getUserInform = createAction('userAuth/getUser');
-export const logoutProfile = createAction('userAuth/logout')
+export const logoutProfile = createAction('userAuth/logout');
 
 const initialState = {
         token: '',
@@ -27,6 +28,23 @@ export const postLogin = createAsyncThunk('userAuth/getTokenLogin', async (endpo
     }
 )
 
+export const changePassword = createAsyncThunk('userAuth/changePassword', async (endpoint, getState) => {
+        try {
+            const response = await fetch(`${BASE_URL}/user/Vlad1-2@ua.fm/password/reset`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(endpoint)
+            });
+            const data = response
+            console.log(data)
+            return data
+        } catch (error) {
+            throw Error(error);
+        }
+    })
+
 
 const toolkitSlice = createSlice({
     name: "userAuth",
@@ -42,7 +60,7 @@ const toolkitSlice = createSlice({
 
         [logoutProfile] (state) {
             localStorage.removeItem('token') // это основное - потом через него работать нужно все время и сним работать
-            state.user.email = '' // это просто временно для теста
+            state.user.email = '' // это просто временно для теста использую в качестве токена на проверку логаут
         },
 
         [getUserInform] (state, action) {
@@ -62,6 +80,22 @@ const toolkitSlice = createSlice({
         },
 
         [postLogin.rejected]: (state, action) => {
+            state.error = action.error.message;
+            state.loading = false;
+        },
+
+        [changePassword.pending]: (state, action) => {
+            state.loading = true;
+            state.error = null
+
+        },
+
+        [changePassword.fulfilled]: (state, action) => {
+            state.user.password = action.payload.password
+            state.loading = false
+        },
+
+        [changePassword.rejected]: (state, action) => {
             state.error = action.error.message;
             state.loading = false;
         }

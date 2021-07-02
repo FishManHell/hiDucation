@@ -10,7 +10,7 @@ import {
     LabelInput, WindowPasswordMatch
 } from "../../StyledComponents/SrtyledModal";
 import styled from "styled-components";
-import {base_url} from "../../Utils/Url";
+import {BASE_URL} from "../../Utils/Url";
 
 
 const SignUp = ({email, password, userName, learning, study, clearState}) => {
@@ -25,7 +25,7 @@ const SignUp = ({email, password, userName, learning, study, clearState}) => {
             email: email,
             password: password
         }
-        fetch(`${base_url}/user/registration`, {
+        fetch(`${BASE_URL}/user/registration`, {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json'
@@ -34,7 +34,7 @@ const SignUp = ({email, password, userName, learning, study, clearState}) => {
         })
             .then(response => {
                 if (response.ok) {
-                    return response.json()
+                    return response
                 } else {
                     throw new Error(response.status + '');
                 }

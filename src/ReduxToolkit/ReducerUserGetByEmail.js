@@ -1,7 +1,7 @@
 import {createAction, createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {getUserInform} from "./ReducerUserAuth";
 import axios from "axios";
-import {base_url} from "../Utils/Url";
+import {BASE_URL} from "../Utils/Url";
 
 const initialState = {
     userProfile: {
@@ -39,7 +39,7 @@ export const getUserProfile = createAsyncThunk('userProfile/getProfile',
 export const editUserProfile = createAsyncThunk('userProfile/PostEditUserProfile',
     async (endpoint, {getState}) => {
         try {
-            const response = await fetch(`${base_url}/user/${getState().userAuth.user.email}`, {
+            const response = await fetch(`${BASE_URL}/user/${getState().userAuth.user.email}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type' : 'application/json'

@@ -1,5 +1,14 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCopyright, faSearch, faTimes} from "@fortawesome/free-solid-svg-icons";
+import {
+    faCopyright,
+    faEnvelope,
+    faEye,
+    faGraduationCap,
+    faKey,
+    faSearch,
+    faTimes, faUniversity,
+    faUser
+} from "@fortawesome/free-solid-svg-icons";
 import {
     faApple,
     faFacebook,
@@ -22,3 +31,9 @@ export const youTube = <FontAwesomeIcon icon={faYoutube}/>
 export const apple = <FontAwesomeIcon icon={faApple}/>
 export const search = <FontAwesomeIcon icon={faSearch}/>
 export const copyright = <FontAwesomeIcon icon={faCopyright}/>
+export const envelope = <FontAwesomeIcon icon={faEnvelope}/>
+export const key = <FontAwesomeIcon icon={faKey}/>
+export const eye = <FontAwesomeIcon icon={faEye}/>
+export const user = <FontAwesomeIcon icon={faUser}/>
+export const graduation_cap = <FontAwesomeIcon icon={faGraduationCap}/>
+export const university = <FontAwesomeIcon icon={faUniversity}/>

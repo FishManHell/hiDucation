@@ -11,7 +11,7 @@ import {useSelector} from "react-redux";
 import ModalProfile from "./ModalProfile/ModalProfile";
 
 const HiMathMain = ({setOpenModal, openModal}) => {
-    const email = useSelector(state => state.userAuth.user.email)
+    const email = useSelector(state => state.userAuth.user.email);
 
     return (
         <div>
@@ -23,7 +23,6 @@ const HiMathMain = ({setOpenModal, openModal}) => {
             <Team/>
             <FooterContact/>
             {email ? <ModalProfile openModal={openModal} setOpenModal={setOpenModal}/> : <Modal openModal={openModal} setOpenModal={setOpenModal}/>}
-
         </div>
     );
 };

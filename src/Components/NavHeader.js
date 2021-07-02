@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {BlockHeaderContent, BlockList, List} from "../StyledComponents/StyledHeader";
-import {Container, LogoBlock, LogoSpanFirst, LogoSpanLittleSpan, LogoSpanSecond} from "../StyledComponents/Styled";
+import {Container, LogoBlock, LogoSpanFirst, LogoSpanLittleSpan} from "../StyledComponents/Styled";
 import {BlockBurgerMenu, BurgerMenu, WrapperBurgerMenu, WrapperNavHeader} from "../StyledComponents/StyledNavHeader";
 import {useSelector} from "react-redux";
 import {Link, Events} from "react-scroll";
@@ -26,7 +26,6 @@ const NavHeader = ({setOpenModal}) => {
         Events.scrollEvent.register('end', function () {
             console.log("end", arguments);
         });
-
     }, [])
 
     return (
@@ -54,7 +53,7 @@ const NavHeader = ({setOpenModal}) => {
                                 <Link to={'product'} activeClass={'active'} className={'list_header-button'} spy={true} smooth={true} duration={1000}>product</Link>
                             </li>
                             <li className={'list_header'}>
-                                <Link to={'about'} activeClass={'active'} className={'list_header-button'} offset={-100} spy={true} smooth={true} duration={1000}>about</Link>
+                                <Link to={'about'} activeClass={'active'} className={'list_header-button'} spy={true} smooth={true} duration={1000}>about</Link>
                             </li>
                             <li className={'list_header'}>
                                 <Link to={'team'} activeClass={'active'} className={'list_header-button'} spy={true} smooth={true} duration={1000}>team</Link>

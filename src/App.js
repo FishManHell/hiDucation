@@ -5,6 +5,7 @@ import {BounceLoader} from "react-spinners";
 import HiMathMain from "./Components/hiMathMain";
 function App() {
     const loading = useSelector(state => state.userAuth.loading);
+
     const [openModal, setOpenModal] = useState(false);
 
 

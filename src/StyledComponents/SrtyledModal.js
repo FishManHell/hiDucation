@@ -1,14 +1,14 @@
 import styled, {css} from "styled-components";
 
 export const WrapperModal = styled.div`
+  cursor: pointer;
   position: fixed;
+  overflow: auto;
   width: 100%;
   height: 100%;
   top: 0;
   bottom: 0;
-  background: rgba(0,0,0, .2);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+  background: rgba(52, 54, 66, 0.9);
   z-index: 60;
   left: 0;
 
@@ -46,6 +46,9 @@ export const WelcomeBeck = styled.div`
 `
 
 export const CloseModal = styled.button`
+  position: fixed;
+  top: 14px;
+  right: 20px;
   cursor: pointer;
   background-color: transparent;
   border: none;
@@ -74,19 +77,41 @@ export const BlockRightModal = styled.div`
 
 export const BlockError = styled.div`
   width: ${props => props.width};
-  text-align: center;
   position: absolute;
   top: ${props => props.top};
   left: ${props => props.left};
   bottom: ${props => props.bottom};
   right: ${props => props.right};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(215, 102, 102, 0.9);
+  height: 33px;
+  z-index: 2;
+  font-size: 0.8125rem;
+  border-radius: 0.25em;
+  pointer-events: none;
+  
 `
 export const ErrorTextModalForm = styled.span`
-  color: ${props => props.color};
-  display: flex;
-  justify-content: center;
+  color: #000000;
   font-weight: 600;
   font-size: ${props => props.font_size};
+  padding: 10px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 22px;
+    bottom: 100%;
+    height: 0;
+    width: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid rgba(215, 102, 102, 0.9);
+  }
+  
 `
 
 export const BlockInput = styled.div`
