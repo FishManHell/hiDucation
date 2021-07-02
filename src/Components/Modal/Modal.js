@@ -19,7 +19,14 @@ const BlockFormRegLog = styled.div`
   border-radius: 0.50em;
   transition-duration: 0.3s;
   -webkit-transition-property: -webkit-transform;
-  margin: 4% auto auto auto;
+
+  ${props => props.active && css`
+    margin: 4% auto auto auto;
+  `}
+
+  ${props => props.not_active && css`
+    margin: 2% auto auto auto;
+  `}
 `
 
 const Switcher = styled.div`
@@ -53,6 +60,12 @@ const MainBlockButtonSend = styled.div`
   padding: 0 2em 2em 2em;
 `
 
+const BlockCloseModal = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5em 1em 0 0;
+`
+
 const Modal = ({openModal, setOpenModal}) => {
     const dispatch = useDispatch()
     const [form, setForm] = useState(true);
@@ -62,8 +75,9 @@ const Modal = ({openModal, setOpenModal}) => {
     const email = useInput('', {isEmpty: true, isEmail: true});
     const password = useInput('', {isEmpty: true, isPassword: true});
     const userName = useInput('', {isEmpty: true, isName: true});
-    const learning = useInput('', {isEntry: true});
-    const study = useInput('', {isEntry: true});
+    const learning = useInput('', {isEmpty: true});
+    const study = useInput('', {isEmpty: true});
+    const repeatPassword = useInput('', {isEmpty: true});
 
     const clearState = () => {
         email.onClear()
@@ -71,11 +85,15 @@ const Modal = ({openModal, setOpenModal}) => {
         userName.onClear()
         learning.onClear()
         study.onClear()
+        repeatPassword.onClear()
     }
 
     const handleCloseModal = () => {
         setOpenModal(false)
-        setForgetPassword(false)
+        setForgetPassword(false);
+        setShowPassword(false);
+        setForm(true);
+        clearState()
         if (document.body.style.overflow === "hidden") {
             document.body.style.overflow = "auto"
         }
@@ -83,12 +101,12 @@ const Modal = ({openModal, setOpenModal}) => {
 
     const handleChangeFormSignIn = () => {
         setForm(true)
-        setForgetPassword(false)
         clearState()
     }
 
     const handleChangeFormSignUp = () => {
         setForm(false)
+        setForgetPassword(false)
         clearState()
     }
 
@@ -105,20 +123,26 @@ const Modal = ({openModal, setOpenModal}) => {
             openModal={openModal}
             closeModal={!openModal}
             className={!openModal ? 'openModal' : 'closeModal'}>
-            <CloseModal onClick={() => handleCloseModal()}>{times}</CloseModal>
-            <BlockFormRegLog width={'600px'}>
+            <BlockFormRegLog
+                width={'600px'}
+                active={form}
+                not_active={!form}
+                className={form ? 'active' : 'not_active'}>
                 <Switcher>
                     <SignInSignUp
                         active={form}
                         not_active={!form}
                         className={form ? 'active' : 'not_active'}
-                        onClick={() => handleChangeFormSignIn()}>SignIn</SignInSignUp>
+                        onClick={() => handleChangeFormSignIn()}>{!forgetPassword ? 'SignIn' : 'Change password'}</SignInSignUp>
                     <SignInSignUp
                         active={!form}
                         not_active={form}
                         className={!form ? 'active' : 'not_active'}
                         onClick={() => handleChangeFormSignUp()}>SignUp</SignInSignUp>
                 </Switcher>
+                <BlockCloseModal>
+                    <CloseModal onClick={() => handleCloseModal()}>{times}</CloseModal>
+                </BlockCloseModal>
                 {form
                     ?
                     !forgetPassword
@@ -134,6 +158,12 @@ const Modal = ({openModal, setOpenModal}) => {
                         <ForgetPassword setForgetPassword={setForgetPassword}/>
                     :
                     <SignUpTwo
+                        email={email}
+                        password={password}
+                        repeatPassword={repeatPassword}
+                        userName={userName}
+                        learning={learning}
+                        study={study}
                         showPassword={showPassword}
                         setShowPassword={setShowPassword}/>
                 }
@@ -151,7 +181,7 @@ const Modal = ({openModal, setOpenModal}) => {
                                         :
                                         !email.inputValid
                                     :
-                                    !email.inputValid || !password.inputValid || !userName.inputValid
+                                    !email.inputValid || !password.inputValid || !userName.inputValid || !repeatPassword.inputValid
                             }
                         >{form ? !forgetPassword ? 'Login' : 'Send' : 'Registration'}</ButtonSend>
                     </BlockInput>
@@ -162,3 +192,5 @@ const Modal = ({openModal, setOpenModal}) => {
 };
 
 export default Modal;
+
+// TODO баг с повторением пароля - устранить

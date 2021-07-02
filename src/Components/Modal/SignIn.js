@@ -7,7 +7,7 @@ import {BlockError, ErrorTextModalForm} from "../../StyledComponents/SrtyledModa
 
 export const BlockSignInSignUp = styled.div`
   width: 100%;
-  padding: 2em 2em 0 2em;
+  padding: 1em 2em 0 2em;
 `
 
 const BlockConnectLink = styled.div`

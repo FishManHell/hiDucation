@@ -15,7 +15,6 @@ import {BASE_URL} from "../../Utils/Url";
 
 const SignUp = ({email, password, userName, learning, study, clearState}) => {
     const [repeatedPassword, setRepeatedPassword] = useState('');
-
     const handleRepeatedPassword = e => {
         setRepeatedPassword(e.target.value)
     }
@@ -70,11 +69,11 @@ const SignUp = ({email, password, userName, learning, study, clearState}) => {
                         <Input
                             margin={'0 0 10px 0'}
                             width={'100%'}
-                            required
                             type={'text'}
+                            placeholder={'DMU'}
                             value={learning.value}
                             disabled
-                            placeholder={'DMU'}
+                            required
                             name={'learning'}
                             onChange={e => learning.onChange(e)}
                             onBlur={e => learning.onBlur(e)}
@@ -87,11 +86,12 @@ const SignUp = ({email, password, userName, learning, study, clearState}) => {
                         <Input
                             margin={'0 0 10px 0'}
                             width={'100%'}
-                            required
+                            placeholder={'Math'}
+
                             type={'text'}
                             value={study.value}
                             disabled
-                            placeholder={'Math'}
+                            required
                             name={'text'}
                             onChange={e => study.onChange(e)}
                             onBlur={e => study.onBlur(e)}
@@ -104,10 +104,10 @@ const SignUp = ({email, password, userName, learning, study, clearState}) => {
                         <Input
                             margin={'0 0 10px 0'}
                             width={'100%'}
-                            required
+                            placeholder={'name@email.com'}
                             type={'email'}
                             value={email.value}
-                            placeholder={'name@email.com'}
+                            required
                             name={'email'}
                             onChange={e => email.onChange(e)}
                             onBlur={e => email.onBlur(e)}
@@ -120,10 +120,10 @@ const SignUp = ({email, password, userName, learning, study, clearState}) => {
                         <Input
                             margin={'0 0 10px 0'}
                             width={'100%'}
-                            required
                             type={'password'}
-                            value={password.value}
                             placeholder={'Enter your password....'}
+                            required
+                            value={password.value}
                             name={'password'}
                             onChange={e => password.onChange(e)}
                             onBlur={e => password.onBlur(e)}
