@@ -46,9 +46,6 @@ export const WelcomeBeck = styled.div`
 `
 
 export const CloseModal = styled.button`
-  //position: fixed;
-  //top: 14px;
-  //right: 20px;
   cursor: pointer;
   background-color: transparent;
   border: none;

@@ -126,34 +126,7 @@ export const ButtonSend = styled.button`
   border: none;
   
  ${props => props.disabled && css`
-   &:hover {
-     opacity: 1;
-   }
-   
-   &:before {
-     content: '';
-     position: absolute;
-     width: 100%;
-     max-width: 100%;
-     height: 2px;
-     background: black;
-     top: 50%;
-     left: 0;
-     transform: rotate(5deg);
-   }
-
-   &:after {
-     content: '';
-     position: absolute;
-     width: 100%;
-     max-width: 100%;
-     height: 2px;
-     background: black;
-     top: 50%;
-     left: 0;
-     transform: rotate(-5deg);
-   }
-     opacity: 1;
+   background: #6E7F80;
  `}
  
   &:hover {
@@ -185,7 +158,7 @@ export const ForgetPasswordSignInText = styled.span`
   }
 `
 
-const SignIn = ({email, password, clearState, showPassword, setShowPassword, setForgetPassword}) => {
+const SignIn = ({email, password, showPassword, setShowPassword, handleForgetPassword}) => {
     const dispatch = useDispatch()
 
     return (
@@ -231,7 +204,7 @@ const SignIn = ({email, password, clearState, showPassword, setShowPassword, set
                         onBlur={e => password.onBlur(e)}
                     />
                     <TextChangeType
-                        onClick={() => setShowPassword(!showPassword)}>{showPassword ? eye : eye_slash}</TextChangeType>
+                        onClick={() => setShowPassword(!showPassword)}>{showPassword ? eye_slash : eye}</TextChangeType>
 
                     <BlockError left={'0'} bottom={'-35px'}>
                         {
@@ -250,7 +223,7 @@ const SignIn = ({email, password, clearState, showPassword, setShowPassword, set
                 </BlockInput>
             </MainBlockInput>
             <BlockForgetPasswordTextBackSignIn>
-                <ForgetPasswordSignInText onClick={() => setForgetPassword(true)}>
+                <ForgetPasswordSignInText onClick={() => handleForgetPassword(true)}>
                     Forgot your password ?
                 </ForgetPasswordSignInText>
             </BlockForgetPasswordTextBackSignIn>

@@ -1,17 +1,16 @@
 import React, {useState} from 'react';
 import {times} from "../../Utils/Font Awesome/Solid";
 import {CloseModal, WrapperModal} from "../../StyledComponents/SrtyledModal";
-import {useInput} from "../../Utils/Hook/HookFormModal";
 import styled, {css} from "styled-components";
-import SignUpTwo from "./SignUpTwo";
+import SignUp from "./SignUp";
 import SignIn, {BlockInput, ButtonSend} from "./SignIn";
 import ForgetPassword from "./ForgetPassword";
 import {useDispatch} from "react-redux";
-import {getUserInform, postLogin} from "../../ReduxToolkit/ReducerUserAuth";
+import {changePassword, getUserInform, postLogin, regUser} from "../../ReduxToolkit/ReducerUserAuth";
 import {BASE_URL} from "../../Utils/Url";
 import {getUserProfile} from "../../ReduxToolkit/ReducerUserGetByEmail";
 
-const BlockFormRegLog = styled.div`
+export const BlockFormRegLog = styled.div`
   max-width: ${props => props.width};
   background: #ffffff;
   position: relative;
@@ -29,11 +28,11 @@ const BlockFormRegLog = styled.div`
   `}
 `
 
-const Switcher = styled.div`
+export const Switcher = styled.div`
   width: 100%;
 `
 
-const SignInSignUp = styled.button`
+export const SignInSignUp = styled.button`
   width: 50%;
   border: none;
   background: #d2d8d8;
@@ -60,38 +59,26 @@ const MainBlockButtonSend = styled.div`
   padding: 0 2em 2em 2em;
 `
 
-const BlockCloseModal = styled.div`
+export const BlockCloseModal = styled.div`
   display: flex;
   justify-content: flex-end;
   padding: 0.5em 1em 0 0;
 `
 
-const Modal = ({openModal, setOpenModal}) => {
+const Modal = ({openModal, setOpenModal, form, setForm, showPassword, setShowPassword, email, password, userName, learning, study, repeatPassword, clearState}) => {
     const dispatch = useDispatch()
-    const [form, setForm] = useState(true);
-    const [showPassword, setShowPassword] = useState(true);
     const [forgetPassword, setForgetPassword] = useState(false);
 
-    const email = useInput('', {isEmpty: true, isEmail: true});
-    const password = useInput('', {isEmpty: true, isPassword: true});
-    const userName = useInput('', {isEmpty: true, isName: true});
-    const learning = useInput('', {isEmpty: true});
-    const study = useInput('', {isEmpty: true});
-    const repeatPassword = useInput('', {isEmpty: true});
-
-    const clearState = () => {
-        email.onClear()
-        password.onClear()
-        userName.onClear()
-        learning.onClear()
-        study.onClear()
-        repeatPassword.onClear()
+    const handleForgetPassword = (change) => {
+        setForgetPassword(change)
+        setShowPassword(true);
+        clearState()
     }
 
     const handleCloseModal = () => {
         setOpenModal(false)
         setForgetPassword(false);
-        setShowPassword(false);
+        setShowPassword(true);
         setForm(true);
         clearState()
         if (document.body.style.overflow === "hidden") {
@@ -99,23 +86,34 @@ const Modal = ({openModal, setOpenModal}) => {
         }
     }
 
-    const handleChangeFormSignIn = () => {
-        setForm(true)
+    const handleChangeFormSignInSignUp = (formik, forget) => {
+        setForm(formik)
+        setForgetPassword(forget)
+        setShowPassword(true);
         clearState()
     }
 
-    const handleChangeFormSignUp = () => {
-        setForm(false)
-        setForgetPassword(false)
-        clearState()
-    }
-
-    const handleSendInquiry = (email, password) => {
-        dispatch(postLogin(`${BASE_URL}/user/login?userEmail=${email}&password=${password}`))
+    const handleSendLogin = (email, password) => {
+        dispatch(postLogin({email, password}))
         dispatch(getUserInform({email, password}))
         dispatch(getUserProfile(`${BASE_URL}/user/${email}`))
         clearState()
         handleCloseModal()
+        console.log('LOGIN')
+    }
+
+    const handleSendReg = (email, password) => {
+        dispatch(regUser({email, password}))
+        clearState()
+        handleCloseModal()
+        console.log('REGISTRATION')
+    }
+
+    const handleSendChangePassword = (email, password) => {
+        dispatch(changePassword({email, password}))
+        clearState()
+        handleCloseModal()
+        console.log('CHANGE_PASSWORD')
     }
 
     return (
@@ -133,12 +131,12 @@ const Modal = ({openModal, setOpenModal}) => {
                         active={form}
                         not_active={!form}
                         className={form ? 'active' : 'not_active'}
-                        onClick={() => handleChangeFormSignIn()}>{!forgetPassword ? 'SignIn' : 'Change password'}</SignInSignUp>
+                        onClick={() => handleChangeFormSignInSignUp(true, false)}>{!forgetPassword ? 'SignIn' : 'Change password'}</SignInSignUp>
                     <SignInSignUp
                         active={!form}
                         not_active={form}
                         className={!form ? 'active' : 'not_active'}
-                        onClick={() => handleChangeFormSignUp()}>SignUp</SignInSignUp>
+                        onClick={() => handleChangeFormSignInSignUp(false, false)}>SignUp</SignInSignUp>
                 </Switcher>
                 <BlockCloseModal>
                     <CloseModal onClick={() => handleCloseModal()}>{times}</CloseModal>
@@ -153,11 +151,19 @@ const Modal = ({openModal, setOpenModal}) => {
                             clearState={clearState}
                             showPassword={showPassword}
                             setShowPassword={setShowPassword}
-                            setForgetPassword={setForgetPassword}/>
+                            setForgetPassword={setForgetPassword}
+                            handleForgetPassword={handleForgetPassword}
+                        />
                         :
-                        <ForgetPassword setForgetPassword={setForgetPassword}/>
+                        <ForgetPassword
+                            email={email}
+                            password={password}
+                            setShowPassword={setShowPassword}
+                            showPassword={showPassword}
+                            handleForgetPassword={handleForgetPassword}
+                        />
                     :
-                    <SignUpTwo
+                    <SignUp
                         email={email}
                         password={password}
                         repeatPassword={repeatPassword}
@@ -165,24 +171,33 @@ const Modal = ({openModal, setOpenModal}) => {
                         learning={learning}
                         study={study}
                         showPassword={showPassword}
-                        setShowPassword={setShowPassword}/>
+                        setShowPassword={setShowPassword}
+                    />
                 }
                 <MainBlockButtonSend>
                     <BlockInput>
                         <ButtonSend onClick={() => {
-                            handleSendInquiry(email.value, password.value)
-                        }}
-                            disabled={
-                                form
-                                    ?
-                                    !forgetPassword
-                                        ?
-                                        !email.inputValid || !password.inputValid
-                                        :
-                                        !email.inputValid
+                            form
+                                ?
+                                !forgetPassword
+                                ?
+                                handleSendLogin(email.value, password.value)
                                     :
-                                    !email.inputValid || !password.inputValid || !userName.inputValid || !repeatPassword.inputValid
-                            }
+                                    handleSendChangePassword(email.value, password.value)
+                                :
+                                handleSendReg(email.value, password.value)
+                        }}
+                                    disabled={
+                                        form
+                                            ?
+                                            !forgetPassword
+                                                ?
+                                                !email.inputValid || !password.inputValid
+                                                :
+                                                !password.inputValid
+                                            :
+                                            !email.inputValid || !password.inputValid || !userName.inputValid || !repeatPassword.inputValid
+                                    }
                         >{form ? !forgetPassword ? 'Login' : 'Send' : 'Registration'}</ButtonSend>
                     </BlockInput>
                 </MainBlockButtonSend>

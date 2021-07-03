@@ -1,204 +1,183 @@
-import React, {useState} from 'react';
-import {
-    BlockButtonLogin, BlockError,
-    BlockInput,
-    BlockLeftModal,
-    BlockRightModal,
-    BlockSectionModal,
-    ButtonLoginRegistration, ErrorTextModalForm,
-    Input,
-    LabelInput, WindowPasswordMatch
-} from "../../StyledComponents/SrtyledModal";
-import styled from "styled-components";
-import {BASE_URL} from "../../Utils/Url";
+import React from 'react';
+import {BlockInput, BlockSignInSignUp, Input, LabelInput, MainBlockInput, TextChangeType} from "./SignIn";
+import {envelope, eye, graduation_cap, key, university, user} from "../../Utils/Font Awesome/Solid";
+import {eye_slash} from "../../Utils/Font Awesome/Regular";
+import {BlockError, ErrorTextModalForm} from "../../StyledComponents/SrtyledModal";
+import {useSelector} from "react-redux";
 
-
-const SignUp = ({email, password, userName, learning, study, clearState}) => {
-    const [repeatedPassword, setRepeatedPassword] = useState('');
-    const handleRepeatedPassword = e => {
-        setRepeatedPassword(e.target.value)
-    }
-
-    const regPost = (email, password) => {
-        const user = {
-            email: email,
-            password: password
-        }
-        fetch(`${BASE_URL}/user/registration`, {
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response
-                } else {
-                    throw new Error(response.status + '');
-                }
-            })
-            .then(data => console.log(data))
-            .catch(e => console.log(e.message))
-    }
+const SignUp = ({showPassword, setShowPassword, email, password, userName, learning, study, repeatPassword}) => {
+    const emailRedux = useSelector(state => state.getUserInform.userProfile.email)
+    const passwordRedux = useSelector(state => state.getUserInform.userProfile.password)
 
     return (
-        <div>
-            <BlockSectionModal>
-                <BlockLeftModal>
-                    <BlockInput>
-                        <LabelInput margin={'0 0 10px 0'}>
-                            Username
-                        </LabelInput>
-                        <Input
-                            margin={'0 0 10px 0'}
-                            width={'100%'}
-                            type={'text'}
-                            value={userName.value}
-                            name={'name'}
-                            disabled
-                            placeholder={'Enter your Name'}
-                            onChange={e => userName.onChange(e)}
-                            onBlur={e => userName.onBlur(e)}
-                        />
-                    </BlockInput>
-                    <BlockInput>
-                        <LabelInput margin={'0 0 10px 0'}>
-                            Where Learning <span style={{color: 'red'}}>*</span>
-                        </LabelInput>
-                        <Input
-                            margin={'0 0 10px 0'}
-                            width={'100%'}
-                            type={'text'}
-                            placeholder={'DMU'}
-                            value={learning.value}
-                            disabled
-                            required
-                            name={'learning'}
-                            onChange={e => learning.onChange(e)}
-                            onBlur={e => learning.onBlur(e)}
-                        />
-                    </BlockInput>
-                    <BlockInput>
-                        <LabelInput margin={'0 0 10px 0'}>
-                            What study <span style={{color: 'red'}}>*</span>
-                        </LabelInput>
-                        <Input
-                            margin={'0 0 10px 0'}
-                            width={'100%'}
-                            placeholder={'Math'}
-
-                            type={'text'}
-                            value={study.value}
-                            disabled
-                            required
-                            name={'text'}
-                            onChange={e => study.onChange(e)}
-                            onBlur={e => study.onBlur(e)}
-                        />
-                    </BlockInput>
-                    <BlockInput>
-                        <LabelInput margin={'0 0 10px 0'}>
-                            Email <span style={{color: 'red'}}>*</span>
-                        </LabelInput>
-                        <Input
-                            margin={'0 0 10px 0'}
-                            width={'100%'}
-                            placeholder={'name@email.com'}
-                            type={'email'}
-                            value={email.value}
-                            required
-                            name={'email'}
-                            onChange={e => email.onChange(e)}
-                            onBlur={e => email.onBlur(e)}
-                        />
-                    </BlockInput>
-                    <BlockInput>
-                        <LabelInput margin={'0 0 10px 0'}>
-                            Password <span style={{color: 'red'}}>*</span>
-                        </LabelInput>
-                        <Input
-                            margin={'0 0 10px 0'}
-                            width={'100%'}
-                            type={'password'}
-                            placeholder={'Enter your password....'}
-                            required
-                            value={password.value}
-                            name={'password'}
-                            onChange={e => password.onChange(e)}
-                            onBlur={e => password.onBlur(e)}
-                        />
-                    </BlockInput>
-                    <BlockInput>
-                        <LabelInput margin={'0 0 10px 0'}>
-                            repeated Password
-                        </LabelInput>
-                        <Input
-                            margin={'0 0 10px 0'}
-                            width={'100%'}
-                            type={'password'}
-                            value={repeatedPassword}
-                            placeholder={'Enter your repeated password'}
-                            disabled
-                            onChange={e => handleRepeatedPassword(e)}
-                            onBlur={e => password.onBlur(e)}
-                        />
-                    </BlockInput>
-
-                </BlockLeftModal>
-                <BlockRightModal>
-                    <BlockError top={'25px'} width={'100%'}>
+        <BlockSignInSignUp>
+            <MainBlockInput>
+                <BlockInput>
+                    <LabelInput>{user}</LabelInput>
+                    <Input
+                        type={'text'}
+                        placeholder={'Denys'}
+                        value={userName.value}
+                        name={'name'}
+                        // disabled
+                        onChange={e => userName.onChange(e)}
+                        onBlur={e => userName.onBlur(e)}
+                    />
+                    <BlockError left={'0'}>
                         {(userName.isDirty && userName.isEmpty)
                         &&
-                        <ErrorTextModalForm color={'#A34258'} top={'25px'} left={'45px'}>The field cannot be
-                            empty</ErrorTextModalForm>}
+                        <ErrorTextModalForm>Field is empty</ErrorTextModalForm>}
+                    </BlockError>
+                    <BlockError right={'0'}>
                         {(userName.isDirty && userName.nameError)
                         &&
                         <ErrorTextModalForm top={'45px'} left={'90px'}>Wrong name</ErrorTextModalForm>}
                     </BlockError>
-                    <BlockError top={'120px'} width={'100%'}>
+                </BlockInput>
+
+                <BlockInput>
+                    <LabelInput>{graduation_cap}</LabelInput>
+                    <Input
+                        type={'text'}
+                        placeholder={'Where Learning ?'}
+                        value={learning.value}
+                        disabled
+                        required
+                        name={'learning'}
+                        onChange={e => learning.onChange(e)}
+                        onBlur={e => learning.onBlur(e)}
+                    />
+                    <BlockError left={'0'}>
                         {(learning.isDirty && learning.isEmpty)
                         &&
-                        <ErrorTextModalForm color={'#A34258'}>The field cannot be
-                            empty</ErrorTextModalForm>}
+                        <ErrorTextModalForm>Field is empty</ErrorTextModalForm>}
                     </BlockError>
-                    <BlockError top={'205px'} width={'100%'}>
+                </BlockInput>
+
+                <BlockInput>
+                    <LabelInput>{university}</LabelInput>
+                    <Input
+                        type={'text'}
+                        placeholder={'What study ?'}
+                        value={study.value}
+                        disabled
+                        required
+                        name={'text'}
+                        onChange={e => study.onChange(e)}
+                        onBlur={e => study.onBlur(e)}
+                    />
+                    <BlockError left={'0'}>
                         {(study.isDirty && study.isEmpty)
                         &&
-                        <ErrorTextModalForm color={'#A34258'}>The field cannot be
-                            empty</ErrorTextModalForm>}
+                        <ErrorTextModalForm>Field is empty</ErrorTextModalForm>}
                     </BlockError>
-                    <BlockError bottom={'170px'} width={'100%'}>
-                        {(email.isDirty && email.isEmpty)
-                        &&
-                        <ErrorTextModalForm color={'#A34258'}>The field cannot be
-                            empty</ErrorTextModalForm>}
-                        {(email.isDirty && email.emailError)
-                        &&
-                        <ErrorTextModalForm>Wrong email</ErrorTextModalForm>}
+                </BlockInput>
+
+                <BlockInput>
+                    <LabelInput>{envelope}</LabelInput>
+                    <Input
+                        type={'email'}
+                        placeholder={'E-mail'}
+                        value={emailRedux || email.value}
+                        required
+                        name={'email'}
+                        onChange={e => email.onChange(e)}
+                        onBlur={e => email.onBlur(e)}
+                    />
+                    {
+                        emailRedux === ''
+                            ?
+                            <BlockError left={'0'} bottom={'-35px'}>
+                                {
+                                    (email.isDirty && email.isEmpty)
+                                    &&
+                                    <ErrorTextModalForm>Field is empty</ErrorTextModalForm>
+                                }
+                            </BlockError>
+                            :
+                            null
+                    }
+                    {
+                        emailRedux === ''
+                            ?
+                            <BlockError right={'0'} bottom={'-35px'}>
+                                {(email.isDirty && email.emailError)
+                                &&
+                                <ErrorTextModalForm>Wrong email</ErrorTextModalForm>}
+                            </BlockError>
+                            :
+                            null
+                    }
+                </BlockInput>
+
+                <BlockInput>
+                    <LabelInput>{key}</LabelInput>
+                    <Input
+                        type={showPassword ? 'password' : 'text'}
+                        placeholder={'Password'}
+                        required
+                        value={passwordRedux || password.value}
+                        name={'password'}
+                        onChange={e => password.onChange(e)}
+                        onBlur={e => password.onBlur(e)}
+                    />
+                    <TextChangeType
+                        onClick={() => setShowPassword(!showPassword)}>{showPassword ? eye_slash : eye}</TextChangeType>
+                    {
+                        passwordRedux === ''
+                            ?
+                            <BlockError left={'0'} bottom={'-35px'}>
+                                {
+                                    (password.isDirty && password.isEmpty)
+                                    &&
+                                    <ErrorTextModalForm>Field is empty</ErrorTextModalForm>
+                                }
+                            </BlockError>
+                            :
+                            null
+                    }
+                    {
+                        passwordRedux === ''
+                            ?
+                            <BlockError right={'0'} bottom={'-35px'}>
+                                {
+                                    (password.isDirty && password.passwordError)
+                                    &&
+                                    <ErrorTextModalForm>Wrong Password</ErrorTextModalForm>
+                                }
+                            </BlockError>
+                            :
+                            null
+                    }
+                </BlockInput>
+                <BlockInput>
+                    <LabelInput>{key}</LabelInput>
+                    <Input
+                        type={'password'}
+                        placeholder={'Repeat Password'}
+                        required
+                        name={'password'}
+                        value={repeatPassword.value}
+                        onChange={e => repeatPassword.onChange(e)}
+                        onBlur={e => repeatPassword.onBlur(e)}
+                    />
+                    <BlockError left={0}>
+                        {
+                            (repeatPassword.isDirty && repeatPassword.isEmpty)
+                            &&
+                            <ErrorTextModalForm>Field is empty</ErrorTextModalForm>
+                        }
                     </BlockError>
-                    <BlockError bottom={'85px'} width={'100%'}>
-                        {(password.isDirty && password.isEmpty)
-                        &&
-                        <ErrorTextModalForm color={'#A34258'}>The field cannot be
-                            empty</ErrorTextModalForm>}
-                        {(password.isDirty && password.passwordError)
-                        &&
-                        <ErrorTextModalForm>Wrong Password</ErrorTextModalForm>}
+                    <BlockError right={'0'}>
+                        {
+                            (repeatPassword.isDirty && repeatPassword.value !== password.value)
+                            &&
+                            <ErrorTextModalForm>Пароли не совпадают</ErrorTextModalForm>
+                        }
                     </BlockError>
-                </BlockRightModal>
-            </BlockSectionModal>
-            <WindowPasswordMatch>Password must be at least 8 characters - first letter Capital</WindowPasswordMatch>
-            <BlockButtonLogin  margin={'0 0 10px 0'}>
-                <ButtonLoginRegistration
-                    disabled={!email.inputValid || !password.inputValid}
-                    onClick={() => regPost(email.value, password.value)}
-                >
-                    Registration
-                </ButtonLoginRegistration>
-                {/*|| !userName.inputValid*/}
-            </BlockButtonLogin>
-        </div>
+                </BlockInput>
+            </MainBlockInput>
+        </BlockSignInSignUp>
     );
 };
 

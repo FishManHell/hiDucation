@@ -15,9 +15,10 @@ const initialState = {
     }
 
 
-export const postLogin = createAsyncThunk('userAuth/getTokenLogin', async (endpoint, {dispatch}) => {
+export const postLogin = createAsyncThunk('userAuth/getTokenLogin',
+    async (endpoint = {email: '',  password: ''}, {dispatch}) => {
         try {
-            const response = await fetch(`${endpoint}`);
+            const response = await fetch(`${BASE_URL}/user/login?userEmail=${endpoint.email}&password=${endpoint.password}`);
             const data = await response.headers.get('token')
             localStorage.setItem('token', data);
             dispatch(getToken(data))
@@ -28,14 +29,15 @@ export const postLogin = createAsyncThunk('userAuth/getTokenLogin', async (endpo
     }
 )
 
-export const changePassword = createAsyncThunk('userAuth/changePassword', async (endpoint, getState) => {
+export const changePassword = createAsyncThunk('userAuth/changePassword',
+    async (endpoint = {email: '', password: ''}, getState) => {
         try {
-            const response = await fetch(`${BASE_URL}/user/Vlad1-2@ua.fm/password/reset`, {
+            const response = await fetch(`${BASE_URL}/user/${endpoint.email}/password/reset`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(endpoint)
+                body: JSON.stringify(endpoint.password)
             });
             const data = response
             console.log(data)
@@ -45,6 +47,23 @@ export const changePassword = createAsyncThunk('userAuth/changePassword', async 
         }
     })
 
+export const regUser = createAsyncThunk('userAuth/regUser',
+    async (endpoint, {}) => {
+    try {
+        const response = await fetch(`${BASE_URL}/user/registration`, {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(endpoint)
+        })
+        const data = response
+        console.log(data)
+        return data
+    } catch (error) {
+        throw Error(error)
+    }
+})
 
 const toolkitSlice = createSlice({
     name: "userAuth",
@@ -57,6 +76,20 @@ const toolkitSlice = createSlice({
     },
 
     extraReducers: {
+
+        [regUser.pending]: (state, action) => {
+            state.loading = true;
+            state.error = null
+        },
+
+        [regUser.fulfilled]: (state, action) => {
+            state.loading = false
+        },
+
+        [regUser.rejected]: (state, action) => {
+            state.error = action.error.message;
+            state.loading = false;
+        },
 
         [logoutProfile] (state) {
             localStorage.removeItem('token') // это основное - потом через него работать нужно все время и сним работать
@@ -71,7 +104,6 @@ const toolkitSlice = createSlice({
         [postLogin.pending]: (state, action) => {
             state.loading = true;
             state.error = null
-
         },
 
         [postLogin.fulfilled]: (state, action) => {
@@ -87,11 +119,9 @@ const toolkitSlice = createSlice({
         [changePassword.pending]: (state, action) => {
             state.loading = true;
             state.error = null
-
         },
 
         [changePassword.fulfilled]: (state, action) => {
-            state.user.password = action.payload.password
             state.loading = false
         },
 
@@ -99,10 +129,8 @@ const toolkitSlice = createSlice({
             state.error = action.error.message;
             state.loading = false;
         }
-
     }
 })
-
 
 export default toolkitSlice.reducer
 export const {getToken} = toolkitSlice.actions

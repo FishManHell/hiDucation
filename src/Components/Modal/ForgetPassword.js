@@ -5,11 +5,12 @@ import {
     BlockSignInSignUp, ForgetPasswordSignInText,
     Input,
     LabelInput,
-    MainBlockInput,
-    TextChangeType
+    MainBlockInput, TextChangeType,
 } from "./SignIn";
-import {envelope} from "../../Utils/Font Awesome/Solid";
+import {envelope, eye, key} from "../../Utils/Font Awesome/Solid";
 import styled from "styled-components";
+import {eye_slash} from "../../Utils/Font Awesome/Regular";
+import {BlockError, ErrorTextModalForm} from "../../StyledComponents/SrtyledModal";
 
 const MessageChangePasswordBlock = styled.div`
   text-align: center;
@@ -20,7 +21,7 @@ const TextMessage = styled.span`
   color: #A72537;
 `
 
-const ForgetPassword = ({setForgetPassword}) => {
+const ForgetPassword = ({setForgetPassword, email, password, setShowPassword, showPassword, handleForgetPassword}) => {
     return (
         <BlockSignInSignUp>
             <MessageChangePasswordBlock>
@@ -32,11 +33,59 @@ const ForgetPassword = ({setForgetPassword}) => {
             <MainBlockInput>
                 <BlockInput>
                     <LabelInput>{envelope}</LabelInput>
-                    <Input type={'text'} placeholder={'E-mail'}/>
+                    <Input
+                        name={'email'}
+                        type={'email'}
+                        value={email.value}
+                        placeholder={'E-mail'}
+                        onChange={e => email.onChange(e)}
+                        onBlur={e => email.onBlur(e)}
+                    />
+                    <BlockError left={'0'} bottom={'-35px'}>
+                        {
+                            (email.isDirty && email.isEmpty)
+                            &&
+                            <ErrorTextModalForm>Field is empty</ErrorTextModalForm>
+                        }
+                    </BlockError>
+                    <BlockError right={'0'} bottom={'-35px'}>
+                        {(email.isDirty && email.emailError)
+                        &&
+                        <ErrorTextModalForm>Wrong email</ErrorTextModalForm>}
+                    </BlockError>
+                </BlockInput>
+
+                <BlockInput>
+                    <LabelInput>{key}</LabelInput>
+                    <Input
+                        name={'password'}
+                        type={showPassword ? 'password' : 'text'}
+                        placeholder={'New password'}
+                        value={password.value}
+                        onChange={e => password.onChange(e)}
+                        onBlur={e => password.onBlur(e)}
+                    />
+                    <TextChangeType
+                        onClick={() => setShowPassword(!showPassword)}>{showPassword ? eye_slash : eye}</TextChangeType>
+
+                    <BlockError left={'0'} bottom={'-35px'}>
+                        {
+                            (password.isDirty && password.isEmpty)
+                            &&
+                            <ErrorTextModalForm>Field is empty</ErrorTextModalForm>
+                        }
+                    </BlockError>
+                    <BlockError right={'0'} bottom={'-35px'}>
+                        {
+                            (password.isDirty && password.passwordError)
+                            &&
+                            <ErrorTextModalForm>Wrong Password</ErrorTextModalForm>
+                        }
+                    </BlockError>
                 </BlockInput>
             </MainBlockInput>
             <BlockForgetPasswordTextBackSignIn>
-                <ForgetPasswordSignInText onClick={() => setForgetPassword(false)}>
+                <ForgetPasswordSignInText onClick={() => handleForgetPassword(false)}>
                     Back to Log-in
                 </ForgetPasswordSignInText>
             </BlockForgetPasswordTextBackSignIn>
