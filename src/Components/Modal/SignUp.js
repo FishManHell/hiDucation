@@ -6,8 +6,6 @@ import {BlockError, ErrorTextModalForm} from "../../StyledComponents/SrtyledModa
 import {useSelector} from "react-redux";
 
 const SignUp = ({showPassword, setShowPassword, email, password, userName, learning, study, repeatPassword}) => {
-    const emailRedux = useSelector(state => state.getUserInform.userProfile.email)
-    const passwordRedux = useSelector(state => state.getUserInform.userProfile.password)
 
     return (
         <BlockSignInSignUp>
@@ -19,7 +17,6 @@ const SignUp = ({showPassword, setShowPassword, email, password, userName, learn
                         placeholder={'Denys'}
                         value={userName.value}
                         name={'name'}
-                        // disabled
                         onChange={e => userName.onChange(e)}
                         onBlur={e => userName.onBlur(e)}
                     />
@@ -78,15 +75,12 @@ const SignUp = ({showPassword, setShowPassword, email, password, userName, learn
                     <Input
                         type={'email'}
                         placeholder={'E-mail'}
-                        value={emailRedux || email.value}
+                        value={email.value}
                         required
                         name={'email'}
                         onChange={e => email.onChange(e)}
                         onBlur={e => email.onBlur(e)}
                     />
-                    {
-                        emailRedux === ''
-                            ?
                             <BlockError left={'0'} bottom={'-35px'}>
                                 {
                                     (email.isDirty && email.isEmpty)
@@ -94,20 +88,11 @@ const SignUp = ({showPassword, setShowPassword, email, password, userName, learn
                                     <ErrorTextModalForm>Field is empty</ErrorTextModalForm>
                                 }
                             </BlockError>
-                            :
-                            null
-                    }
-                    {
-                        emailRedux === ''
-                            ?
                             <BlockError right={'0'} bottom={'-35px'}>
                                 {(email.isDirty && email.emailError)
                                 &&
                                 <ErrorTextModalForm>Wrong email</ErrorTextModalForm>}
                             </BlockError>
-                            :
-                            null
-                    }
                 </BlockInput>
 
                 <BlockInput>
@@ -116,16 +101,13 @@ const SignUp = ({showPassword, setShowPassword, email, password, userName, learn
                         type={showPassword ? 'password' : 'text'}
                         placeholder={'Password'}
                         required
-                        value={passwordRedux || password.value}
+                        value={password.value}
                         name={'password'}
                         onChange={e => password.onChange(e)}
                         onBlur={e => password.onBlur(e)}
                     />
                     <TextChangeType
                         onClick={() => setShowPassword(!showPassword)}>{showPassword ? eye_slash : eye}</TextChangeType>
-                    {
-                        passwordRedux === ''
-                            ?
                             <BlockError left={'0'} bottom={'-35px'}>
                                 {
                                     (password.isDirty && password.isEmpty)
@@ -133,12 +115,6 @@ const SignUp = ({showPassword, setShowPassword, email, password, userName, learn
                                     <ErrorTextModalForm>Field is empty</ErrorTextModalForm>
                                 }
                             </BlockError>
-                            :
-                            null
-                    }
-                    {
-                        passwordRedux === ''
-                            ?
                             <BlockError right={'0'} bottom={'-35px'}>
                                 {
                                     (password.isDirty && password.passwordError)
@@ -146,9 +122,6 @@ const SignUp = ({showPassword, setShowPassword, email, password, userName, learn
                                     <ErrorTextModalForm>Wrong Password</ErrorTextModalForm>
                                 }
                             </BlockError>
-                            :
-                            null
-                    }
                 </BlockInput>
                 <BlockInput>
                     <LabelInput>{key}</LabelInput>

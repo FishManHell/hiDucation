@@ -13,8 +13,10 @@ import ModalProfileTwo from "./ModalProfile/ModalProfileTwo";
 import {useInput} from "../Utils/Hook/HookFormModal";
 
 const HiMathMain = ({setOpenModal, openModal}) => {
-    const email = useInput('', {isEmpty: true, isEmail: true});
-    const password = useInput('', {isEmpty: true, isPassword: true});
+    const passwordRedux = useSelector(state => state.userAuth.user.password);
+    const emailRedux = useSelector(state => state.userAuth.user.email);
+    const email = useInput('' || emailRedux, {isEmpty: true, isEmail: true});
+    const password = useInput('' || passwordRedux, {isEmpty: true, isPassword: true});
     const userName = useInput('', {isEmpty: true, isName: true});
     const learning = useInput('', {isEmpty: true});
     const study = useInput('', {isEmpty: true});
@@ -22,7 +24,7 @@ const HiMathMain = ({setOpenModal, openModal}) => {
     const [form, setForm] = useState(true);
     const [showPassword, setShowPassword] = useState(true);
 
-    const emailRedux = useSelector(state => state.userAuth.user.email);
+
 
     const clearState = () => {
         email.onClear()
