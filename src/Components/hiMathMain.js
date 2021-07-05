@@ -18,6 +18,7 @@ const HiMathMain = ({setOpenModal, openModal}) => {
     const email = useInput('' || emailRedux, {isEmpty: true, isEmail: true});
     const password = useInput('' || passwordRedux, {isEmpty: true, isPassword: true});
     const userName = useInput('', {isEmpty: true, isName: true});
+    const userLastName = useInput('', {isEmpty: true, isLastName: true});
     const learning = useInput('', {isEmpty: true});
     const study = useInput('', {isEmpty: true});
     const repeatPassword = useInput('', {isEmpty: true});
@@ -49,6 +50,7 @@ const HiMathMain = ({setOpenModal, openModal}) => {
                     email={email}
                     password={password}
                     userName={userName}
+                    userLastName={userLastName}
                     learning={learning}
                     study={study}
                     repeatPassword={repeatPassword}

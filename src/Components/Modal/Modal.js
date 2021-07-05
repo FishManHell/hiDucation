@@ -164,6 +164,7 @@ const Modal = ({openModal, setOpenModal, form, setForm, showPassword, setShowPas
                         />
                     :
                     <SignUp
+                        width={'100%'}
                         email={email}
                         password={password}
                         repeatPassword={repeatPassword}

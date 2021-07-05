@@ -33,18 +33,18 @@ const DifferentButton = styled.button`
   
 `
 
-const FooterModalProfile = ({handleCollectInform, CloseModal, ClearState}) => {
+const FooterModalProfile = ({handleCollectInform, clearState, handleCloseModal}) => {
     const dispatch = useDispatch()
 
     const handleLogout = () => {
         dispatch(logoutProfile())
-        CloseModal()
-        ClearState()
+        handleCloseModal()
+        clearState()
     }
 
     const handleExit = () => {
-        CloseModal()
-        ClearState()
+        handleCloseModal()
+        clearState()
     }
 
     return (

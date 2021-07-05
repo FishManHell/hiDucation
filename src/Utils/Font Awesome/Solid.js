@@ -1,12 +1,13 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
+    faCamera,
     faCopyright,
     faEnvelope,
     faEye,
     faGraduationCap,
     faKey,
     faSearch,
-    faTimes, faUniversity,
+    faTimes, faTrash, faUniversity,
     faUser
 } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -37,3 +38,5 @@ export const eye = <FontAwesomeIcon icon={faEye}/>
 export const user = <FontAwesomeIcon icon={faUser}/>
 export const graduation_cap = <FontAwesomeIcon icon={faGraduationCap}/>
 export const university = <FontAwesomeIcon icon={faUniversity}/>
+export const camera = <FontAwesomeIcon icon={faCamera}/>
+export const trash = <FontAwesomeIcon icon={faTrash}/>

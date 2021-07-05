@@ -4,11 +4,13 @@ import ReducerUserAuth from "./ReducerUserAuth";
 import thunk from "redux-thunk";
 import {logger} from "redux-logger/src";
 import ReducerUserGetByEmail from "./ReducerUserGetByEmail";
+import ReducerImgur from "./ReducerImgur";
 
 
 const rootReducer = combineReducers({
     userAuth: ReducerUserAuth,
-    getUserInform: ReducerUserGetByEmail
+    getUserInform: ReducerUserGetByEmail,
+    postImgur: ReducerImgur
 })
 
 export const store = configureStore({

@@ -77,7 +77,8 @@ const ModalProfile = ({openModal, setOpenModal}) => {
                          userName={userName}
                          lastName={lastName}
                          institute={institute}
-                         degree={degree}/>
+                         degree={degree}
+                />
                 <FooterModalProfile
                     handleCollectInform={handleCollectInform}
                     CloseModal={handleCloseModal}

@@ -6,7 +6,7 @@ import {useDispatch} from "react-redux";
 import {BlockError, ErrorTextModalForm} from "../../StyledComponents/SrtyledModal";
 
 export const BlockSignInSignUp = styled.div`
-  width: 100%;
+  width: ${props => props.width || props.widthTwo};
   padding: 1em 2em 0 2em;
 `
 
@@ -162,7 +162,7 @@ const SignIn = ({email, password, showPassword, setShowPassword, handleForgetPas
     const dispatch = useDispatch()
 
     return (
-        <BlockSignInSignUp>
+        <BlockSignInSignUp width={'100%'}>
             <BlockConnectLink>
                 <ButtonConnectLink>{google}</ButtonConnectLink>
                 <ButtonConnectLink>{facebook}</ButtonConnectLink>

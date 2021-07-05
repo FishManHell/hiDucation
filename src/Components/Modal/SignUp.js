@@ -3,12 +3,11 @@ import {BlockInput, BlockSignInSignUp, Input, LabelInput, MainBlockInput, TextCh
 import {envelope, eye, graduation_cap, key, university, user} from "../../Utils/Font Awesome/Solid";
 import {eye_slash} from "../../Utils/Font Awesome/Regular";
 import {BlockError, ErrorTextModalForm} from "../../StyledComponents/SrtyledModal";
-import {useSelector} from "react-redux";
 
-const SignUp = ({showPassword, setShowPassword, email, password, userName, learning, study, repeatPassword}) => {
+const SignUp = ({showPassword, setShowPassword, email, password, userName, learning, study, repeatPassword, widthTwo, width}) => {
 
     return (
-        <BlockSignInSignUp>
+        <BlockSignInSignUp widthTwo={widthTwo} width={width}>
             <MainBlockInput>
                 <BlockInput>
                     <LabelInput>{user}</LabelInput>
