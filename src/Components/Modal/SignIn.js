@@ -6,8 +6,9 @@ import {useDispatch} from "react-redux";
 import {BlockError, ErrorTextModalForm} from "../../StyledComponents/SrtyledModal";
 
 export const BlockSignInSignUp = styled.div`
-  width: ${props => props.width || props.widthTwo};
+  width: ${props => props.width};
   padding: 1em 2em 0 2em;
+  margin: ${props => props.margin};
 `
 
 const BlockConnectLink = styled.div`
@@ -76,6 +77,8 @@ const TextOr = styled.p`
 
 export const MainBlockInput = styled.div`
   width: 100%;
+  display: ${props => props.display};
+  justify-content: space-between;
 `
 
 export const BlockInput = styled.div`

@@ -8,7 +8,6 @@ import Team from "./Team";
 import FooterContact from "./FooterContact";
 import Modal from "./Modal/Modal";
 import {useSelector} from "react-redux";
-// import ModalProfile from "./ModalProfile/ModalProfile";
 import ModalProfile from "./ModalProfile/ModalProfile";
 import {useInput} from "../Utils/Hook/HookFormModal";
 

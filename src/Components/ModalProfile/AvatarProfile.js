@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import UploadImg from "../../MaterialUi/UploadImg";
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import {Delete as DeleteIcon} from '@material-ui/icons';
 import {Save as SaveIcon} from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
@@ -10,7 +10,7 @@ import {delImg, postImgImgur} from "../../ReduxToolkit/ReducerImgur";
 import {ClipLoader} from "react-spinners";
 
 const MainBlockImg = styled.section`
-  width: 50%;
+  width: 100%;
   padding: 1em 0 0 0;
   position: relative;
   display: flex;
@@ -22,6 +22,7 @@ const MainBlockButtonImg = styled.div`
 `
 
 const BlockImg = styled.div`
+  position: relative;
   width: 200px;
   height: 200px;
   border-radius: 50%;
@@ -33,7 +34,6 @@ const BlockImg = styled.div`
 
 const BlockSaveDeleteButton = styled.div`
   position: absolute;
-  top: 50%;
 `
 
 const useStyles = makeStyles((theme) => ({
@@ -72,8 +72,14 @@ const AvatarProfile = ({avatarOne, setAvatar, src, setSrc}) => {
     return (
         <MainBlockImg>
             <MainBlockButtonImg>
-                {loadingImg ? <ClipLoader color={"#861653"} size={'200'}/> : <BlockImg img={src || image}/>}
-                <UploadImg setSrc={setSrc} setAvatar={setAvatar}/>
+                {loadingImg
+                    ?
+                    <ClipLoader color={"#861653"} size={'200'}/>
+                    :
+                    <BlockImg img={src || image}>
+                        {src || image ? null : <UploadImg setSrc={setSrc} setAvatar={setAvatar}/>}
+                    </BlockImg>
+                }
                 {
                     src || image
                         ?

@@ -1,6 +1,7 @@
 import React from 'react';
-import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
+import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,9 +37,9 @@ const UploadImg = ({setSrc, setAvatar}) => {
                     type="file"
                 />
                 <label htmlFor="contained-button-file">
-                    <Button variant="contained" color="primary" component="span" size="small">
-                        Upload
-                    </Button>
+                    <IconButton color="primary" aria-label="upload picture" component="span">
+                        <AddIcon className={'buttonAddImg'} />
+                    </IconButton>
                 </label>
             </div>
         </div>
