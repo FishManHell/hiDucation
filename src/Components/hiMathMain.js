@@ -9,7 +9,7 @@ import FooterContact from "./FooterContact";
 import Modal from "./Modal/Modal";
 import {useSelector} from "react-redux";
 // import ModalProfile from "./ModalProfile/ModalProfile";
-import ModalProfileTwo from "./ModalProfile/ModalProfileTwo";
+import ModalProfile from "./ModalProfile/ModalProfile";
 import {useInput} from "../Utils/Hook/HookFormModal";
 
 const HiMathMain = ({setOpenModal, openModal}) => {
@@ -46,7 +46,7 @@ const HiMathMain = ({setOpenModal, openModal}) => {
             <Team/>
             <FooterContact/>
             {emailRedux
-                ? <ModalProfileTwo
+                ? <ModalProfile
                     email={email}
                     password={password}
                     userName={userName}

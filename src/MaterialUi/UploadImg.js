@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
 
 const UploadImg = ({setSrc, setAvatar}) => {
     const classes = useStyles();
-
     const handleAvatarChange = img => {
         if (img && img.type.match('image.*')) {
             setSrc(URL.createObjectURL(img));
