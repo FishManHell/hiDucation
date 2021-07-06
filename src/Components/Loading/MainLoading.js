@@ -3,7 +3,7 @@ import {BounceLoader} from "react-spinners";
 
 const MainLoading = () => {
     return (
-        <div className={'wrapper_loadingg '}>
+        <div className={'wrapper_loading '}>
             <BounceLoader color={"#861653"} size={400}/>
         </div>
     );
