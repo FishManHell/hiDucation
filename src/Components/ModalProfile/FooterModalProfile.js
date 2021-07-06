@@ -2,6 +2,9 @@ import React from 'react';
 import styled from "styled-components";
 import {useDispatch} from "react-redux";
 import {logoutProfile} from "../../ReduxToolkit/ReducerUserAuth";
+import ButtonFooterBlockProfile from "../MaterialUiComponents/ButtonFooterBlockProfile";
+import EditIcon from '@material-ui/icons/Edit';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const BlockFooterModalProfile = styled.footer`
   width: 80%;
@@ -10,27 +13,6 @@ const BlockFooterModalProfile = styled.footer`
   align-items: center;
   margin: 0 auto;
   padding: 20px 0;
-`
-
-const BlockButton = styled.div`
-  width: 150px;
-  height: 40px;
-  border-radius: 30px;
-`
-
-const DifferentButton = styled.button`
-  width: inherit;
-  height: inherit;
-  border-radius: inherit;
-  border: 2px solid #ffffff;
-  background: linear-gradient(to left,#FF5652,#A61E1B);
-  font-weight: 700;
-  
-  &:hover {
-    opacity: 0.8;
-    transition: all 0.4s;
-  }
-  
 `
 
 const FooterModalProfile = ({handleCollectInform, clearState, handleCloseModal}) => {
@@ -44,20 +26,15 @@ const FooterModalProfile = ({handleCollectInform, clearState, handleCloseModal})
 
     const handleExit = () => {
         handleCloseModal()
-        clearState()
+        // clearState() // TODO нужно подумать есть ли смысл делать очистку стейта
     }
+
 
     return (
         <BlockFooterModalProfile>
-            <BlockButton>
-                <DifferentButton onClick={() => handleExit()}>Exit</DifferentButton>
-            </BlockButton>
-            <BlockButton>
-                <DifferentButton onClick={() => handleCollectInform()}>Edit</DifferentButton>
-            </BlockButton>
-            <BlockButton>
-                <DifferentButton onClick={() => handleLogout()}>Logout</DifferentButton>
-            </BlockButton>
+            <ButtonFooterBlockProfile startIcon={<ExitToAppIcon/>} text={'Exit'} click={handleExit}/>
+            <ButtonFooterBlockProfile startIcon={<EditIcon/>} text={'Edit'} click={handleCollectInform}/>
+            <ButtonFooterBlockProfile startIcon={<ExitToAppIcon/>} text={'Logout'} click={handleLogout}/>
         </BlockFooterModalProfile>
     );
 };

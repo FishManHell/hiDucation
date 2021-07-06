@@ -28,7 +28,7 @@ const FooterContact = () => {
                 <TextFooter text_align={'center'}>We'd love to hear your thoughts and be in touch with you</TextFooter>
                 <MainBlock>
                     <BlockInputTextarea width={'100%'} height={'80px'}>
-                        <TextareaFooter placeholder={'Message'}></TextareaFooter>
+                        <TextareaFooter placeholder={'Message'}/>
                     </BlockInputTextarea>
                     <MainBlockInputs>
                         <BlockInputTextarea width={'220px'} height={'40px'}>

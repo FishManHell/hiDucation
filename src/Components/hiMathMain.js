@@ -11,9 +11,14 @@ import {useSelector} from "react-redux";
 import ModalProfile from "./ModalProfile/ModalProfile";
 import {useInput} from "../Utils/Hook/HookFormModal";
 
-const HiMathMain = ({setOpenModal, openModal}) => {
+const HiMathMain = () => {
     const passwordRedux = useSelector(state => state.userAuth.user.password);
     const emailRedux = useSelector(state => state.userAuth.user.email);
+
+    const [openModal, setOpenModal] = useState(false);
+    const [form, setForm] = useState(true);
+    const [showPassword, setShowPassword] = useState(true);
+
     const email = useInput('' || emailRedux, {isEmpty: true, isEmail: true});
     const password = useInput('' || passwordRedux, {isEmpty: true, isPassword: true});
     const userName = useInput('', {isEmpty: true, isName: true});
@@ -21,10 +26,6 @@ const HiMathMain = ({setOpenModal, openModal}) => {
     const learning = useInput('', {isEmpty: true});
     const study = useInput('', {isEmpty: true});
     const repeatPassword = useInput('', {isEmpty: true});
-    const [form, setForm] = useState(true);
-    const [showPassword, setShowPassword] = useState(true);
-
-
 
     const clearState = () => {
         email.onClear()

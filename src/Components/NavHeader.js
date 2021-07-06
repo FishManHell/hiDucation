@@ -4,12 +4,18 @@ import {Container, LogoBlock, LogoSpanFirst, LogoSpanLittleSpan} from "../Styled
 import {BlockBurgerMenu, BurgerMenu, WrapperBurgerMenu, WrapperNavHeader} from "../StyledComponents/StyledNavHeader";
 import {useSelector} from "react-redux";
 import {Link, Events} from "react-scroll";
+import styled from "styled-components";
+
+const ListItem = styled.li`
+
+`
+
+// TODO вместо обычных li сделать styled components со стилями всеми
 
 const NavHeader = ({setOpenModal}) => {
     const email = useSelector(state => state.userAuth.user.email)
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const handleBurgerMenu = () => setIsMenuOpen(!isMenuOpen);
-
 
     const handleOpenModal = () => {
         setOpenModal(true)

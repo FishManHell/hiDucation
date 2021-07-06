@@ -1,13 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
-import UploadImg from "../../MaterialUi/UploadImg";
-import { makeStyles } from '@material-ui/core/styles';
-import {Delete as DeleteIcon} from '@material-ui/icons';
-import {Save as SaveIcon} from '@material-ui/icons';
-import Button from '@material-ui/core/Button';
-import {useDispatch, useSelector} from "react-redux";
-import {delImg, postImgImgur} from "../../ReduxToolkit/ReducerImgur";
-import {ClipLoader} from "react-spinners";
+import UploadImg from "../MaterialUiComponents/UploadImg";
+import {useSelector} from "react-redux";
+import LoadingImgProfile from "../Loading/loadingImgProfile";
+import ButtonSaveDel from "../MaterialUiComponents/ButtonSaveDel";
 
 const MainBlockImg = styled.section`
   width: 100%;
@@ -32,21 +28,10 @@ const BlockImg = styled.div`
   background-repeat: no-repeat;
 `
 
-const BlockSaveDeleteButton = styled.div`
-  position: absolute;
-`
-
-const useStyles = makeStyles((theme) => ({
-    button: {
-        margin: theme.spacing(1),
-    },
-}));
-
-
-const AvatarProfile = ({avatarOne, setAvatar, src, setSrc}) => {
-    const dispatch = useDispatch();
-    const classes = useStyles();
-    const [disabledSaveButton, setDisabledSaveButton] = useState(false)
+const AvatarProfile = () => {
+    const [avatarOne, setAvatar] = useState('');
+    const [src, setSrc] = useState('');
+    const [disabledSaveButton, setDisabledSaveButton] = useState(false);
     const image = useSelector(state => state.postImgur.img);
     const loadingImg = useSelector(state => state.postImgur.loadingImg);
 
@@ -58,57 +43,18 @@ const AvatarProfile = ({avatarOne, setAvatar, src, setSrc}) => {
     //     }
     // }, [image])
 
-    const handleEdit = (avatar) => {
-        if (avatar) {
-            dispatch(postImgImgur(avatar))
-        }
-    }
-
-    const handleDelete = () => {
-        dispatch(delImg())
-        setSrc('')
-    }
-
     return (
         <MainBlockImg>
             <MainBlockButtonImg>
                 {loadingImg
                     ?
-                    <ClipLoader color={"#861653"} size={'200'}/>
+                    <LoadingImgProfile/>
                     :
                     <BlockImg img={src || image}>
                         {src || image ? null : <UploadImg setSrc={setSrc} setAvatar={setAvatar}/>}
                     </BlockImg>
                 }
-                {
-                    src || image
-                        ?
-                        <BlockSaveDeleteButton>
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                size="small"
-                                className={classes.button}
-                                startIcon={<SaveIcon/>}
-                                // disabled={disabledSaveButton}
-                                onClick={() => handleEdit(avatarOne)}
-                            >
-                                Save
-                            </Button>
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                size="small"
-                                className={classes.button}
-                                startIcon={<DeleteIcon/>}
-                                onClick={() => handleDelete()}
-                            >
-                                Delete
-                            </Button>
-                        </BlockSaveDeleteButton>
-                        :
-                        null
-                }
+                {src || image ? <ButtonSaveDel setSrc={setSrc} avatarOne={avatarOne}/>: null}
             </MainBlockButtonImg>
         </MainBlockImg>
     );

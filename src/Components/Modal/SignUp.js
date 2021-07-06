@@ -10,7 +10,7 @@ const BlockWithProfile = styled.div`
   width: ${props => props.width};
 `
 
-const SignUp = ({showPassword, setShowPassword, email, password, userName, userLastName, learning, study, repeatPassword, widthTwo, width}) => {
+const SignUp = ({showPassword, setShowPassword, email, password, userName, userLastName, learning, study, repeatPassword, width}) => {
     const emailRedux = useSelector(state => state.userAuth.user.email);
 
     return (

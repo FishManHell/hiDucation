@@ -1,51 +1,21 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {WrapperModal} from "../../StyledComponents/SrtyledModal";
 import {BlockFormRegLog, SignInSignUp, Switcher} from "../Modal/Modal";
-import SignUp from "../Modal/SignUp";
-import styled from "styled-components";
-import AvatarProfile from "./AvatarProfile";
 import FooterModalProfile from "./FooterModalProfile";
 import {editProfileInform, editUserProfile} from "../../ReduxToolkit/ReducerUserGetByEmail";
 import {useDispatch, useSelector} from "react-redux";
-import {ClockLoader} from "react-spinners";
+import LoadingProfile from "../Loading/LoadingProfile";
+import Profile from "./Profile";
+import Statistics from "./Statistics";
 
-const MainBlockProfileAndImgProfile = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-`
 
-const MainBlockForLoader = styled.div`
-  position: absolute;
-  background: rgba(0, 0, 0, 0.5);
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 0.50em;
-  z-index: 50;
-`
-
-const BlockForLoading = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width:inherit;
-    height: inherit;
-`
 
 const ModalProfile = ({openModal, setOpenModal, form, setForm, showPassword, setShowPassword, email, password, userName, userLastName, learning, study, repeatPassword, clearState}) => {
     const dispatch = useDispatch()
     const editProfile = useSelector(state => state.getUserInform.userProfile);
     const loaderProfile = useSelector(state => state.getUserInform.loading)
-    const [avatarOne, setAvatar] = useState('');
-    const [src, setSrc] = useState('');
 
-    const handleProfileChangeStatistic = (formik) => {
-        setForm(formik)
-    }
+    const handleProfileChangeStatistic = (formik) => setForm(formik)
 
     const handleCollectInform = () => {
         const userProfile = {
@@ -56,8 +26,12 @@ const ModalProfile = ({openModal, setOpenModal, form, setForm, showPassword, set
             institute: learning.value,
             degree: study.value,
         }
-        dispatch(editProfileInform({userProfile}))
-        dispatch(editUserProfile(editProfile))
+        if (userName.value && userLastName.value && email.value && password.value && learning.value && study.value) {
+            dispatch(editProfileInform({userProfile}))
+            dispatch(editUserProfile(editProfile))
+        } else {
+            return alert('Поля не заполнены')
+        }
     }
 
     const handleCloseModal = () => {
@@ -79,17 +53,7 @@ const ModalProfile = ({openModal, setOpenModal, form, setForm, showPassword, set
                 active={form}
                 not_active={!form}
                 className={form ? 'active' : 'not_active'}>
-                {
-                    loaderProfile
-                        ?
-                        <MainBlockForLoader>
-                            <BlockForLoading>
-                                <ClockLoader color={"#861653"} size={'200'}/>
-                            </BlockForLoading>
-                        </MainBlockForLoader>
-                        :
-                        null
-                }
+                {loaderProfile ? <LoadingProfile/> : null}
                 <Switcher>
                     <SignInSignUp
                         active={form}
@@ -101,19 +65,13 @@ const ModalProfile = ({openModal, setOpenModal, form, setForm, showPassword, set
                         active={!form}
                         not_active={form}
                         className={!form ? 'active' : 'not_active'}
-                        onClick={(e) => handleProfileChangeStatistic(false)}
+                        onClick={() => handleProfileChangeStatistic(false)}
                     >Statistic</SignInSignUp>
                 </Switcher>
 
-                <MainBlockProfileAndImgProfile>
-                    <AvatarProfile
-                        avatarOne={avatarOne}
-                        setAvatar={setAvatar}
-                        src={src}
-                        setSrc={setSrc}
-                    />
-
-                    <SignUp
+                {form
+                    ?
+                    <Profile
                         email={email}
                         password={password}
                         userName={userName}
@@ -124,8 +82,9 @@ const ModalProfile = ({openModal, setOpenModal, form, setForm, showPassword, set
                         showPassword={showPassword}
                         setShowPassword={setShowPassword}
                     />
-
-                </MainBlockProfileAndImgProfile>
+                    :
+                    <Statistics/>
+                }
                 <FooterModalProfile
                     clearState={clearState}
                     handleCloseModal={handleCloseModal}
