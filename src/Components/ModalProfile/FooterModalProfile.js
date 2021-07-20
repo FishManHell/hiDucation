@@ -5,6 +5,7 @@ import {logoutProfile} from "../../ReduxToolkit/ReducerUserAuth";
 import ButtonFooterBlockProfile from "../MaterialUiComponents/ButtonFooterBlockProfile";
 import EditIcon from '@material-ui/icons/Edit';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import {device} from "../../Utils/MediaSize";
 
 const BlockFooterModalProfile = styled.footer`
   width: 80%;
@@ -13,6 +14,12 @@ const BlockFooterModalProfile = styled.footer`
   align-items: center;
   margin: 0 auto;
   padding: 20px 0;
+
+  @media all and ${device.tabletS} {
+    width: 90%;
+    flex-direction: column;
+  }
+  
 `
 
 const FooterModalProfile = ({handleCollectInform, clearState, handleCloseModal}) => {

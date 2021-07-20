@@ -4,6 +4,7 @@ import {apple, envelope, eye, facebook, google, key} from "../../Utils/Font Awes
 import {eye_slash} from "../../Utils/Font Awesome/Regular";
 import {useDispatch} from "react-redux";
 import {BlockError, ErrorTextModalForm} from "../../StyledComponents/SrtyledModal";
+import {device} from "../../Utils/MediaSize";
 
 export const BlockSignInSignUp = styled.div`
   width: ${props => props.width};
@@ -79,12 +80,19 @@ export const MainBlockInput = styled.div`
   width: 100%;
   display: ${props => props.display};
   justify-content: space-between;
+
+  @media all and ${device.tabletS} {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
 `
 
 export const BlockInput = styled.div`
   position: relative;
   width: 100%;
-  margin: 1.4em 0 2.3em 0;
+  margin: 0 0 2em 0;
 `
 
 export const LabelInput = styled.label`

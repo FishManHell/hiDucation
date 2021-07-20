@@ -1,5 +1,6 @@
 import {createAsyncThunk, createAction, createSlice} from "@reduxjs/toolkit";
 import {BASE_URL} from "../Utils/Url";
+import axios from "axios";
 
 export const getUserInform = createAction('userAuth/getUser');
 export const logoutProfile = createAction('userAuth/logout');
@@ -15,11 +16,28 @@ const initialState = {
     }
 
 
+// export const postLogin = createAsyncThunk('userAuth/getTokenLogin',
+//     async (endpoint = {email: '',  password: ''}, {dispatch}) => {
+//         try {
+//             const response = await fetch(`${BASE_URL}/user/login?userEmail=${endpoint.email}&password=${endpoint.password}`);
+//             const data = await response.headers.get('token')
+//             console.log(data)
+//             localStorage.setItem('token', data);
+//             dispatch(getToken(data))
+//             return response.headers.get('token')
+//         } catch (error) {
+//             throw Error(error);
+//         }
+//     }
+// )
+
+
 export const postLogin = createAsyncThunk('userAuth/getTokenLogin',
     async (endpoint = {email: '',  password: ''}, {dispatch}) => {
         try {
-            const response = await fetch(`${BASE_URL}/user/login?userEmail=${endpoint.email}&password=${endpoint.password}`);
-            const data = await response.headers.get('token')
+            const response = await axios.get(`${BASE_URL}/user/login?userEmail=${endpoint.email}&password=${endpoint.password}`)
+            const data = await response.headers['token']
+            console.log(data)
             localStorage.setItem('token', data);
             dispatch(getToken(data))
             return response.headers.get('token')
@@ -28,6 +46,7 @@ export const postLogin = createAsyncThunk('userAuth/getTokenLogin',
         }
     }
 )
+
 
 export const changePassword = createAsyncThunk('userAuth/changePassword',
     async (endpoint = {email: '', password: ''}, getState) => {

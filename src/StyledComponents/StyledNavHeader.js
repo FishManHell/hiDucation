@@ -16,7 +16,7 @@ export const WrapperNavHeader = styled.header`
 export const WrapperBurgerMenu = styled.div`
   position: fixed;
   display: none;
-  width: 30%;
+  width: 100%;
   height: 100%;
   top: 70px;
   bottom: 0;
@@ -25,22 +25,13 @@ export const WrapperBurgerMenu = styled.div`
   z-index: 10;
   right: 0;
 
-  @media all and ${device.tabletS} {
-    width: 35%;
-  }
-
  @media all and ${device.desktopLMin} {
    display: none;
  } 
   
-  @media all and ${device.mobile} {
-    width: 60%;
-  }
-
   ${props => props.open && css`
     display: block;
   `}
-  
 `
 
 export const BlockBurgerMenu = styled.div`

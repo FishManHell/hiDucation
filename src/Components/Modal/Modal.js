@@ -199,7 +199,9 @@ const Modal = ({openModal, setOpenModal, form, setForm, showPassword, setShowPas
                                             :
                                             !email.inputValid || !password.inputValid || !userName.inputValid || !repeatPassword.inputValid
                                     }
-                        >{form ? !forgetPassword ? 'Login' : 'Send' : 'Registration'}</ButtonSend>
+                        >
+                            {form ? !forgetPassword ? 'Login' : 'Send' : 'Registration'}
+                        </ButtonSend>
                     </BlockInput>
                 </MainBlockButtonSend>
             </BlockFormRegLog>

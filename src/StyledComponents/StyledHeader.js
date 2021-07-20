@@ -34,25 +34,11 @@ export const List = styled.ul`
   @media all and ${device.laptopM} {
     position: absolute;
     flex-direction: column;
-    right: 50px;
+    left: 50%;
+    transform: translateX(-50%);
     top: 100px;
     z-index: 12;
   }
-
-  @media all and ${device.tabletL} {
-    position: ${'absolute'};
-    right: 20px;
-  }
-
-  @media all and ${device.tabletS} {
-    right: 0;
-  }
-
-  @media all and ${device.mobile} {
-    right: 30px;
-  }
-
-
   ${props => props.open && css`
     display: flex;
   `}

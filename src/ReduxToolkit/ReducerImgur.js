@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {IMGUR_URL} from "../Utils/Url";
+import axios from "axios";
 
 const initialState = {
     img: '',
@@ -12,22 +13,15 @@ const initialState = {
 export const postImgImgur = createAsyncThunk('imgur/postImgur',
     async (avatar, {dispatch}) => {
         try {
-           const response = await fetch(`${IMGUR_URL}`, {
-               method: 'POST',
-               headers: {
-                   Authorization: 'Client-ID 955afae64956fa3',
-               },
-               body: avatar
-           })
-            const result = await response.json()
-            console.log(result.data.link);
-            dispatch(getImgImgur(result.data.link))
-            return result
-    } catch (error) {
-        throw Error(error)
-    }
-})
-
+            const response = await axios.post(`${IMGUR_URL}`, avatar, {headers: {Authorization: 'Client-ID 955afae64956fa3'}})
+            const result = await response.data
+            const url = await result.data.link
+            dispatch(getImgImgur(url))
+            return response.data.data.link
+        } catch (error) {
+            throw Error(error)
+        }
+    })
 
 const toolkitSlice = createSlice({
     name: "imgur",
@@ -46,12 +40,12 @@ const toolkitSlice = createSlice({
     },
 
     extraReducers: {
-        [postImgImgur.pending]: (state, action) => {
+        [postImgImgur.pending]: (state) => {
             state.loadingImg = true
             state.error = null
         },
 
-        [postImgImgur.fulfilled]: (state, action) => {
+        [postImgImgur.fulfilled]: (state) => {
             state.loadingImg = false
         },
 

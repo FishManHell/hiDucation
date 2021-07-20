@@ -5,16 +5,21 @@ import {eye_slash} from "../../Utils/Font Awesome/Regular";
 import {BlockError, ErrorTextModalForm} from "../../StyledComponents/SrtyledModal";
 import {useSelector} from "react-redux";
 import styled from "styled-components";
+import {device} from "../../Utils/MediaSize";
 
 const BlockWithProfile = styled.div`
   width: ${props => props.width};
+
+  @media all and ${device.tabletS} {
+    width: 100%;
+  }
 `
 
 const SignUp = ({showPassword, setShowPassword, email, password, userName, userLastName, learning, study, repeatPassword, width}) => {
     const emailRedux = useSelector(state => state.userAuth.user.email);
 
     return (
-        <BlockSignInSignUp width={width} margin={emailRedux ? '25px 0 0 0 ' : '0'}>
+        <BlockSignInSignUp width={width} margin={emailRedux ? '50px 0 0 0 ' : '0'}>
             <MainBlockInput display={emailRedux ? 'flex' : 'block'}>
                 <BlockWithProfile width={emailRedux ? '49%' : '100%'}>
                     <BlockInput>
@@ -107,7 +112,7 @@ const SignUp = ({showPassword, setShowPassword, email, password, userName, userL
                     </BlockInput>
                 </BlockWithProfile>
 
-                <BlockWithProfile width={emailRedux ? '50%' : '100%'}>
+                <BlockWithProfile width={emailRedux ? '49%' : '100%'}>
                     <BlockInput>
                         <LabelInput>{envelope}</LabelInput>
                         <Input
