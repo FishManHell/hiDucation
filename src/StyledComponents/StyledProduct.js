@@ -60,12 +60,11 @@ export const ButtonSearch = styled.button`
   letter-spacing: -1px;
   
   &:hover {
-    background: linear-gradient(to right, #ff844c, #ff5a51);
+    background: #40E0D0;
     border: none;
     transition: all 0.4s;
     color: #000;
   }
-
   @media all and ${device.laptopS} {
     font-size: 1.3rem;
   }
@@ -103,7 +102,7 @@ export const InputSearchInvisible = styled.input`
     width: inherit;
     height: inherit;
     border-radius: inherit;
-    background: linear-gradient(to right, #ff844c, #ff5a51);
+    background: #40E0D0;
     outline: none;
     border: none;
     padding-left: 15px;
@@ -119,7 +118,7 @@ export const BlockProduct = styled.div`
   width: 227px;
   border-radius: 15px;
   background-color: #ffffff;
-  border: 2px solid #ff5a51;
+  border: 2px solid #40E0D0;
   margin: 0 auto;
 `
 
@@ -155,7 +154,7 @@ export const ButtonProduct = styled.button`
   left: 50%;
   bottom: 0;
   font-weight: 600;
-  background: linear-gradient(to right, #ff844c, #ff5a51);
+  background: #40E0D0;
   transform: translateX(-50%);
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;

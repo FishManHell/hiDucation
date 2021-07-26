@@ -4,7 +4,6 @@ import axios from "axios";
 
 const initialState = {
     img: '',
-    // img: []
     loadingImg: false,
     error: null
 }
@@ -28,13 +27,10 @@ const toolkitSlice = createSlice({
     initialState,
 
     reducers: {
-        getImgImgur(state, action) {
-            // state.img.push(action.payload)
+        getImgImgur (state, action) {
             state.img = action.payload
         },
-        delImg(state, action) {
-            // const img = state.img
-            // img.splice(action.payload, 1)
+        delImg (state) {
             state.img = ''
         }
     },

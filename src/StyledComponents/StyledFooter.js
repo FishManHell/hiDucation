@@ -4,12 +4,12 @@ import {device} from "../Utils/MediaSize";
 export const WrapperFooter = styled.footer`
   width: 100%;
   max-width: 100%;
-  background: #323232;
+  background: #ffffff;
   padding: 50px 0 20px 0;
 `
 
 export const TextFooter = styled.p`
-  color: #ffffff;
+  color: #000000;
   text-align: ${props => props.text_align};
   font-weight: 500;
   font-size: 1.1rem;
@@ -59,7 +59,7 @@ export const InputFooter = styled.input`
   padding-left: 15px;
   border-radius: 10px;
   outline: none;
-  border: 3px solid #FF834C;
+  border: 3px solid #40E0D0;
   box-shadow: 0 0 4px #fff;
   
   &::placeholder {
@@ -75,7 +75,7 @@ export const TextareaFooter = styled.textarea`
   padding-top: 5px;
   padding-left: 15px;
   outline: none;
-  border: 3px solid #FF834C;
+  border: 3px solid #40E0D0;
   resize: none;
   box-shadow: 0 0 4px #fff;
   
@@ -93,7 +93,7 @@ export const ButtonSendFooter = styled.button`
   border: 2px solid #fff;
   font-weight: 600;
   font-size: 1.2rem;
-  background: linear-gradient(to right, #861653,#ff844c , #ff5a51);
+  background: #40E0D0;
   box-shadow: 0 0 4px #fff;
   color: #ffffff;
   
@@ -120,14 +120,14 @@ export const EndBlockFooter = styled.div`
 `
 
 export const LinkFooter = styled.a`
-  color: #ff844c;
+  color: #40E0D0;
   font-size: 1.5rem;
   margin-left: 20px;
   
   &:hover {
     transform: scale(1.3);
     transition: all 0.4s linear;
-    color: #FF0000;
+    color: #000000;
   }
 `
 

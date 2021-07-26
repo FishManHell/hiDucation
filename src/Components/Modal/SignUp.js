@@ -1,5 +1,5 @@
 import React from 'react';
-import {BlockInput, BlockSignInSignUp, Input, LabelInput, MainBlockInput, TextChangeType} from "./SignIn";
+import {BlockInput, BlockSignInSignUp, ButtonSend, Input, LabelInput, MainBlockInput, TextChangeType} from "./SignIn";
 import {envelope, eye, graduation_cap, key, university, user} from "../../Utils/Font Awesome/Solid";
 import {eye_slash} from "../../Utils/Font Awesome/Regular";
 import {BlockError, ErrorTextModalForm} from "../../StyledComponents/SrtyledModal";
@@ -15,7 +15,7 @@ const BlockWithProfile = styled.div`
   }
 `
 
-const SignUp = ({showPassword, setShowPassword, email, password, userName, userLastName, learning, study, repeatPassword, width}) => {
+const SignUp = ({showPassword, setShowPassword, email, password, userName, userLastName, learning, study, repeatPassword, width, handleSendReg}) => {
     const emailRedux = useSelector(state => state.userAuth.user.email);
 
     return (
@@ -195,6 +195,20 @@ const SignUp = ({showPassword, setShowPassword, email, password, userName, userL
                     </BlockInput>
                 </BlockWithProfile>
             </MainBlockInput>
+            {emailRedux
+                ?
+                null
+                :
+                <BlockInput>
+                    <ButtonSend
+                        onClick={() => handleSendReg(email.value, password.value)}
+                        disabled={!email.inputValid || !password.inputValid || !userName.inputValid || !repeatPassword.inputValid}
+                    >
+                        Registration
+                    </ButtonSend>
+                </BlockInput>
+            }
+
         </BlockSignInSignUp>
     );
 };

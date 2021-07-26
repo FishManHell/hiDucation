@@ -18,13 +18,11 @@ import {
     WrapperFooter
 } from "../StyledComponents/StyledFooter";
 
-
-
 const FooterContact = () => {
     return (
         <WrapperFooter name={'contact'}>
             <Container width={'80%'}>
-                <HeadingTextSection color={'#fff'} padding={'20px 0'}>Get In Touch</HeadingTextSection>
+                <HeadingTextSection color={'#000'} padding={'20px 0'}>Get In Touch</HeadingTextSection>
                 <TextFooter text_align={'center'}>We'd love to hear your thoughts and be in touch with you</TextFooter>
                 <MainBlock>
                     <BlockInputTextarea width={'100%'} height={'80px'}>

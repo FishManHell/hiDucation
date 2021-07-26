@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {WrapperModal} from "../../StyledComponents/SrtyledModal";
 import {BlockFormRegLog, SignInSignUp, Switcher} from "../Modal/Modal";
 import FooterModalProfile from "./FooterModalProfile";
@@ -8,31 +8,33 @@ import LoadingProfile from "../Loading/LoadingProfile";
 import Profile from "./Profile";
 import Statistics from "./Statistics";
 
-
-
 const ModalProfile = ({openModal, setOpenModal, form, setForm, showPassword, setShowPassword, email, password, userName, userLastName, learning, study, repeatPassword, clearState}) => {
     const dispatch = useDispatch()
-    const editProfile = useSelector(state => state.getUserInform.userProfile);
-    const loaderProfile = useSelector(state => state.getUserInform.loading)
+    const edit = useSelector(state => state.getUserInform.userProfile);
+    const loaderProfile = useSelector(state => state.getUserInform.loading);
+    const [changeText, setChangeText] = useState(true)
 
     const handleProfileChangeStatistic = (formik) => setForm(formik)
 
     const handleCollectInform = () => {
         const userProfile = {
-            firstName: userName.value,
-            lastName: userLastName.value,
-            email: email.value,
-            password: password.value,
-            institute: learning.value,
             degree: study.value,
+            email: email.value,
+            firstName: userName.value,
+            institute: learning.value,
+            lastName: userLastName.value,
+            password: password.value,
         }
-        if (userName.value && userLastName.value && email.value && password.value && learning.value && study.value) {
+
+        // if (userName.value && userLastName.value && email.value && password.value && learning.value && study.value) {
             dispatch(editProfileInform({userProfile}))
-            dispatch(editUserProfile(editProfile))
-        } else {
-            return alert('Поля не заполнены')
-        }
+            setChangeText(false)
+        // } else {
+        //     return alert('Поля не заполнены')
+        // }
     }
+
+    const handleSendInform = () => dispatch(editUserProfile(edit))
 
     const handleCloseModal = () => {
         setOpenModal(false)
@@ -89,6 +91,8 @@ const ModalProfile = ({openModal, setOpenModal, form, setForm, showPassword, set
                     clearState={clearState}
                     handleCloseModal={handleCloseModal}
                     handleCollectInform={handleCollectInform}
+                    handleSendInform={handleSendInform}
+                    changeText={changeText}
                 />
             </BlockFormRegLog>
         </WrapperModal>

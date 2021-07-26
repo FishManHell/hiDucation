@@ -6,7 +6,7 @@ export const WrapperNavHeader = styled.header`
   top: 0;
   width: 100%;
   max-width: 100%;
-  background: linear-gradient(to left, #FF5652, #861653, #A61E1B);
+  background: #ffffff;
   z-index: 50;
   -webkit-box-shadow: 0 2px 15px 1px rgba(0,0,0,0.75);
   -moz-box-shadow: 0 2px 15px 1px rgba(0,0,0,0.75);

@@ -59,7 +59,7 @@ export const BlockContentMain = styled.div`
 export const MainHeaderTextOne = styled.h1`
     font-weight: 800;
     font-size: 5rem;
-    color: #ffffff;
+    color: rgb(47, 163, 152);
 
   @media all and ${device.tabletS} {
     font-size: 3.5rem;
@@ -72,7 +72,7 @@ export const MainHeaderTextOne = styled.h1`
 
 export const MainHeaderTextTwo = styled.h2`
     text-transform: uppercase;
-    color: #ffffff;
+    color: rgb(47, 163, 152);
     font-weight: 500;
     font-size: 2.4rem;
   

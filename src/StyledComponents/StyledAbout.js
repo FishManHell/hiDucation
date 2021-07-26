@@ -16,10 +16,6 @@ export const BlockBackgroundImg = styled.div`
   transform: rotate(-5deg);
 `
 
-export const BackgroundImg = styled.img`
-    width: 100%;
-`
-
 export const MainBlockBestTeacher = styled.div`
   display: flex;
   justify-content: space-between;
@@ -29,7 +25,6 @@ export const MainBlockBestTeacher = styled.div`
    flex-direction: column;  
     align-items: center;
   }
-  
 `
 
 export const BlockImgBestTeacher = styled.div`
@@ -43,7 +38,7 @@ export const ImgBestTeacher = styled.img`
   width: 100%;
   border-radius: inherit;
   height: 100%;
-  border: 2px solid #ff5a51;
+  border: 3px solid #40E0D0;
 `
 
 export const BlockBestText = styled.div`
@@ -74,7 +69,7 @@ export const MainTextBestTeacher = styled.p`
     position: absolute;
     width: 215px;
     height: 2px;
-    background-color: #ff844c;
+    background-color: #40E0D0;
     bottom: -10px;
     right: 0;
   }

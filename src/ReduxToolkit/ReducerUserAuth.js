@@ -16,27 +16,11 @@ const initialState = {
     }
 
 
-// export const postLogin = createAsyncThunk('userAuth/getTokenLogin',
-//     async (endpoint = {email: '',  password: ''}, {dispatch}) => {
-//         try {
-//             const response = await fetch(`${BASE_URL}/user/login?userEmail=${endpoint.email}&password=${endpoint.password}`);
-//             const data = await response.headers.get('token')
-//             console.log(data)
-//             localStorage.setItem('token', data);
-//             dispatch(getToken(data))
-//             return response.headers.get('token')
-//         } catch (error) {
-//             throw Error(error);
-//         }
-//     }
-// )
-
-
 export const postLogin = createAsyncThunk('userAuth/getTokenLogin',
     async (endpoint = {email: '',  password: ''}, {dispatch}) => {
         try {
-            const response = await axios.get(`${BASE_URL}/user/login?userEmail=${endpoint.email}&password=${endpoint.password}`)
-            const data = await response.headers['token']
+            const response = await fetch(`${BASE_URL}/user/login?userEmail=${endpoint.email}&password=${endpoint.password}`);
+            const data = await response.headers.get('token')
             console.log(data)
             localStorage.setItem('token', data);
             dispatch(getToken(data))
@@ -47,18 +31,14 @@ export const postLogin = createAsyncThunk('userAuth/getTokenLogin',
     }
 )
 
-
 export const changePassword = createAsyncThunk('userAuth/changePassword',
-    async (endpoint = {email: '', password: ''}, getState) => {
+    async (endpoint = {email: '', password: ''}) => {
         try {
-            const response = await fetch(`${BASE_URL}/user/${endpoint.email}/password/reset`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(endpoint.password)
-            });
-            const data = response
+            const response = await axios.put(
+                `${BASE_URL}/user/${endpoint.email}/password/reset`,
+                endpoint.password,
+                {headers:{'Content-Type': 'application/json'}})
+            const data = await response
             console.log(data)
             return data
         } catch (error) {
@@ -69,14 +49,11 @@ export const changePassword = createAsyncThunk('userAuth/changePassword',
 export const regUser = createAsyncThunk('userAuth/regUser',
     async (endpoint, {}) => {
     try {
-        const response = await fetch(`${BASE_URL}/user/registration`, {
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify(endpoint)
-        })
-        const data = response
+        const response = await axios.post(
+            `${BASE_URL}/user/registration`,
+            endpoint,
+            {headers: {'Content-Type' : 'application/json'}})
+        const data = await response
         console.log(data)
         return data
     } catch (error) {
@@ -96,12 +73,12 @@ const toolkitSlice = createSlice({
 
     extraReducers: {
 
-        [regUser.pending]: (state, action) => {
+        [regUser.pending]: (state) => {
             state.loading = true;
             state.error = null
         },
 
-        [regUser.fulfilled]: (state, action) => {
+        [regUser.fulfilled]: (state) => {
             state.loading = false
         },
 
@@ -120,7 +97,7 @@ const toolkitSlice = createSlice({
             state.user.password = action.payload.password
         },
 
-        [postLogin.pending]: (state, action) => {
+        [postLogin.pending]: (state) => {
             state.loading = true;
             state.error = null
         },
@@ -135,12 +112,12 @@ const toolkitSlice = createSlice({
             state.loading = false;
         },
 
-        [changePassword.pending]: (state, action) => {
+        [changePassword.pending]: (state) => {
             state.loading = true;
             state.error = null
         },
 
-        [changePassword.fulfilled]: (state, action) => {
+        [changePassword.fulfilled]: (state) => {
             state.loading = false
         },
 

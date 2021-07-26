@@ -30,7 +30,7 @@ export const MainTextSuccessStories = styled.h4`
     width: 100%;
     height: 2px;
     left: 0;
-    background-color: #ff834c;
+    background-color: #40E0D0;
     bottom: -7px;
   }
   
@@ -48,7 +48,7 @@ export const MainSecondTextSuccessStories = styled.h4`
     width: 100%;
     height: 2px;
     left: 0;
-    background-color: #ff834c;
+    background-color: #40E0D0;
     bottom: -7px;
   }
 `

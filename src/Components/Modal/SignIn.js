@@ -2,7 +2,6 @@ import React from 'react';
 import styled, {css} from "styled-components";
 import {apple, envelope, eye, facebook, google, key} from "../../Utils/Font Awesome/Solid";
 import {eye_slash} from "../../Utils/Font Awesome/Regular";
-import {useDispatch} from "react-redux";
 import {BlockError, ErrorTextModalForm} from "../../StyledComponents/SrtyledModal";
 import {device} from "../../Utils/MediaSize";
 
@@ -109,8 +108,6 @@ export const Input = styled.input`
   padding: 16px 20px 16px 50px;
   -webkit-appearance: none;
   -moz-appearance: none;
-  -ms-appearance: none;
-  -o-appearance: none;
   appearance: none;
   border-radius: 0.25em;
 `
@@ -169,8 +166,7 @@ export const ForgetPasswordSignInText = styled.span`
   }
 `
 
-const SignIn = ({email, password, showPassword, setShowPassword, handleForgetPassword}) => {
-    const dispatch = useDispatch()
+const SignIn = ({email, password, showPassword, setShowPassword, handleForgetPassword, handleSendLogin}) => {
 
     return (
         <BlockSignInSignUp width={'100%'}>
@@ -238,6 +234,14 @@ const SignIn = ({email, password, showPassword, setShowPassword, handleForgetPas
                     Forgot your password ?
                 </ForgetPasswordSignInText>
             </BlockForgetPasswordTextBackSignIn>
+            <BlockInput>
+                <ButtonSend
+                    disabled={!email.inputValid || !password.inputValid}
+                    onClick={() => handleSendLogin(email.value, password.value)}
+                >
+                    Login
+                </ButtonSend>
+            </BlockInput>
         </BlockSignInSignUp>
     );
 };

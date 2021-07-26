@@ -2,7 +2,7 @@ import React from 'react';
 import {
     BlockForgetPasswordTextBackSignIn,
     BlockInput,
-    BlockSignInSignUp, ForgetPasswordSignInText,
+    BlockSignInSignUp, ButtonSend, ForgetPasswordSignInText,
     Input,
     LabelInput,
     MainBlockInput, TextChangeType,
@@ -13,6 +13,7 @@ import {eye_slash} from "../../Utils/Font Awesome/Regular";
 import {BlockError, ErrorTextModalForm} from "../../StyledComponents/SrtyledModal";
 
 const MessageChangePasswordBlock = styled.div`
+  margin-bottom: 20px;
   text-align: center;
 `
 
@@ -21,7 +22,7 @@ const TextMessage = styled.span`
   color: #A72537;
 `
 
-const ForgetPassword = ({setForgetPassword, email, password, setShowPassword, showPassword, handleForgetPassword}) => {
+const ForgetPassword = ({email, password, setShowPassword, showPassword, handleForgetPassword, handleSendChangePassword}) => {
     return (
         <BlockSignInSignUp>
             <MessageChangePasswordBlock>
@@ -89,6 +90,14 @@ const ForgetPassword = ({setForgetPassword, email, password, setShowPassword, sh
                     Back to Log-in
                 </ForgetPasswordSignInText>
             </BlockForgetPasswordTextBackSignIn>
+            <BlockInput>
+                <ButtonSend
+                    onClick={() => handleSendChangePassword(email.value, password.value)}
+                    disabled={!password.inputValid}
+                >
+                    Change Password
+                </ButtonSend>
+            </BlockInput>
         </BlockSignInSignUp>
     );
 };

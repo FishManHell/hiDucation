@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {BlockHeaderContent, BlockList, List} from "../StyledComponents/StyledHeader";
-import {Container, LogoBlock, LogoSpanFirst, LogoSpanLittleSpan} from "../StyledComponents/Styled";
+import {Container, LogoBlock, LogoImg} from "../StyledComponents/Styled";
 import {BlockBurgerMenu, BurgerMenu, WrapperBurgerMenu, WrapperNavHeader} from "../StyledComponents/StyledNavHeader";
 import {useSelector} from "react-redux";
 import {Link, Events} from "react-scroll";
 import styled from "styled-components";
+import logo from '../img/hieducation.svg'
 
 const ListItem = styled.li`
-
+  position: relative;
+  margin: 0 20px;
 `
-
-// TODO вместо обычных li сделать styled components со стилями всеми
 
 const NavHeader = ({setOpenModal}) => {
     const email = useSelector(state => state.userAuth.user.email)
@@ -36,40 +36,39 @@ const NavHeader = ({setOpenModal}) => {
 
     return (
         <WrapperNavHeader>
-            <Container width={'80%'}>
+            <Container width={'85%'}>
                 <BlockHeaderContent>
                     <LogoBlock>
-                        <LogoSpanFirst font_size={'2.3rem'} line_height={'2.563rem'}>
-                            <LogoSpanLittleSpan font_size={'2.2rem'}>hi</LogoSpanLittleSpan>Ducation
-                        </LogoSpanFirst>
+                        <Link to={'home'} spy={true} smooth={true} duration={1000}>
+                            <LogoImg src={logo} alt={'hiDucation'}/>
+                        </Link>
                     </LogoBlock>
                     <BlockList>
-                        <WrapperBurgerMenu open={isMenuOpen} className={isMenuOpen ? 'open' : ''}>
-                        </WrapperBurgerMenu>
+                        <WrapperBurgerMenu open={isMenuOpen} className={isMenuOpen ? 'open' : ''}/>
 
                         <BlockBurgerMenu className={isMenuOpen ? 'open' : ''} onClick={() => handleBurgerMenu()} open={isMenuOpen}>
                             <BurgerMenu open={isMenuOpen}/>
                         </BlockBurgerMenu>
 
                         <List open={isMenuOpen} close={!isMenuOpen} className={isMenuOpen ? 'open' : ''}>
-                            <li className={'list_header'}>
+                            <ListItem className={'list_header'}>
                                 <Link to={'home'} activeClass={'active'} className={'list_header-button'} spy={true} smooth={true} duration={1000}>home</Link>
-                            </li>
-                            <li className={'list_header'}>
+                            </ListItem>
+                            <ListItem className={'list_header'}>
                                 <Link to={'product'} activeClass={'active'} className={'list_header-button'} spy={true} smooth={true} duration={1000}>product</Link>
-                            </li>
-                            <li className={'list_header'}>
+                            </ListItem>
+                            <ListItem className={'list_header'}>
                                 <Link to={'about'} activeClass={'active'} className={'list_header-button'} spy={true} smooth={true} duration={1000}>about</Link>
-                            </li>
-                            <li className={'list_header'}>
+                            </ListItem>
+                            <ListItem className={'list_header'}>
                                 <Link to={'team'} activeClass={'active'} className={'list_header-button'} spy={true} smooth={true} duration={1000}>team</Link>
-                            </li>
-                            <li className={'list_header'}>
+                            </ListItem>
+                            <ListItem className={'list_header'}>
                                 <Link to={'contact'} activeClass={'active'} className={'list_header-button'} spy={true} smooth={true} duration={1000}>contact</Link>
-                            </li>
-                            <li className={'list_header'}>
+                            </ListItem>
+                            <ListItem className={'list_header'}>
                                 <button className={'list_header-button'} onClick={() => handleOpenModal()}>{email ? 'Profile' : 'login'}</button>
-                            </li>
+                            </ListItem>
                         </List>
                     </BlockList>
                 </BlockHeaderContent>

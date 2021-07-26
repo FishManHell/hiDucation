@@ -7,46 +7,13 @@ export const Container = styled.div`
   margin: 0 auto;
   
   @media all and ${device.laptopL} {
-    width: 95%
+    width: 98%
   }
 `
 
-export const LogoSpanLittleSpan = styled.span`
-  font-size: ${props => props.font_size};
-  font-weight: 500;
-  text-transform: none;
-  letter-spacing: -4px;
-
-  @media all and ${device.laptopM} {
-    font-size: 1.87rem;
-  }
-  
-`
-
-export const LogoSpanFirst = styled.span`
-  font-size: ${props => props.font_size};
-  text-transform: uppercase;
-  color: #fff;
-  font-weight: 700;
-  line-height: ${props => props.line_height};
-
-  @media all and ${device.laptopM} {
-    font-size: 2rem;
-  }
-  
-`
-export const LogoSpanSecond = styled.span`
-  font-size: ${props => props.font_size};
-  font-weight: 500;
-  text-transform: uppercase;
-  line-height: ${props => props.line_height};
-  letter-spacing: 7px;
-  color: #fff;
-
-  @media all and ${device.laptopM} {
-    font-size: 1.2rem;
-    line-height: 1rem;
-  }
+export const LogoImg = styled.img`
+  cursor: pointer;
+  width: 100%;
 `
 
 export const LogoBlock = styled.div`

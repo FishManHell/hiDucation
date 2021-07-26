@@ -2,6 +2,7 @@ import React from 'react';
 import {Container} from "../StyledComponents/Styled";
 import {BlockContentMain, HeaderNav, MainHeaderTextOne, MainHeaderTextTwo} from "../StyledComponents/StyledHeader";
 
+
 const Header = () => {
     return (
         <HeaderNav name={'home'}>

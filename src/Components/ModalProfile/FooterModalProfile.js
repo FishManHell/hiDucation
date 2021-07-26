@@ -22,7 +22,7 @@ const BlockFooterModalProfile = styled.footer`
   
 `
 
-const FooterModalProfile = ({handleCollectInform, clearState, handleCloseModal}) => {
+const FooterModalProfile = ({handleCollectInform, clearState, handleCloseModal, changeText, handleSendInform}) => {
     const dispatch = useDispatch()
 
     const handleLogout = () => {
@@ -30,17 +30,12 @@ const FooterModalProfile = ({handleCollectInform, clearState, handleCloseModal})
         handleCloseModal()
         clearState()
     }
-
-    const handleExit = () => {
-        handleCloseModal()
-        // clearState() // TODO нужно подумать есть ли смысл делать очистку стейта
-    }
-
+    const handleExit = () => handleCloseModal()
 
     return (
         <BlockFooterModalProfile>
             <ButtonFooterBlockProfile startIcon={<ExitToAppIcon/>} text={'Exit'} click={handleExit}/>
-            <ButtonFooterBlockProfile startIcon={<EditIcon/>} text={'Edit'} click={handleCollectInform}/>
+            <ButtonFooterBlockProfile startIcon={<EditIcon/>} text={`${changeText ? 'Edit' : 'Save'}`} click={changeText ? handleCollectInform : handleSendInform}/>
             <ButtonFooterBlockProfile startIcon={<ExitToAppIcon/>} text={'Logout'} click={handleLogout}/>
         </BlockFooterModalProfile>
     );
