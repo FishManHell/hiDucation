@@ -9,11 +9,21 @@ export const Container = styled.div`
   @media all and ${device.laptopL} {
     width: 98%
   }
+
+  @media all and ${device.mobileM} {
+    width: 95%;
+  }
+  
 `
 
 export const LogoImg = styled.img`
   cursor: pointer;
   width: 100%;
+  
+  @media all and ${device.mobileM} {
+    width: 70%;
+  }
+  
 `
 
 export const LogoBlock = styled.div`

@@ -62,4 +62,8 @@ export const InformationText = styled.p`
   font-weight: 400;
   color: #ffffff;
   
+  @media all and ${device.tabletS} {
+    padding: 0 5px;
+  }
+  
 `
