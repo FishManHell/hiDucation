@@ -22,7 +22,7 @@ const BlockImg = styled.div`
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  border: 5px solid #F07427;
+  border: 5px solid #d2d8d8;
   background-image: url(${props => props.img});
   background-size: cover;
   background-repeat: no-repeat;

@@ -8,6 +8,9 @@ const useStyles = makeStyles((theme) => ({
         '& > *': {
             margin: theme.spacing(1),
         },
+        primary: {
+            main: '#2fa398',
+        }
     },
     input: {
         display: 'none',
@@ -32,12 +35,11 @@ const UploadImg = ({setSrc, setAvatar}) => {
                     accept="image/*"
                     className={classes.input}
                     id="contained-button-file"
-                    multiple
                     onChange={e => handleAvatarChange(e.target.files[0])}
                     type="file"
                 />
                 <label htmlFor="contained-button-file">
-                    <IconButton color="primary" aria-label="upload picture" component="span">
+                    <IconButton aria-label="upload picture" component="span" className={'iconImgur'}>
                         <AddIcon className={'buttonAddImg'} />
                     </IconButton>
                 </label>
@@ -46,5 +48,6 @@ const UploadImg = ({setSrc, setAvatar}) => {
 
     );
 };
+
 
 export default UploadImg;

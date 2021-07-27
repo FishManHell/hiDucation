@@ -20,7 +20,7 @@ export const LogoImg = styled.img`
   cursor: pointer;
   width: 100%;
   
-  @media all and ${device.mobileM} {
+  @media all and ${device.laptopM} {
     width: 70%;
   }
   
