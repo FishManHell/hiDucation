@@ -4,7 +4,7 @@ import {device} from "../Utils/MediaSize";
 export const WrapperProductsSection = styled.section`
   width: 100%;
   max-width: 100%;
-  background-color: #323232;
+  background: linear-gradient(to right, #808080, #323232);
   padding: 50px 0;
 `
 

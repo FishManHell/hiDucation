@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import NavHeader from "./NavHeader";
 import Header from "./Header";
-import FirstSectionText from "./FirstSectionText";
 import Product from "./Product";
 import About from "./About";
 import Team from "./Team";
@@ -40,7 +39,6 @@ const HiMathMain = () => {
         <div>
             <NavHeader setOpenModal={setOpenModal}/>
             <Header/>
-            <FirstSectionText/>
             <Product/>
             <About/>
             <Team/>

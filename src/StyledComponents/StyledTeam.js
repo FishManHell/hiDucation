@@ -3,7 +3,7 @@ import {device} from "../Utils/MediaSize";
 
 export const WrapperTeam = styled.section`
   padding: 50px 0;
-  background: linear-gradient(to right, #000000, #BBBBBB);
+  background: linear-gradient(to right, #000000, #808080);
 `
 
 export const ContainerItemCarousel = styled.div`

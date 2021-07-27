@@ -17,8 +17,13 @@ const Product = () => {
     const [searchInput, setSearchInput] = useState(false);
     const [textSearchInput, setTextSearchInput] = useState('');
 
+
     const handleSearchInput = e => {
         setTextSearchInput(e.target.value)
+    }
+
+    const handleCloseSearchInput = () => {
+        setSearchInput(false);
     }
 
     return (
@@ -27,16 +32,16 @@ const Product = () => {
             <HeadingTextSection color={'#fff'}>Product</HeadingTextSection>
                 <MainBlockButtonSearch>
                     <BlockButtonSearch>
-                        <ButtonSearch>All</ButtonSearch>
+                        <ButtonSearch onClick={() => handleCloseSearchInput()}>All</ButtonSearch>
                     </BlockButtonSearch>
                     <BlockButtonSearch>
-                        <ButtonSearch>Math</ButtonSearch>
+                        <ButtonSearch onClick={() => handleCloseSearchInput()}>Math</ButtonSearch>
                     </BlockButtonSearch>
                     <BlockButtonSearch>
-                        <ButtonSearch>Programming</ButtonSearch>
+                        <ButtonSearch onClick={() => handleCloseSearchInput()}>Programming</ButtonSearch>
                     </BlockButtonSearch>
                     <BlockButtonSearch>
-                        <ButtonSearch>Physics</ButtonSearch>
+                        <ButtonSearch onClick={() => handleCloseSearchInput()}>Physics</ButtonSearch>
                     </BlockButtonSearch>
                     <BlockButtonSearch>
                         <ButtonSearch onClick={() => setSearchInput(!searchInput)}>
