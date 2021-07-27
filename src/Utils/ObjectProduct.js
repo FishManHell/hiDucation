@@ -63,5 +63,3 @@ export let products = [
 
     },
 ]
-
-    // <a href="https://imgbb.com/"><img src="https://i.ibb.co/yWswVKy/two.png" alt="two" border="0"></a><br /><a target='_blank' href='https://ru.imgbb.com/'>поиск по фото гугл с телефона</a><br />
