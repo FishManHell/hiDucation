@@ -7,12 +7,8 @@ import {
     MainTextProduct,
     TextProduct
 } from "../../StyledComponents/StyledProduct";
-import {products} from "../../Utils/ObjectProduct";
 
 const Product = ({product}) => {
-    const test = products.filter(item => item.mainName === product.mainName)
-
-
     return (
         <BlockProduct>
             <ImgProducts src={product.img}/>

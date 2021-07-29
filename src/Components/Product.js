@@ -1,71 +1,48 @@
 import React, {useState} from 'react';
 import {Container, HeadingTextSection} from "../StyledComponents/Styled";
-import {search} from "../Utils/Font Awesome/Solid";
 import {
     MainBlockButtonSearch,
     WrapperProductsSection,
     ButtonSearch,
     BlockButtonSearch,
-    ButtonSearchSpan,
-    MainBlockInputSearch,
-    BlockInputSearch,
-    InputSearchInvisible,
 } from "../StyledComponents/StyledProduct";
 import MultiCarouselProduct from "./Carousel/MultiCarouselProduct";
+import {useDispatch, useSelector} from "react-redux";
+import {filterProduct} from "../ReduxToolkit/ReducerFilter";
 
 const Product = () => {
-    const [searchInput, setSearchInput] = useState(false);
-    const [textSearchInput, setTextSearchInput] = useState('');
+    const products = useSelector(state => state.filterSlice.products);
+    const filterArrayProducts = useSelector(state => state.filterSlice.filterArrayProducts);
+    const dispatch = useDispatch()
+    const valueButton = ['All', 'Math', 'Programming', 'Physics']
 
+    const changeClass = () => filterArrayProducts.length >= 3 ? 'center' : 'not_change'
 
-    const handleSearchInput = e => {
-        setTextSearchInput(e.target.value)
-    }
-
-    const handleCloseSearchInput = () => {
-        setSearchInput(false);
+    const handleCloseSearchInput = (e) => {
+        console.log(e.target.value)
+        if (e.target.value === 'All') {
+            dispatch(filterProduct())
+        } else {
+            dispatch(filterProduct(e.target.value))
+        }
     }
 
     return (
         <WrapperProductsSection name={'product'}>
             <Container width={'80%'}>
-            <HeadingTextSection color={'#fff'}>Product</HeadingTextSection>
+                <HeadingTextSection color={'#fff'}>Product</HeadingTextSection>
                 <MainBlockButtonSearch>
-                    <BlockButtonSearch>
-                        <ButtonSearch onClick={() => handleCloseSearchInput()}>All</ButtonSearch>
-                    </BlockButtonSearch>
-                    <BlockButtonSearch>
-                        <ButtonSearch onClick={() => handleCloseSearchInput()}>Math</ButtonSearch>
-                    </BlockButtonSearch>
-                    <BlockButtonSearch>
-                        <ButtonSearch onClick={() => handleCloseSearchInput()}>Programming</ButtonSearch>
-                    </BlockButtonSearch>
-                    <BlockButtonSearch>
-                        <ButtonSearch onClick={() => handleCloseSearchInput()}>Physics</ButtonSearch>
-                    </BlockButtonSearch>
-                    <BlockButtonSearch>
-                        <ButtonSearch onClick={() => setSearchInput(!searchInput)}>
-                            <ButtonSearchSpan margin_right={'20px'} rotate={'90deg'}>{search}</ButtonSearchSpan>
-                            <ButtonSearchSpan>Search</ButtonSearchSpan>
-                        </ButtonSearch>
-                    </BlockButtonSearch>
+                    {valueButton.map(item =>
+                        <BlockButtonSearch key={item}>
+                            <ButtonSearch
+                                value={item}
+                                onClick={e => handleCloseSearchInput(e)}>
+                                {item}
+                            </ButtonSearch>
+                        </BlockButtonSearch>
+                    )}
                 </MainBlockButtonSearch>
-                <MainBlockInputSearch>
-                    {searchInput
-                        ?
-                        <BlockInputSearch>
-                            <InputSearchInvisible
-                                type={'text'}
-                                placeholder={'Search_Product'}
-                                value={textSearchInput}
-                                onChange={e => handleSearchInput(e)}
-                            />
-                        </BlockInputSearch>
-                        :
-                        null
-                    }
-                </MainBlockInputSearch>
-                <MultiCarouselProduct/>
+                <MultiCarouselProduct products={products} filterArrayProducts={filterArrayProducts} changeClass={changeClass}/>
             </Container>
         </WrapperProductsSection>
     );

@@ -11,7 +11,7 @@ export const WrapperProductsSection = styled.section`
 export const MainBlockButtonSearch = styled.div`
     display: flex;
     justify-content: center;
-    margin-top: 40px;
+    margin: 40px 0 80px 0;
 
   @media all and ${device.laptopS} {
     flex-direction: column;
@@ -79,37 +79,6 @@ export const ButtonSearchSpan = styled.span`
 
   @media all and ${device.laptopS} {
     font-size: 1.3rem;
-  }
-`
-
-export const MainBlockInputSearch = styled.div`
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    padding: 40px;
-`
-
-export const BlockInputSearch = styled.div`
-    position: absolute;
-    height: 45px;
-    width: 300px;
-    border-radius: 30px;
-`
-
-export const InputSearchInvisible = styled.input`
-    width: inherit;
-    height: inherit;
-    border-radius: inherit;
-    background: #40E0D0;
-    outline: none;
-    border: none;
-    padding-left: 15px;
-
-  &::-webkit-input-placeholder {
-    color: #000;
-    font-weight: 600;
   }
 `
 

@@ -5,12 +5,14 @@ import thunk from "redux-thunk";
 import {logger} from "redux-logger/src";
 import ReducerUserGetByEmail from "./ReducerUserGetByEmail";
 import ReducerImgur from "./ReducerImgur";
+import ReducerFilter from "./ReducerFilter";
 
 
 const rootReducer = combineReducers({
     userAuth: ReducerUserAuth,
     getUserInform: ReducerUserGetByEmail,
-    postImgur: ReducerImgur
+    postImgur: ReducerImgur,
+    filterSlice: ReducerFilter
 })
 
 export const store = configureStore({
