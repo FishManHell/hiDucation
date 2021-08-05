@@ -70,18 +70,6 @@ export const ButtonSearch = styled.button`
   }
 `
 
-export const ButtonSearchSpan = styled.span`
-    width: ${props => props.width};
-    font-size: 1rem;
-    margin-right: ${props => props.margin_right};
-    transform: rotate(${props => props.rotate});
-    font-weight: 600;
-
-  @media all and ${device.laptopS} {
-    font-size: 1.3rem;
-  }
-`
-
 export const BlockProduct = styled.div`
   position: relative;
   width: 227px;

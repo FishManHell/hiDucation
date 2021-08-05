@@ -88,27 +88,39 @@ const Modal = ({openModal, setOpenModal, form, setForm, showPassword, setShowPas
         clearState()
     }
 
-    const handleSendLogin = (email, password) => {
+    const handleCloseClearAll = () => {
+        clearState()
+        handleCloseModal()
+    }
+
+    const requestLogin = (email, password) => {
         dispatch(postLogin({email, password}))
         dispatch(getUserInform({email, password}))
         dispatch(getUserProfile(email))
-        clearState()
-        handleCloseModal()
-        console.log('LOGIN')
     }
 
-    const handleSendReg = (email, password) => {
-        dispatch(regUser({email, password}))
-        clearState()
-        handleCloseModal()
-        console.log('REGISTRATION')
-    }
+    const requestReg = (email, password) => dispatch(regUser({email, password}))
 
-    const handleSendChangePassword = (email, password) => {
-        dispatch(changePassword({email, password}))
-        clearState()
-        handleCloseModal()
-        console.log('CHANGE_PASSWORD')
+    const requestForgetPass = (email, password) => dispatch(changePassword({email, password}))
+
+
+    const handleSwitchRequest = (email, password, number) => {
+        switch (number) {
+            case 1:
+                requestLogin(email, password)
+                handleCloseClearAll()
+                return
+            case 2:
+                requestReg(email, password)
+                handleCloseClearAll()
+                return
+            case 3:
+                requestForgetPass(email, password)
+                handleCloseClearAll()
+                return
+            default:
+                return -1
+        }
     }
 
 
@@ -123,7 +135,7 @@ const Modal = ({openModal, setOpenModal, form, setForm, showPassword, setShowPas
                     setShowPassword={setShowPassword}
                     setForgetPassword={setForgetPassword}
                     handleForgetPassword={handleForgetPassword}
-                    handleSendLogin={handleSendLogin}
+                    handleSwitchRequest={handleSwitchRequest}
                 />
             )
         } else {
@@ -138,7 +150,7 @@ const Modal = ({openModal, setOpenModal, form, setForm, showPassword, setShowPas
                     study={study}
                     showPassword={showPassword}
                     setShowPassword={setShowPassword}
-                    handleSendReg={handleSendReg}
+                    handleSwitchRequest={handleSwitchRequest}
                 />
             )
         }
@@ -177,7 +189,7 @@ const Modal = ({openModal, setOpenModal, form, setForm, showPassword, setShowPas
                         setShowPassword={setShowPassword}
                         showPassword={showPassword}
                         handleForgetPassword={handleForgetPassword}
-                        handleSendChangePassword={handleSendChangePassword}
+                        handleSwitchRequest={handleSwitchRequest}
                     />
                     :
                     changeSignInSignUp()

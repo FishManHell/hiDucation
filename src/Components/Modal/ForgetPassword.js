@@ -22,7 +22,7 @@ const TextMessage = styled.span`
   color: #A72537;
 `
 
-const ForgetPassword = ({email, password, setShowPassword, showPassword, handleForgetPassword, handleSendChangePassword}) => {
+const ForgetPassword = ({email, password, setShowPassword, showPassword, handleForgetPassword, handleSwitchRequest}) => {
     return (
         <BlockSignInSignUp>
             <MessageChangePasswordBlock>
@@ -92,7 +92,7 @@ const ForgetPassword = ({email, password, setShowPassword, showPassword, handleF
             </BlockForgetPasswordTextBackSignIn>
             <BlockInput>
                 <ButtonSend
-                    onClick={() => handleSendChangePassword(email.value, password.value)}
+                    onClick={() => handleSwitchRequest(email.value, password.value, 3)}
                     disabled={!password.inputValid}
                 >
                     Change Password

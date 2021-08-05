@@ -15,7 +15,7 @@ const BlockWithProfile = styled.div`
   }
 `
 
-const SignUp = ({showPassword, setShowPassword, email, password, userName, userLastName, learning, study, repeatPassword, width, handleSendReg}) => {
+const SignUp = ({showPassword, setShowPassword, email, password, userName, userLastName, learning, study, repeatPassword, width, handleSwitchRequest}) => {
     const emailRedux = useSelector(state => state.userAuth.user.email);
 
     return (
@@ -201,7 +201,10 @@ const SignUp = ({showPassword, setShowPassword, email, password, userName, userL
                 :
                 <BlockInput>
                     <ButtonSend
-                        onClick={() => handleSendReg(email.value, password.value)}
+                        onClick={() => {
+                            // handleSendReg(email.value, password.value)
+                            handleSwitchRequest(email.value, password.value, 2)
+                        }}
                         disabled={!email.inputValid || !password.inputValid || !userName.inputValid || !repeatPassword.inputValid}
                     >
                         Registration

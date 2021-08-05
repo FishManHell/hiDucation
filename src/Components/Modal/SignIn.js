@@ -166,7 +166,7 @@ export const ForgetPasswordSignInText = styled.span`
   }
 `
 
-const SignIn = ({email, password, showPassword, setShowPassword, handleForgetPassword, handleSendLogin}) => {
+const SignIn = ({email, password, showPassword, setShowPassword, handleForgetPassword, handleSwitchRequest}) => {
 
     return (
         <BlockSignInSignUp width={'100%'}>
@@ -237,7 +237,7 @@ const SignIn = ({email, password, showPassword, setShowPassword, handleForgetPas
             <BlockInput>
                 <ButtonSend
                     disabled={!email.inputValid || !password.inputValid}
-                    onClick={() => handleSendLogin(email.value, password.value)}
+                    onClick={() => handleSwitchRequest(email.value, password.value, 1)}
                 >
                     Login
                 </ButtonSend>

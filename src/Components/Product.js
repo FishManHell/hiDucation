@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Container, HeadingTextSection} from "../StyledComponents/Styled";
 import {
     MainBlockButtonSearch,
@@ -17,7 +17,6 @@ const Product = () => {
     const valueButton = ['All', 'Math', 'Programming', 'Physics']
 
     const changeClass = () => filterArrayProducts.length >= 3 ? 'center' : 'not_change'
-
     const handleCloseSearchInput = (e) => {
         console.log(e.target.value)
         if (e.target.value === 'All') {

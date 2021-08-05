@@ -17,7 +17,6 @@ const Product = ({product}) => {
                 <TextProduct>{product.sectionInform}</TextProduct>
             </BlockText>
             <ButtonProduct onClick={() => console.log(product.id)}>Purchase</ButtonProduct>
-
         </BlockProduct>
     );
 };

@@ -5,21 +5,15 @@ import {responsiveProduct} from "../../Utils/UtilsCarousel";
 import Product from "./Product";
 
 const MultiCarouselProduct = ({products, filterArrayProducts, changeClass}) => {
-    const filterArray = () => {
-        if (filterArrayProducts.length) {
-            return filterArrayProducts.map(product => <Product key={product.id} product={product}/>)
-        } else {
-            return products.map(product => <Product key={product.id} product={product}/>)
-        }
-    }
-
     return (
         <div>
-            <Carousel responsive={responsiveProduct} className={`test ${changeClass()}`}>
-                {filterArray()}
+            <Carousel responsive={responsiveProduct} className={`change_product ${changeClass()}`}>
+                {filterArrayProducts.length
+                    ? filterArrayProducts.map((product) => <Product key={product.id} product={product} />)
+                    : products.map((product) => <Product key={product.id} product={product}/>)
+                }
             </Carousel>
         </div>
-
     );
 };
 
