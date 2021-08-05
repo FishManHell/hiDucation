@@ -11,6 +11,7 @@ import {envelope, eye, key} from "../../Utils/Font Awesome/Solid";
 import styled from "styled-components";
 import {eye_slash} from "../../Utils/Font Awesome/Regular";
 import {BlockError, ErrorTextModalForm} from "../../StyledComponents/SrtyledModal";
+import ErrorBlockModal from "./ErrorBlockModal";
 
 const MessageChangePasswordBlock = styled.div`
   margin-bottom: 20px;
@@ -42,18 +43,17 @@ const ForgetPassword = ({setShowPassword, showPassword, handleForgetPassword, ha
                         onChange={e => handleUseValue().email.onChange(e)}
                         onBlur={e => handleUseValue().email.onBlur(e)}
                     />
-                    <BlockError left={'0'} bottom={'-35px'}>
-                        {
-                            (handleUseValue().email.isDirty && handleUseValue().email.isEmpty)
-                            &&
-                            <ErrorTextModalForm>Field is empty</ErrorTextModalForm>
-                        }
-                    </BlockError>
-                    <BlockError right={'0'} bottom={'-35px'}>
-                        {(handleUseValue().email.isDirty && handleUseValue().email.emailError)
-                        &&
-                        <ErrorTextModalForm>Wrong email</ErrorTextModalForm>}
-                    </BlockError>
+                    <ErrorBlockModal
+                        valueOne={handleUseValue().email.isDirty}
+                        valueTwo={handleUseValue().email.isEmpty}
+                        text={'Field is empty'} left={'0'} bottom={'-35px'}
+                    />
+                    <ErrorBlockModal
+                        valueOne={handleUseValue().email.isDirty}
+                        valueTwo={handleUseValue().email.emailError}
+                        right={'0'} bottom={'-35px'}
+                        text={'Wrong email'}
+                    />
                 </BlockInput>
 
                 <BlockInput>
@@ -69,20 +69,17 @@ const ForgetPassword = ({setShowPassword, showPassword, handleForgetPassword, ha
                     <TextChangeType
                         onClick={() => setShowPassword(!showPassword)}>{showPassword ? eye_slash : eye}</TextChangeType>
 
-                    <BlockError left={'0'} bottom={'-35px'}>
-                        {
-                            (handleUseValue().password.isDirty && handleUseValue().password.isEmpty)
-                            &&
-                            <ErrorTextModalForm>Field is empty</ErrorTextModalForm>
-                        }
-                    </BlockError>
-                    <BlockError right={'0'} bottom={'-35px'}>
-                        {
-                            (handleUseValue().password.isDirty && handleUseValue().password.passwordError)
-                            &&
-                            <ErrorTextModalForm>Wrong Password</ErrorTextModalForm>
-                        }
-                    </BlockError>
+                    <ErrorBlockModal
+                        valueOne={handleUseValue().password.isDirty}
+                        valueTwo={handleUseValue().password.isEmpty}
+                        text={'Field is empty'} left={'0'} bottom={'-35px'}
+                    />
+                    <ErrorBlockModal
+                        valueOne={handleUseValue().password.isDirty}
+                        valueTwo={handleUseValue().password.passwordError}
+                        right={'0'} bottom={'-35px'}
+                        text={'Wrong Password'}
+                    />
                 </BlockInput>
             </MainBlockInput>
             <BlockForgetPasswordTextBackSignIn>
