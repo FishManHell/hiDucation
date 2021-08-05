@@ -8,7 +8,7 @@ import LoadingProfile from "../Loading/LoadingProfile";
 import Profile from "./Profile";
 import Statistics from "./Statistics";
 
-const ModalProfile = ({openModal, setOpenModal, form, setForm, showPassword, setShowPassword, email, password, userName, userLastName, learning, study, repeatPassword, clearState}) => {
+const ModalProfile = ({openModal, setOpenModal, form, setForm, showPassword, setShowPassword, clearState, handleUseValue}) => {
     const dispatch = useDispatch()
     const edit = useSelector(state => state.getUserInform.userProfile);
     const loaderProfile = useSelector(state => state.getUserInform.loading);
@@ -18,17 +18,17 @@ const ModalProfile = ({openModal, setOpenModal, form, setForm, showPassword, set
 
     const handleCollectInform = () => {
         const userProfile = {
-            degree: study.value,
-            email: email.value,
-            firstName: userName.value,
-            institute: learning.value,
-            lastName: userLastName.value,
-            password: password.value,
+            degree: handleUseValue().study.value,
+            email: handleUseValue().email.value,
+            firstName: handleUseValue().userName.value,
+            institute: handleUseValue().learning.value,
+            lastName: handleUseValue().userLastName.value,
+            password: handleUseValue().password.value,
         }
 
         // if (userName.value && userLastName.value && email.value && password.value && learning.value && study.value) {
-            dispatch(editProfileInform({userProfile}))
-            setChangeText(false)
+        dispatch(editProfileInform({userProfile}))
+        setChangeText(false)
         // } else {
         //     return alert('Поля не заполнены')
         // }
@@ -74,15 +74,9 @@ const ModalProfile = ({openModal, setOpenModal, form, setForm, showPassword, set
                 {form
                     ?
                     <Profile
-                        email={email}
-                        password={password}
-                        userName={userName}
-                        userLastName={userLastName}
-                        learning={learning}
-                        study={study}
-                        repeatPassword={repeatPassword}
                         showPassword={showPassword}
                         setShowPassword={setShowPassword}
+                        handleUseValue={handleUseValue}
                     />
                     :
                     <Statistics/>

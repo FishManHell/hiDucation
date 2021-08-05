@@ -60,7 +60,7 @@ export const BlockCloseModal = styled.div`
   padding: 0.5em 1em 0 0;
 `
 
-const Modal = ({openModal, setOpenModal, form, setForm, showPassword, setShowPassword, email, password, userName, learning, study, repeatPassword, clearState}) => {
+const Modal = ({openModal, setOpenModal, form, setForm, showPassword, setShowPassword, clearState, handleUseValue}) => {
     const dispatch = useDispatch()
     const [forgetPassword, setForgetPassword] = useState(false);
 
@@ -128,8 +128,7 @@ const Modal = ({openModal, setOpenModal, form, setForm, showPassword, setShowPas
         if (form) {
             return (
                 <SignIn
-                    email={email}
-                    password={password}
+                    handleUseValue={handleUseValue}
                     clearState={clearState}
                     showPassword={showPassword}
                     setShowPassword={setShowPassword}
@@ -142,12 +141,7 @@ const Modal = ({openModal, setOpenModal, form, setForm, showPassword, setShowPas
             return  (
                 <SignUp
                     width={'100%'}
-                    email={email}
-                    password={password}
-                    repeatPassword={repeatPassword}
-                    userName={userName}
-                    learning={learning}
-                    study={study}
+                    handleUseValue={handleUseValue}
                     showPassword={showPassword}
                     setShowPassword={setShowPassword}
                     handleSwitchRequest={handleSwitchRequest}
@@ -184,12 +178,11 @@ const Modal = ({openModal, setOpenModal, form, setForm, showPassword, setShowPas
                 {forgetPassword
                     ?
                     <ForgetPassword
-                        email={email}
-                        password={password}
                         setShowPassword={setShowPassword}
                         showPassword={showPassword}
                         handleForgetPassword={handleForgetPassword}
                         handleSwitchRequest={handleSwitchRequest}
+                        handleUseValue={handleUseValue}
                     />
                     :
                     changeSignInSignUp()

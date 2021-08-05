@@ -22,7 +22,7 @@ const TextMessage = styled.span`
   color: #A72537;
 `
 
-const ForgetPassword = ({email, password, setShowPassword, showPassword, handleForgetPassword, handleSwitchRequest}) => {
+const ForgetPassword = ({setShowPassword, showPassword, handleForgetPassword, handleSwitchRequest, handleUseValue}) => {
     return (
         <BlockSignInSignUp>
             <MessageChangePasswordBlock>
@@ -37,20 +37,20 @@ const ForgetPassword = ({email, password, setShowPassword, showPassword, handleF
                     <Input
                         name={'email'}
                         type={'email'}
-                        value={email.value}
+                        value={handleUseValue().email.value}
                         placeholder={'E-mail'}
-                        onChange={e => email.onChange(e)}
-                        onBlur={e => email.onBlur(e)}
+                        onChange={e => handleUseValue().email.onChange(e)}
+                        onBlur={e => handleUseValue().email.onBlur(e)}
                     />
                     <BlockError left={'0'} bottom={'-35px'}>
                         {
-                            (email.isDirty && email.isEmpty)
+                            (handleUseValue().email.isDirty && handleUseValue().email.isEmpty)
                             &&
                             <ErrorTextModalForm>Field is empty</ErrorTextModalForm>
                         }
                     </BlockError>
                     <BlockError right={'0'} bottom={'-35px'}>
-                        {(email.isDirty && email.emailError)
+                        {(handleUseValue().email.isDirty && handleUseValue().email.emailError)
                         &&
                         <ErrorTextModalForm>Wrong email</ErrorTextModalForm>}
                     </BlockError>
@@ -62,23 +62,23 @@ const ForgetPassword = ({email, password, setShowPassword, showPassword, handleF
                         name={'password'}
                         type={showPassword ? 'password' : 'text'}
                         placeholder={'New password'}
-                        value={password.value}
-                        onChange={e => password.onChange(e)}
-                        onBlur={e => password.onBlur(e)}
+                        value={handleUseValue().password.value}
+                        onChange={e => handleUseValue().password.onChange(e)}
+                        onBlur={e => handleUseValue().password.onBlur(e)}
                     />
                     <TextChangeType
                         onClick={() => setShowPassword(!showPassword)}>{showPassword ? eye_slash : eye}</TextChangeType>
 
                     <BlockError left={'0'} bottom={'-35px'}>
                         {
-                            (password.isDirty && password.isEmpty)
+                            (handleUseValue().password.isDirty && handleUseValue().password.isEmpty)
                             &&
                             <ErrorTextModalForm>Field is empty</ErrorTextModalForm>
                         }
                     </BlockError>
                     <BlockError right={'0'} bottom={'-35px'}>
                         {
-                            (password.isDirty && password.passwordError)
+                            (handleUseValue().password.isDirty && handleUseValue().password.passwordError)
                             &&
                             <ErrorTextModalForm>Wrong Password</ErrorTextModalForm>
                         }
@@ -92,8 +92,8 @@ const ForgetPassword = ({email, password, setShowPassword, showPassword, handleF
             </BlockForgetPasswordTextBackSignIn>
             <BlockInput>
                 <ButtonSend
-                    onClick={() => handleSwitchRequest(email.value, password.value, 3)}
-                    disabled={!password.inputValid}
+                    onClick={() => handleSwitchRequest(handleUseValue().email.value, handleUseValue().password.value, 3)}
+                    disabled={!handleUseValue().password.inputValid}
                 >
                     Change Password
                 </ButtonSend>

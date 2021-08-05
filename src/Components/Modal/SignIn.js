@@ -4,6 +4,7 @@ import {apple, envelope, eye, facebook, google, key} from "../../Utils/Font Awes
 import {eye_slash} from "../../Utils/Font Awesome/Regular";
 import {BlockError, ErrorTextModalForm} from "../../StyledComponents/SrtyledModal";
 import {device} from "../../Utils/MediaSize";
+import ErrorBlockModal from "./ErrorBlockModal";
 
 export const BlockSignInSignUp = styled.div`
   width: ${props => props.width};
@@ -91,7 +92,7 @@ export const MainBlockInput = styled.div`
 export const BlockInput = styled.div`
   position: relative;
   width: 100%;
-  margin: 0 0 2em 0;
+  margin: 0 0 2.3em 0;
 `
 
 export const LabelInput = styled.label`
@@ -166,7 +167,7 @@ export const ForgetPasswordSignInText = styled.span`
   }
 `
 
-const SignIn = ({email, password, showPassword, setShowPassword, handleForgetPassword, handleSwitchRequest}) => {
+const SignIn = ({showPassword, setShowPassword, handleForgetPassword, handleSwitchRequest, handleUseValue}) => {
 
     return (
         <BlockSignInSignUp width={'100%'}>
@@ -182,23 +183,22 @@ const SignIn = ({email, password, showPassword, setShowPassword, handleForgetPas
                     <Input
                         name={'email'}
                         type={'email'}
-                        value={email.value}
+                        value={handleUseValue().email.value}
                         placeholder={'E-mail'}
-                        onChange={e => email.onChange(e)}
-                        onBlur={e => email.onBlur(e)}
+                        onChange={e => handleUseValue().email.onChange(e)}
+                        onBlur={e => handleUseValue().email.onBlur(e)}
                     />
-                    <BlockError left={'0'} bottom={'-35px'}>
-                        {
-                            (email.isDirty && email.isEmpty)
-                            &&
-                            <ErrorTextModalForm>Field is empty</ErrorTextModalForm>
-                        }
-                    </BlockError>
-                    <BlockError right={'0'} bottom={'-35px'}>
-                        {(email.isDirty && email.emailError)
-                        &&
-                        <ErrorTextModalForm>Wrong email</ErrorTextModalForm>}
-                    </BlockError>
+                    <ErrorBlockModal
+                        valueOne={handleUseValue().email.isDirty}
+                        valueTwo={handleUseValue().email.isEmpty}
+                        text={'Field is empty'} left={'0'} bottom={'-35px'}
+                    />
+                    <ErrorBlockModal
+                        valueOne={handleUseValue().email.isDirty}
+                        valueTwo={handleUseValue().email.emailError}
+                        right={'0'} bottom={'-35px'}
+                        text={'Wrong email'}
+                    />
                 </BlockInput>
                 <BlockInput>
                     <LabelInput>{key}</LabelInput>
@@ -206,27 +206,23 @@ const SignIn = ({email, password, showPassword, setShowPassword, handleForgetPas
                         name={'password'}
                         type={showPassword ? 'password' : 'text'}
                         placeholder={'Password'}
-                        value={password.value}
-                        onChange={e => password.onChange(e)}
-                        onBlur={e => password.onBlur(e)}
+                        value={handleUseValue().password.value}
+                        onChange={e => handleUseValue().password.onChange(e)}
+                        onBlur={e => handleUseValue().password.onBlur(e)}
                     />
                     <TextChangeType
                         onClick={() => setShowPassword(!showPassword)}>{showPassword ? eye_slash : eye}</TextChangeType>
-
-                    <BlockError left={'0'} bottom={'-35px'}>
-                        {
-                            (password.isDirty && password.isEmpty)
-                            &&
-                            <ErrorTextModalForm>Field is empty</ErrorTextModalForm>
-                        }
-                    </BlockError>
-                    <BlockError right={'0'} bottom={'-35px'}>
-                        {
-                            (password.isDirty && password.passwordError)
-                            &&
-                            <ErrorTextModalForm>Wrong Password</ErrorTextModalForm>
-                        }
-                    </BlockError>
+                    <ErrorBlockModal
+                        valueOne={handleUseValue().password.isDirty}
+                        valueTwo={handleUseValue().password.isEmpty}
+                        text={'Field is empty'} left={'0'} bottom={'-35px'}
+                    />
+                    <ErrorBlockModal
+                        valueOne={handleUseValue().password.isDirty}
+                        valueTwo={handleUseValue().password.passwordError}
+                        right={'0'} bottom={'-35px'}
+                        text={'Wrong Password'}
+                    />
                 </BlockInput>
             </MainBlockInput>
             <BlockForgetPasswordTextBackSignIn>
@@ -236,8 +232,8 @@ const SignIn = ({email, password, showPassword, setShowPassword, handleForgetPas
             </BlockForgetPasswordTextBackSignIn>
             <BlockInput>
                 <ButtonSend
-                    disabled={!email.inputValid || !password.inputValid}
-                    onClick={() => handleSwitchRequest(email.value, password.value, 1)}
+                    disabled={!handleUseValue().email.inputValid || !handleUseValue().password.inputValid}
+                    onClick={() => handleSwitchRequest(handleUseValue().email.value, handleUseValue().password.value, 1)}
                 >
                     Login
                 </ButtonSend>

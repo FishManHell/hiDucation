@@ -35,6 +35,16 @@ const HiMathMain = () => {
         repeatPassword.onClear()
     }
 
+    const handleUseValue = () => ({
+        email,
+        password,
+        userName,
+        userLastName,
+        learning,
+        study,
+        repeatPassword
+    })
+
     return (
         <div>
             <NavHeader setOpenModal={setOpenModal}/>
@@ -45,13 +55,6 @@ const HiMathMain = () => {
             <FooterContact/>
             {emailRedux
                 ? <ModalProfile
-                    email={email}
-                    password={password}
-                    userName={userName}
-                    userLastName={userLastName}
-                    learning={learning}
-                    study={study}
-                    repeatPassword={repeatPassword}
                     openModal={openModal}
                     setOpenModal={setOpenModal}
                     form={form}
@@ -59,14 +62,9 @@ const HiMathMain = () => {
                     showPassword={showPassword}
                     setShowPassword={setShowPassword}
                     clearState={clearState}
+                    handleUseValue={handleUseValue}
                 />
                 : <Modal
-                    email={email}
-                    password={password}
-                    userName={userName}
-                    learning={learning}
-                    study={study}
-                    repeatPassword={repeatPassword}
                     openModal={openModal}
                     setOpenModal={setOpenModal}
                     form={form}
@@ -74,6 +72,7 @@ const HiMathMain = () => {
                     showPassword={showPassword}
                     setShowPassword={setShowPassword}
                     clearState={clearState}
+                    handleUseValue={handleUseValue}
                 />
             }
         </div>
