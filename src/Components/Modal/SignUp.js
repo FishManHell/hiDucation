@@ -18,9 +18,32 @@ const BlockWithProfile = styled.div`
 const SignUp = ({showPassword, setShowPassword, width, handleSwitchRequest, handleUseValue}) => {
     const emailRedux = useSelector(state => state.userAuth.user.email);
 
+    const handleFetch = () => {
+        const user = {
+            email: 'Vlad1-2@ua.fm',
+            password: 'Denis1996'
+        }
+        fetch("https://telran-hiducation.herokuapp.com/user/registration", {
+            method: 'post',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json()
+                } else {
+                    throw new Error(response.status + '')
+                }
+            })
+            .then(data => console.log(data))
+            .catch(e => console.log(e.message))
+    }
 
     return (
         <BlockSignInSignUp width={width} margin={emailRedux ? '50px 0 0 0 ' : '0'}>
+            <button onClick={() =>  handleFetch()}>asdasd</button>
             <MainBlockInput display={emailRedux ? 'flex' : 'block'}>
                 <BlockWithProfile width={emailRedux ? '49%' : '100%'}>
                     <BlockInput>

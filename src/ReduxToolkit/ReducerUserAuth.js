@@ -65,11 +65,7 @@ const toolkitSlice = createSlice({
     name: "userAuth",
     initialState,
 
-    reducers: {
-        getToken (state, action) {
-            state.token = action.payload
-        },
-    },
+    reducers: {getToken (state, action) {state.token = action.payload}},
 
     extraReducers: {
 

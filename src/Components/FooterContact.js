@@ -1,15 +1,6 @@
 import React from 'react';
 import {Container, HeadingTextSection} from "../StyledComponents/Styled";
-import {
-    copyright,
-    facebook,
-    gitHub,
-    instagram,
-    linkEdin,
-    twitter,
-    whatsApp,
-    youTube
-} from "../Utils/Font Awesome/Solid";
+import {copyright} from "../Utils/Font Awesome/Solid";
 import {
     BlockInputTextarea, ButtonSendFooter, EndBlockFooter, InputFooter, LinkFooter,
     MainBlock, MainBlockInputs, MainBlockLinkFooter,
@@ -17,8 +8,10 @@ import {
     TextFooter,
     WrapperFooter
 } from "../StyledComponents/StyledFooter";
+import {arrayObjectLink} from "../Utils/LinkObject";
 
 const FooterContact = () => {
+
     return (
         <WrapperFooter name={'contact'}>
             <Container width={'80%'}>
@@ -41,13 +34,14 @@ const FooterContact = () => {
                 <EndBlockFooter>
                     <TextFooter>{copyright} 2021 hiMath Gaming</TextFooter>
                     <MainBlockLinkFooter>
-                        <LinkFooter href={'https://github.com/'} target={'_blank'}>{gitHub}</LinkFooter>
-                        <LinkFooter href={'https://www.facebook.com/'} target={'_blank'}>{facebook}</LinkFooter>
-                        <LinkFooter href={'https://www.instagram.com/'} target={'_blank'}>{instagram}</LinkFooter>
-                        <LinkFooter href={'https://twitter.com/'} target={'_blank'}>{twitter}</LinkFooter>
-                        <LinkFooter href={'https://www.linkedin.com/'} target={'_blank'}>{linkEdin}</LinkFooter>
-                        <LinkFooter href={'https://www.whatsapp.com/'} target={'_blank'}>{whatsApp}</LinkFooter>
-                        <LinkFooter href={'https://www.youtube.com/'} target={'_blank'}>{youTube}</LinkFooter>
+                        {arrayObjectLink.map(link => <LinkFooter key={link.id} href={link.link} target={'_blank'}>{link.svg}</LinkFooter>)}
+                        {/*<LinkFooter href={'https://github.com/'} target={'_blank'}>{gitHub}</LinkFooter>*/}
+                        {/*<LinkFooter href={'https://www.facebook.com/'} target={'_blank'}>{facebook}</LinkFooter>*/}
+                        {/*<LinkFooter href={'https://www.instagram.com/'} target={'_blank'}>{instagram}</LinkFooter>*/}
+                        {/*<LinkFooter href={'https://twitter.com/'} target={'_blank'}>{twitter}</LinkFooter>*/}
+                        {/*<LinkFooter href={'https://www.linkedin.com/'} target={'_blank'}>{linkEdin}</LinkFooter>*/}
+                        {/*<LinkFooter href={'https://www.whatsapp.com/'} target={'_blank'}>{whatsApp}</LinkFooter>*/}
+                        {/*<LinkFooter href={'https://www.youtube.com/'} target={'_blank'}>{youTube}</LinkFooter>*/}
                     </MainBlockLinkFooter>
                 </EndBlockFooter>
             </Container>
