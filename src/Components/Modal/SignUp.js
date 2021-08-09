@@ -43,7 +43,6 @@ const SignUp = ({showPassword, setShowPassword, width, handleSwitchRequest, hand
 
     return (
         <BlockSignInSignUp width={width} margin={emailRedux ? '50px 0 0 0 ' : '0'}>
-            <button onClick={() =>  handleFetch()}>asdasd</button>
             <MainBlockInput display={emailRedux ? 'flex' : 'block'}>
                 <BlockWithProfile width={emailRedux ? '49%' : '100%'}>
                     <BlockInput>

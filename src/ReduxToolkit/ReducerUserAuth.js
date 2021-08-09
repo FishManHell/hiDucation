@@ -50,7 +50,7 @@ export const regUser = createAsyncThunk('userAuth/regUser',
     async (endpoint, {}) => {
     try {
         const response = await axios.post(
-            `${BASE_URL}/user/registration`,
+            `https://telran-hiducation.herokuapp.com/user/registration`,
             endpoint,
             {headers: {'Content-Type' : 'application/json'}})
         const data = await response
