@@ -100,3 +100,54 @@ export const LabelInput = styled.label`
   color: #FF7400;
   font-weight: 600;
 `
+
+export const BlockFormRegLog = styled.div`
+  max-width: ${props => props.width};
+  background: #ffffff;
+  position: relative;
+  width: 90%;
+  border-radius: 0.50em;
+  transition-duration: 0.3s;
+  -webkit-transition-property: -webkit-transform;
+
+  ${props => props.active && css`
+    margin: 4% auto auto auto;
+  `}
+
+  ${props => props.not_active && css`
+    margin: 2% auto auto auto;
+  `}
+`
+
+export const Switcher = styled.div`
+  width: 100%;
+`
+
+export const SignInSignUp = styled.button`
+  width: 50%;
+  border: none;
+  background: #d2d8d8;
+  height: 70px;
+  
+  &:first-child {
+    border-top-left-radius: 0.50em;
+  }
+  
+  &:last-child {
+    border-top-right-radius: 0.50em;
+  }
+  
+  ${props => props.active && css`
+      background: #ffffff; 
+  `}
+
+  ${props => props.not_active && css`
+      background: #d2d8d8; 
+  `}
+`
+
+export const BlockCloseModal = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5em 1em 0 0;
+`

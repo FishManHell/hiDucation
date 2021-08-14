@@ -10,7 +10,6 @@ import {
 import {envelope, eye, key} from "../../Utils/Font Awesome/Solid";
 import styled from "styled-components";
 import {eye_slash} from "../../Utils/Font Awesome/Regular";
-import {BlockError, ErrorTextModalForm} from "../../StyledComponents/SrtyledModal";
 import ErrorBlockModal from "./ErrorBlockModal";
 
 const MessageChangePasswordBlock = styled.div`
@@ -23,7 +22,8 @@ const TextMessage = styled.span`
   color: #A72537;
 `
 
-const ForgetPassword = ({setShowPassword, showPassword, handleForgetPassword, handleSwitchRequest, handleUseValue}) => {
+const ForgetPassword = ({handleForgetPassword, handleSwitchRequest, handleUseValue, handleBooleanForms, handleShowPassword}) => {
+
     return (
         <BlockSignInSignUp>
             <MessageChangePasswordBlock>
@@ -34,40 +34,17 @@ const ForgetPassword = ({setShowPassword, showPassword, handleForgetPassword, ha
             </MessageChangePasswordBlock>
             <MainBlockInput>
                 <BlockInput>
-                    <LabelInput>{envelope}</LabelInput>
-                    <Input
-                        name={'email'}
-                        type={'email'}
-                        value={handleUseValue().email.value}
-                        placeholder={'E-mail'}
-                        onChange={e => handleUseValue().email.onChange(e)}
-                        onBlur={e => handleUseValue().email.onBlur(e)}
-                    />
-                    <ErrorBlockModal
-                        valueOne={handleUseValue().email.isDirty}
-                        valueTwo={handleUseValue().email.isEmpty}
-                        text={'Field is empty'} left={'0'} bottom={'-35px'}
-                    />
-                    <ErrorBlockModal
-                        valueOne={handleUseValue().email.isDirty}
-                        valueTwo={handleUseValue().email.emailError}
-                        right={'0'} bottom={'-35px'}
-                        text={'Wrong email'}
-                    />
-                </BlockInput>
-
-                <BlockInput>
                     <LabelInput>{key}</LabelInput>
                     <Input
                         name={'password'}
-                        type={showPassword ? 'password' : 'text'}
+                        type={handleBooleanForms().showPassword ? 'password' : 'text'}
                         placeholder={'New password'}
                         value={handleUseValue().password.value}
                         onChange={e => handleUseValue().password.onChange(e)}
                         onBlur={e => handleUseValue().password.onBlur(e)}
                     />
                     <TextChangeType
-                        onClick={() => setShowPassword(!showPassword)}>{showPassword ? eye_slash : eye}</TextChangeType>
+                        onClick={() => handleShowPassword()}>{handleBooleanForms().showPassword ? eye_slash : eye}</TextChangeType>
 
                     <ErrorBlockModal
                         valueOne={handleUseValue().password.isDirty}

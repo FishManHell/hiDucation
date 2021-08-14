@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {times} from "../../Utils/Font Awesome/Solid";
-import {CloseModal, WrapperModal} from "../../StyledComponents/SrtyledModal";
-import styled, {css} from "styled-components";
+import {BlockCloseModal, BlockFormRegLog, CloseModal, SignInSignUp, Switcher, WrapperModal} from "../../StyledComponents/SrtyledModal";
 import SignUp from "./SignUp";
 import ForgetPassword from "./ForgetPassword";
 import {useDispatch} from "react-redux";
@@ -9,72 +8,20 @@ import {changePassword, getUserInform, postLogin, regUser} from "../../ReduxTool
 import {getUserProfile} from "../../ReduxToolkit/ReducerUserGetByEmail";
 import SignIn from "./SignIn";
 
-export const BlockFormRegLog = styled.div`
-  max-width: ${props => props.width};
-  background: #ffffff;
-  position: relative;
-  width: 90%;
-  border-radius: 0.50em;
-  transition-duration: 0.3s;
-  -webkit-transition-property: -webkit-transform;
-
-  ${props => props.active && css`
-    margin: 4% auto auto auto;
-  `}
-
-  ${props => props.not_active && css`
-    margin: 2% auto auto auto;
-  `}
-`
-
-export const Switcher = styled.div`
-  width: 100%;
-`
-
-export const SignInSignUp = styled.button`
-  width: 50%;
-  border: none;
-  background: #d2d8d8;
-  height: 70px;
-  
-  &:first-child {
-    border-top-left-radius: 0.50em;
-  }
-  
-  &:last-child {
-    border-top-right-radius: 0.50em;
-  }
-  
-  ${props => props.active && css`
-      background: #ffffff; 
-  `}
-
-  ${props => props.not_active && css`
-      background: #d2d8d8; 
-  `}
-`
-
-export const BlockCloseModal = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  padding: 0.5em 1em 0 0;
-`
-
-const Modal = ({openModal, setOpenModal, form, setForm, showPassword, setShowPassword, clearState, handleUseValue}) => {
+const Modal = ({clearState, handleUseValue, handleBooleanForms, handleShowPassword}) => {
     const dispatch = useDispatch()
-    const [forgetPassword, setForgetPassword] = useState(false);
 
     const handleForgetPassword = (change) => {
-        setForgetPassword(change)
-        setShowPassword(true);
+        handleBooleanForms().setForgetPassword(change)
+        handleBooleanForms().setShowPassword(true);
         clearState()
     }
 
     const handleCloseModal = () => {
-        setOpenModal(false)
-        setForgetPassword(false);
-        setShowPassword(true);
-        setForm(true);
+        handleBooleanForms().setOpenModal(false)
+        handleBooleanForms().setForgetPassword(false);
+        handleBooleanForms().setShowPassword(true);
+        handleBooleanForms().setForm(true);
         clearState()
         if (document.body.style.overflow === "hidden") {
             document.body.style.overflow = "auto"
@@ -82,9 +29,9 @@ const Modal = ({openModal, setOpenModal, form, setForm, showPassword, setShowPas
     }
 
     const handleChangeFormSignInSignUp = (formik, forget) => {
-        setForm(formik)
-        setForgetPassword(forget)
-        setShowPassword(true);
+        handleBooleanForms().setForm(formik)
+        handleBooleanForms().setForgetPassword(forget)
+        handleBooleanForms().setShowPassword(true);
         clearState()
     }
 
@@ -125,14 +72,13 @@ const Modal = ({openModal, setOpenModal, form, setForm, showPassword, setShowPas
 
 
     const changeSignInSignUp = () => {
-        if (form) {
+        if (handleBooleanForms().form) {
             return (
                 <SignIn
+                    handleShowPassword={handleShowPassword}
                     handleUseValue={handleUseValue}
+                    handleBooleanForms={handleBooleanForms}
                     clearState={clearState}
-                    showPassword={showPassword}
-                    setShowPassword={setShowPassword}
-                    setForgetPassword={setForgetPassword}
                     handleForgetPassword={handleForgetPassword}
                     handleSwitchRequest={handleSwitchRequest}
                 />
@@ -141,9 +87,9 @@ const Modal = ({openModal, setOpenModal, form, setForm, showPassword, setShowPas
             return  (
                 <SignUp
                     width={'100%'}
+                    handleShowPassword={handleShowPassword}
+                    handleBooleanForms={handleBooleanForms}
                     handleUseValue={handleUseValue}
-                    showPassword={showPassword}
-                    setShowPassword={setShowPassword}
                     handleSwitchRequest={handleSwitchRequest}
                 />
             )
@@ -152,34 +98,36 @@ const Modal = ({openModal, setOpenModal, form, setForm, showPassword, setShowPas
 
     return (
         <WrapperModal
-            openModal={openModal}
-            closeModal={!openModal}
-            className={!openModal ? 'openModal' : 'closeModal'}>
+            openModal={handleBooleanForms().openModal}
+            closeModal={!handleBooleanForms().openModal}
+            className={!handleBooleanForms().openModal ? 'openModal' : 'closeModal'}>
             <BlockFormRegLog
                 width={'600px'}
-                active={form}
-                not_active={!form}
-                className={form ? 'active' : 'not_active'}>
+                active={handleBooleanForms().form}
+                not_active={!handleBooleanForms().form}
+                className={handleBooleanForms().form ? 'active' : 'not_active'}>
                 <Switcher>
                     <SignInSignUp
-                        active={form}
-                        not_active={!form}
-                        className={form ? 'active' : 'not_active'}
-                        onClick={() => handleChangeFormSignInSignUp(true, false)}>{!forgetPassword ? 'SignIn' : 'Change password'}</SignInSignUp>
+                        active={handleBooleanForms().form}
+                        not_active={!handleBooleanForms().form}
+                        className={handleBooleanForms().form ? 'active' : 'not_active'}
+                        onClick={() => handleChangeFormSignInSignUp(true, false)}>
+                        {!handleBooleanForms().forgetPassword ? 'SignIn' : 'Change password'}
+                    </SignInSignUp>
                     <SignInSignUp
-                        active={!form}
-                        not_active={form}
-                        className={!form ? 'active' : 'not_active'}
+                        active={!handleBooleanForms().form}
+                        not_active={handleBooleanForms().form}
+                        className={!handleBooleanForms().form ? 'active' : 'not_active'}
                         onClick={() => handleChangeFormSignInSignUp(false, false)}>SignUp</SignInSignUp>
                 </Switcher>
                 <BlockCloseModal>
                     <CloseModal onClick={() => handleCloseModal()}>{times}</CloseModal>
                 </BlockCloseModal>
-                {forgetPassword
+                {handleBooleanForms().forgetPassword
                     ?
                     <ForgetPassword
-                        setShowPassword={setShowPassword}
-                        showPassword={showPassword}
+                        handleShowPassword={handleShowPassword}
+                        handleBooleanForms={handleBooleanForms}
                         handleForgetPassword={handleForgetPassword}
                         handleSwitchRequest={handleSwitchRequest}
                         handleUseValue={handleUseValue}

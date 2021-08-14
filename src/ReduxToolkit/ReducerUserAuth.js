@@ -20,7 +20,7 @@ export const postLogin = createAsyncThunk('userAuth/getTokenLogin',
     async (endpoint = {email: '',  password: ''}, {dispatch}) => {
         try {
             const response = await fetch(`${BASE_URL}/user/login?userEmail=${endpoint.email}&password=${endpoint.password}`);
-            const data = await response.headers.get('token')
+            const data = response.headers.get('token')
             console.log(data)
             localStorage.setItem('token', data);
             dispatch(getToken(data))
@@ -30,6 +30,7 @@ export const postLogin = createAsyncThunk('userAuth/getTokenLogin',
         }
     }
 )
+
 
 export const changePassword = createAsyncThunk('userAuth/changePassword',
     async (endpoint = {email: '', password: ''}) => {

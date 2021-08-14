@@ -2,7 +2,6 @@ import React from 'react';
 import styled, {css} from "styled-components";
 import {apple, envelope, eye, facebook, google, key} from "../../Utils/Font Awesome/Solid";
 import {eye_slash} from "../../Utils/Font Awesome/Regular";
-import {BlockError, ErrorTextModalForm} from "../../StyledComponents/SrtyledModal";
 import {device} from "../../Utils/MediaSize";
 import ErrorBlockModal from "./ErrorBlockModal";
 
@@ -167,7 +166,7 @@ export const ForgetPasswordSignInText = styled.span`
   }
 `
 
-const SignIn = ({showPassword, setShowPassword, handleForgetPassword, handleSwitchRequest, handleUseValue}) => {
+const SignIn = ({handleForgetPassword, handleSwitchRequest, handleUseValue, handleBooleanForms, handleShowPassword}) => {
 
     return (
         <BlockSignInSignUp width={'100%'}>
@@ -204,14 +203,14 @@ const SignIn = ({showPassword, setShowPassword, handleForgetPassword, handleSwit
                     <LabelInput>{key}</LabelInput>
                     <Input
                         name={'password'}
-                        type={showPassword ? 'password' : 'text'}
+                        type={handleBooleanForms().showPassword ? 'password' : 'text'}
                         placeholder={'Password'}
                         value={handleUseValue().password.value}
                         onChange={e => handleUseValue().password.onChange(e)}
                         onBlur={e => handleUseValue().password.onBlur(e)}
                     />
                     <TextChangeType
-                        onClick={() => setShowPassword(!showPassword)}>{showPassword ? eye_slash : eye}</TextChangeType>
+                        onClick={() => handleShowPassword()}>{handleBooleanForms().showPassword ? eye_slash : eye}</TextChangeType>
                     <ErrorBlockModal
                         valueOne={handleUseValue().password.isDirty}
                         valueTwo={handleUseValue().password.isEmpty}

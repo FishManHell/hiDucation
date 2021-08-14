@@ -15,31 +15,8 @@ const BlockWithProfile = styled.div`
   }
 `
 
-const SignUp = ({showPassword, setShowPassword, width, handleSwitchRequest, handleUseValue}) => {
+const SignUp = ({width, handleSwitchRequest, handleUseValue, handleBooleanForms, handleShowPassword}) => {
     const emailRedux = useSelector(state => state.userAuth.user.email);
-
-    const handleFetch = () => {
-        const user = {
-            email: 'Vlad1-2@ua.fm',
-            password: 'Denis1996'
-        }
-        fetch("https://telran-hiducation.herokuapp.com/user/registration", {
-            method: 'post',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response.json()
-                } else {
-                    throw new Error(response.status + '')
-                }
-            })
-            .then(data => console.log(data))
-            .catch(e => console.log(e.message))
-    }
 
     return (
         <BlockSignInSignUp width={width} margin={emailRedux ? '50px 0 0 0 ' : '0'}>
@@ -165,7 +142,7 @@ const SignUp = ({showPassword, setShowPassword, width, handleSwitchRequest, hand
                     <BlockInput>
                         <LabelInput>{key}</LabelInput>
                         <Input
-                            type={showPassword ? 'password' : 'text'}
+                            type={handleBooleanForms().showPassword ? 'password' : 'text'}
                             placeholder={'Password'}
                             required
                             value={handleUseValue().password.value}
@@ -174,7 +151,7 @@ const SignUp = ({showPassword, setShowPassword, width, handleSwitchRequest, hand
                             onBlur={e => handleUseValue().password.onBlur(e)}
                         />
                         <TextChangeType
-                            onClick={() => setShowPassword(!showPassword)}>{showPassword ? eye_slash : eye}</TextChangeType>
+                            onClick={() => handleShowPassword()}>{handleBooleanForms().showPassword ? eye_slash : eye}</TextChangeType>
                         <ErrorBlockModal
                             valueOne={handleUseValue().password.isDirty}
                             valueTwo={handleUseValue().password.isEmpty}
@@ -191,7 +168,7 @@ const SignUp = ({showPassword, setShowPassword, width, handleSwitchRequest, hand
                     <BlockInput>
                         <LabelInput>{key}</LabelInput>
                         <Input
-                            type={'password'}
+                            type={handleBooleanForms().showPassword ? 'password' : 'text'}
                             placeholder={'Repeat Password'}
                             required
                             name={'password'}

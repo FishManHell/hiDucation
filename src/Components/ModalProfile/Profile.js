@@ -9,11 +9,15 @@ const MainBlockProfileAndImgProfile = styled.div`
   flex-direction: column;
 `
 
-const Profile = ({showPassword, setShowPassword, handleUseValue}) => {
+const Profile = ({handleUseValue, handleBooleanForms, handleShowPassword}) => {
     return (
         <MainBlockProfileAndImgProfile>
             <AvatarProfile/>
-            <SignUp showPassword={showPassword} setShowPassword={setShowPassword} handleUseValue={handleUseValue}/>
+            <SignUp
+                handleBooleanForms={handleBooleanForms}
+                handleUseValue={handleUseValue}
+                handleShowPassword={handleShowPassword}
+            />
         </MainBlockProfileAndImgProfile>
     );
 };

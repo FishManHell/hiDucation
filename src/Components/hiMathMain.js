@@ -17,6 +17,7 @@ const HiMathMain = () => {
     const [openModal, setOpenModal] = useState(false);
     const [form, setForm] = useState(true);
     const [showPassword, setShowPassword] = useState(true);
+    const [forgetPassword, setForgetPassword] = useState(false);
 
     const email = useInput('' || emailRedux, {isEmpty: true, isEmail: true});
     const password = useInput('' || passwordRedux, {isEmpty: true, isPassword: true});
@@ -45,6 +46,19 @@ const HiMathMain = () => {
         repeatPassword
     })
 
+    const handleChangeValuesBooleanForms = () => ({
+        openModal,
+        setOpenModal,
+        form,
+        setForm,
+        showPassword,
+        setShowPassword,
+        forgetPassword,
+        setForgetPassword
+    })
+
+    const handleShowPassword = () => setShowPassword(!showPassword)
+
     return (
         <div>
             <NavHeader setOpenModal={setOpenModal}/>
@@ -55,24 +69,16 @@ const HiMathMain = () => {
             <FooterContact/>
             {emailRedux
                 ? <ModalProfile
-                    openModal={openModal}
-                    setOpenModal={setOpenModal}
-                    form={form}
-                    setForm={setForm}
-                    showPassword={showPassword}
-                    setShowPassword={setShowPassword}
+                    handleShowPassword={handleShowPassword}
+                    handleBooleanForms={handleChangeValuesBooleanForms}
                     clearState={clearState}
                     handleUseValue={handleUseValue}
                 />
                 : <Modal
-                    openModal={openModal}
-                    setOpenModal={setOpenModal}
-                    form={form}
-                    setForm={setForm}
-                    showPassword={showPassword}
-                    setShowPassword={setShowPassword}
-                    clearState={clearState}
+                    handleShowPassword={handleShowPassword}
+                    handleBooleanForms={handleChangeValuesBooleanForms}
                     handleUseValue={handleUseValue}
+                    clearState={clearState}
                 />
             }
         </div>
