@@ -7,10 +7,14 @@ import {
     LabelInput,
     MainBlockInput, TextChangeType,
 } from "./SignIn";
-import {envelope, eye, key} from "../../Utils/Font Awesome/Solid";
+import {eye, key, passport, repeat} from "../../Utils/Font Awesome/Solid";
 import styled from "styled-components";
 import {eye_slash} from "../../Utils/Font Awesome/Regular";
 import ErrorBlockModal from "./ErrorBlockModal";
+import {Formik} from 'formik';
+import {funcCheckYup} from "../../Utils/YupCheck";
+import {useDispatch} from "react-redux";
+import {changePassword} from "../../ReduxToolkit/ReducerUserAuth";
 
 const MessageChangePasswordBlock = styled.div`
   margin-bottom: 20px;
@@ -22,7 +26,15 @@ const TextMessage = styled.span`
   color: #A72537;
 `
 
-const ForgetPassword = ({handleForgetPassword, handleSwitchRequest, handleUseValue, handleBooleanForms, handleShowPassword}) => {
+const ForgetPassword = ({handleForgetPassword, handleBooleanForms, handleShowPassword}) => {
+
+    const dispatch = useDispatch()
+    const valueForgetPassword = {
+        oldPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+    }
+
 
     return (
         <BlockSignInSignUp>
@@ -33,45 +45,81 @@ const ForgetPassword = ({handleForgetPassword, handleSwitchRequest, handleUseVal
                 </TextMessage>
             </MessageChangePasswordBlock>
             <MainBlockInput>
-                <BlockInput>
-                    <LabelInput>{key}</LabelInput>
-                    <Input
-                        name={'password'}
-                        type={handleBooleanForms().showPassword ? 'password' : 'text'}
-                        placeholder={'New password'}
-                        value={handleUseValue().password.value}
-                        onChange={e => handleUseValue().password.onChange(e)}
-                        onBlur={e => handleUseValue().password.onBlur(e)}
-                    />
-                    <TextChangeType
-                        onClick={() => handleShowPassword()}>{handleBooleanForms().showPassword ? eye_slash : eye}</TextChangeType>
-
-                    <ErrorBlockModal
-                        valueOne={handleUseValue().password.isDirty}
-                        valueTwo={handleUseValue().password.isEmpty}
-                        text={'Field is empty'} left={'0'} bottom={'-35px'}
-                    />
-                    <ErrorBlockModal
-                        valueOne={handleUseValue().password.isDirty}
-                        valueTwo={handleUseValue().password.passwordError}
-                        right={'0'} bottom={'-35px'}
-                        text={'Wrong Password'}
-                    />
-                </BlockInput>
+                <Formik
+                    initialValues={valueForgetPassword}
+                    validationSchema={funcCheckYup('forgetPassword')}
+                    onSubmit={(values, {setSubmitting}) => {
+                        //TODO запрос должен быть другой - параметры передал как для нового но запрос старый
+                        dispatch(changePassword({oldPassword: values.oldPassword, newPassword: values.newPassword}))
+                        setSubmitting(false)
+                        console.log(`Forget-Password - oldPassword: ${values.oldPassword} newPassword: ${values.newPassword}`)
+                    }}
+                >
+                    {formik => (
+                        <form onSubmit={formik.handleSubmit}>
+                            <BlockInput>
+                                <LabelInput htmlFor={'oldPassword'}>{passport}</LabelInput>
+                                <Input
+                                    type={'text'}
+                                    id={'oldPassword'}
+                                    placeholder={'Old passport'}
+                                    {...formik.getFieldProps('oldPassword')}
+                                />
+                                <ErrorBlockModal
+                                    valueOne={formik.touched.oldPassword}
+                                    valueTwo={formik.errors.oldPassword}
+                                    text={formik.errors.oldPassword}
+                                    left={'0'}
+                                    bottom={'-35px'}
+                                />
+                            </BlockInput>
+                            <BlockInput>
+                                <LabelInput htmlFor={'newPassword'}>{key}</LabelInput>
+                                <Input
+                                    type={handleBooleanForms().showPassword ? 'password' : 'text'}
+                                    placeholder={'New password'}
+                                    id={'newPassword'}
+                                    {...formik.getFieldProps('newPassword')}
+                                />
+                                <TextChangeType
+                                    onClick={() => handleShowPassword()}>
+                                    {handleBooleanForms().showPassword ? eye_slash : eye}
+                                </TextChangeType>
+                                <ErrorBlockModal
+                                    valueOne={formik.touched.newPassword}
+                                    valueTwo={formik.errors.newPassword}
+                                    text={formik.errors.newPassword} left={'0'} bottom={'-35px'}
+                                />
+                            </BlockInput>
+                            <BlockInput>
+                                <LabelInput htmlFor={'confirmPassword'}>{repeat}</LabelInput>
+                                <Input
+                                    type={handleBooleanForms().showPassword ? 'password' : 'text'}
+                                    placeholder={'Repeat Password'}
+                                    id={'confirmPassword'}
+                                    {...formik.getFieldProps('confirmPassword')}
+                                />
+                                <ErrorBlockModal
+                                    valueOne={formik.touched.confirmPassword}
+                                    valueTwo={formik.errors.confirmPassword}
+                                    text={formik.errors.confirmPassword} left={'0'} bottom={'-35px'}
+                                />
+                            </BlockInput>
+                            <ButtonSend
+                                type={'submit'}
+                                disabled={!formik.values.confirmPassword || !formik.isValid}>
+                                Change Password
+                            </ButtonSend>
+                        </form>
+                    )}
+                </Formik>
             </MainBlockInput>
             <BlockForgetPasswordTextBackSignIn>
                 <ForgetPasswordSignInText onClick={() => handleForgetPassword(false)}>
                     Back to Log-in
                 </ForgetPasswordSignInText>
             </BlockForgetPasswordTextBackSignIn>
-            <BlockInput>
-                <ButtonSend
-                    onClick={() => handleSwitchRequest(handleUseValue().email.value, handleUseValue().password.value, 3)}
-                    disabled={!handleUseValue().password.inputValid}
-                >
-                    Change Password
-                </ButtonSend>
-            </BlockInput>
+
         </BlockSignInSignUp>
     );
 };

@@ -6,7 +6,8 @@ import {
     CloseModal,
     SignInSignUp,
     Switcher,
-    WrapperModal} from "../../StyledComponents/SrtyledModal";
+    WrapperModal
+} from "../../StyledComponents/SrtyledModal";
 import SignUp from "./SignUp";
 import ForgetPassword from "./ForgetPassword";
 import {useDispatch} from "react-redux";
@@ -14,7 +15,7 @@ import {changePassword, getUserInform, postLogin, regUser} from "../../ReduxTool
 import {getUserProfile} from "../../ReduxToolkit/ReducerUserGetByEmail";
 import SignIn from "./SignIn";
 
-const Modal = ({clearState, handleUseValue, handleBooleanForms, handleShowPassword}) => {
+const Modal = ({clearState, handleBooleanForms, handleShowPassword}) => {
     const dispatch = useDispatch()
 
     const handleForgetPassword = (change) => {
@@ -57,26 +58,6 @@ const Modal = ({clearState, handleUseValue, handleBooleanForms, handleShowPasswo
     const requestForgetPass = (email, password) => dispatch(changePassword({email, password}))
 
 
-    const handleSwitchRequest = (email, password, number) => {
-        switch (number) {
-            case 1:
-                requestLogin(email, password)
-                handleCloseClearAll()
-                return
-            case 2:
-                requestReg(email, password)
-                handleCloseClearAll()
-                return
-            case 3:
-                requestForgetPass(email, password)
-                handleCloseClearAll()
-                return
-            default:
-                return -1
-        }
-    }
-
-
     const changeSignInSignUp = () => {
         if (handleBooleanForms().form) {
             return (
@@ -92,8 +73,6 @@ const Modal = ({clearState, handleUseValue, handleBooleanForms, handleShowPasswo
                     width={'100%'}
                     handleShowPassword={handleShowPassword}
                     handleBooleanForms={handleBooleanForms}
-                    handleUseValue={handleUseValue}
-                    handleSwitchRequest={handleSwitchRequest}
                 />
             )
         }
@@ -127,17 +106,16 @@ const Modal = ({clearState, handleUseValue, handleBooleanForms, handleShowPasswo
                 <BlockCloseModal>
                     <CloseModal onClick={() => handleCloseModal()}>{times}</CloseModal>
                 </BlockCloseModal>
-                {handleBooleanForms().forgetPassword
-                    ?
-                    <ForgetPassword
-                        handleShowPassword={handleShowPassword}
-                        handleBooleanForms={handleBooleanForms}
-                        handleForgetPassword={handleForgetPassword}
-                        handleSwitchRequest={handleSwitchRequest}
-                        handleUseValue={handleUseValue}
-                    />
-                    :
-                    changeSignInSignUp()
+                {
+                    handleBooleanForms().forgetPassword
+                        ?
+                        <ForgetPassword
+                            handleShowPassword={handleShowPassword}
+                            handleBooleanForms={handleBooleanForms}
+                            handleForgetPassword={handleForgetPassword}
+                        />
+                        :
+                        changeSignInSignUp()
                 }
             </BlockFormRegLog>
         </WrapperModal>
@@ -145,5 +123,3 @@ const Modal = ({clearState, handleUseValue, handleBooleanForms, handleShowPasswo
 };
 
 export default Modal;
-
-// TODO баг с повторением пароля - устранить

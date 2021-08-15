@@ -2,7 +2,7 @@ import React from 'react';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import {responsiveSuccessStories} from "../../Utils/UtilsCarousel";
-import {arrayObjectsStories} from "../../Utils/SuccessStoriesObject";
+import {arrayObjectsStories} from "../../Utils/ObectsInform/SuccessStoriesObject";
 import StoryItem from "../StoryItem";
 
 const MultiCarouselSuccessStories = () => {

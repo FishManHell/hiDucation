@@ -77,7 +77,6 @@ const HiMathMain = () => {
                 : <Modal
                     handleShowPassword={handleShowPassword}
                     handleBooleanForms={handleChangeValuesBooleanForms}
-                    handleUseValue={handleUseValue}
                     clearState={clearState}
                 />
             }

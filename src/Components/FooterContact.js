@@ -8,7 +8,7 @@ import {
     TextFooter,
     WrapperFooter
 } from "../StyledComponents/StyledFooter";
-import {arrayObjectLink} from "../Utils/LinkObject";
+import {arrayObjectLink} from "../Utils/ObectsInform/LinkObject";
 
 const FooterContact = () => {
 

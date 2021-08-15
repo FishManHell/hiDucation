@@ -5,11 +5,10 @@ import {eye_slash} from "../../Utils/Font Awesome/Regular";
 import {device} from "../../Utils/MediaSize";
 import ErrorBlockModal from "./ErrorBlockModal";
 import {Formik} from 'formik';
-import * as Yup from 'yup';
 import {getUserInform, postLogin} from "../../ReduxToolkit/ReducerUserAuth";
 import {getUserProfile} from "../../ReduxToolkit/ReducerUserGetByEmail";
 import {useDispatch} from "react-redux";
-import {yupHandle} from "../../Utils/YupCheck";
+import {funcCheckYup} from "../../Utils/YupCheck";
 
 export const BlockSignInSignUp = styled.div`
   width: ${props => props.width};
@@ -186,13 +185,13 @@ const SignIn = ({handleForgetPassword, handleBooleanForms, handleShowPassword}) 
             <TextOr>Or</TextOr>
             <Formik
                 initialValues={{email: '', password: ''}}
-                validationSchema={yupHandle}
+                validationSchema={funcCheckYup('login')}
                 onSubmit={(values, {setSubmitting}) => {
                     dispatch(postLogin({...values}))
                     dispatch(getUserInform({...values}))
                     dispatch(getUserProfile(values.email))
                     setSubmitting(false)
-                    console.log(values.email)
+                    console.log(`Login - ${values.email}`)
                 }}
             >
                 {formik => (
@@ -201,7 +200,7 @@ const SignIn = ({handleForgetPassword, handleBooleanForms, handleShowPassword}) 
                             <BlockInput>
                                 <LabelInput htmlFor={'email'}>{envelope}</LabelInput>
                                 <Input id={'email'} type={'email'}
-                                       placeholder={'E-mail'}{...formik.getFieldProps('email')}/>
+                                       placeholder={'test@gmail.com'}{...formik.getFieldProps('email')}/>
                                 <ErrorBlockModal valueOne={formik.touched.email} valueTwo={formik.errors.email}
                                                  text={formik.errors.email} left={'0'} bottom={'-35px'}
                                 />
@@ -212,8 +211,9 @@ const SignIn = ({handleForgetPassword, handleBooleanForms, handleShowPassword}) 
                                        type={handleBooleanForms().showPassword ? 'password' : 'text'}
                                        placeholder={'Password'}
                                 />
-                                <TextChangeType
-                                    onClick={() => handleShowPassword()}>{handleBooleanForms().showPassword ? eye_slash : eye}</TextChangeType>
+                                <TextChangeType onClick={() => handleShowPassword()}>
+                                    {handleBooleanForms().showPassword ? eye_slash : eye}
+                                </TextChangeType>
                                 <ErrorBlockModal valueOne={formik.touched.password} valueTwo={formik.errors.password}
                                                  text={formik.errors.password} left={'0'} bottom={'-35px'}
                                 />

@@ -1,4 +1,4 @@
-import {facebook, gitHub, instagram, linkEdin, twitter, whatsApp, youTube} from "./Font Awesome/Solid";
+import {facebook, gitHub, instagram, linkEdin, twitter, whatsApp, youTube} from "../Font Awesome/Solid";
 export const arrayObjectLink = [
     {
         id: 1,

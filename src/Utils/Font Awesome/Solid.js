@@ -5,7 +5,7 @@ import {
     faEnvelope,
     faEye,
     faGraduationCap,
-    faKey,
+    faKey, faPassport, faRedo,
     faSearch,
     faTimes, faTrash, faUniversity,
     faUser
@@ -40,3 +40,5 @@ export const graduation_cap = <FontAwesomeIcon icon={faGraduationCap}/>
 export const university = <FontAwesomeIcon icon={faUniversity}/>
 export const camera = <FontAwesomeIcon icon={faCamera}/>
 export const trash = <FontAwesomeIcon icon={faTrash}/>
+export const passport = <FontAwesomeIcon icon={faPassport}/>
+export const repeat = <FontAwesomeIcon icon={faRedo}/>

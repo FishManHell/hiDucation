@@ -2,7 +2,7 @@ import React from 'react';
 import {HeadingTextSection} from "../StyledComponents/Styled";
 import {Carousel} from "react-bootstrap";
 import {ContainerItemCarousel, WrapperTeam} from "../StyledComponents/StyledTeam";
-import {arrayTeamObjects} from "../Utils/TeamObject";
+import {arrayTeamObjects} from "../Utils/ObectsInform/TeamObject";
 import TeamItem from "./TeamItem";
 
 const Team = () => {
