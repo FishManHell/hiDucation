@@ -194,17 +194,15 @@ const SignUp = ({width, handleSwitchRequest, handleUseValue, handleBooleanForms,
                 ?
                 null
                 :
-                <BlockInput>
-                    <ButtonSend
-                        onClick={() => handleSwitchRequest(handleUseValue().email.value, handleUseValue().password.value, 2)}
-                        disabled={
-                            !handleUseValue().email.inputValid || !handleUseValue().password.inputValid
-                            || !handleUseValue().userName.inputValid || !handleUseValue().repeatPassword.inputValid
-                        }
-                    >
-                        Registration
-                    </ButtonSend>
-                </BlockInput>
+                <ButtonSend
+                    onClick={() => handleSwitchRequest(handleUseValue().email.value, handleUseValue().password.value, 2)}
+                    disabled={
+                        !handleUseValue().email.inputValid || !handleUseValue().password.inputValid
+                        || !handleUseValue().userName.inputValid || !handleUseValue().repeatPassword.inputValid
+                    }
+                >
+                    Registration
+                </ButtonSend>
             }
         </BlockSignInSignUp>
     );

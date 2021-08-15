@@ -17,6 +17,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "create-react-app": "^4.0.3",
+    "formik": "^2.2.9",
     "material-ui-icons": "^1.0.0-beta.36",
     "node-sass": "^5.0.0",
     "react": "^17.0.2",
@@ -40,7 +41,8 @@
     "styled-component": "^2.8.0",
     "styled-components": "^5.2.1",
     "typescript": "^4.3.2",
-    "web-vitals": "^1.1.1"
+    "web-vitals": "^1.1.1",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -65,6 +67,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {}
+  }
 }

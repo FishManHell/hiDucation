@@ -4,10 +4,16 @@ import {apple, envelope, eye, facebook, google, key} from "../../Utils/Font Awes
 import {eye_slash} from "../../Utils/Font Awesome/Regular";
 import {device} from "../../Utils/MediaSize";
 import ErrorBlockModal from "./ErrorBlockModal";
+import {Formik} from 'formik';
+import * as Yup from 'yup';
+import {getUserInform, postLogin} from "../../ReduxToolkit/ReducerUserAuth";
+import {getUserProfile} from "../../ReduxToolkit/ReducerUserGetByEmail";
+import {useDispatch} from "react-redux";
+import {yupHandle} from "../../Utils/YupCheck";
 
 export const BlockSignInSignUp = styled.div`
   width: ${props => props.width};
-  padding: 1em 2em 0 2em;
+  padding: 1em 2em 2em 2em;
   margin: ${props => props.margin};
 `
 
@@ -27,17 +33,19 @@ const ButtonConnectLink = styled.button`
   font-size: 2rem;
   line-height: 2rem;
   color: #ffffff;
-  
+
   &:first-child {
     background: #EB4C42;
   }
+
   &:nth-child(2) {
     background: #455CAA;
   }
+
   &:last-child {
     background: #3D3737;
   }
-  
+
   &:hover {
     transform: scale(1.3);
     transition: all 0.4s;
@@ -53,7 +61,7 @@ const TextOr = styled.p`
   line-height: 1.5rem;
   font-weight: 600;
   color: #BD0452;
-  
+
   &:before {
     content: '';
     position: absolute;
@@ -85,7 +93,7 @@ export const MainBlockInput = styled.div`
     justify-content: center;
     align-items: center;
   }
-  
+
 `
 
 export const BlockInput = styled.div`
@@ -132,11 +140,10 @@ export const ButtonSend = styled.button`
   padding: 16px 0;
   border-radius: 0.25em;
   border: none;
-  
- ${props => props.disabled && css`
-   background: #6E7F80;
- `}
- 
+
+  ${props => props.disabled && css`
+    background: #6E7F80;
+  `}
   &:hover {
     opacity: 0.8;
   }
@@ -158,15 +165,16 @@ export const BlockForgetPasswordTextBackSignIn = styled.div`
 export const ForgetPasswordSignInText = styled.span`
   color: #ffffff;
   font-weight: 500;
-  
- 
+
+
   &:hover {
     text-decoration: underline;
     transition: all 0.4s;
   }
 `
 
-const SignIn = ({handleForgetPassword, handleSwitchRequest, handleUseValue, handleBooleanForms, handleShowPassword}) => {
+const SignIn = ({handleForgetPassword, handleBooleanForms, handleShowPassword}) => {
+    const dispatch = useDispatch()
 
     return (
         <BlockSignInSignUp width={'100%'}>
@@ -176,69 +184,106 @@ const SignIn = ({handleForgetPassword, handleSwitchRequest, handleUseValue, hand
                 <ButtonConnectLink>{apple}</ButtonConnectLink>
             </BlockConnectLink>
             <TextOr>Or</TextOr>
-            <MainBlockInput>
-                <BlockInput>
-                    <LabelInput>{envelope}</LabelInput>
-                    <Input
-                        name={'email'}
-                        type={'email'}
-                        value={handleUseValue().email.value}
-                        placeholder={'E-mail'}
-                        onChange={e => handleUseValue().email.onChange(e)}
-                        onBlur={e => handleUseValue().email.onBlur(e)}
-                    />
-                    <ErrorBlockModal
-                        valueOne={handleUseValue().email.isDirty}
-                        valueTwo={handleUseValue().email.isEmpty}
-                        text={'Field is empty'} left={'0'} bottom={'-35px'}
-                    />
-                    <ErrorBlockModal
-                        valueOne={handleUseValue().email.isDirty}
-                        valueTwo={handleUseValue().email.emailError}
-                        right={'0'} bottom={'-35px'}
-                        text={'Wrong email'}
-                    />
-                </BlockInput>
-                <BlockInput>
-                    <LabelInput>{key}</LabelInput>
-                    <Input
-                        name={'password'}
-                        type={handleBooleanForms().showPassword ? 'password' : 'text'}
-                        placeholder={'Password'}
-                        value={handleUseValue().password.value}
-                        onChange={e => handleUseValue().password.onChange(e)}
-                        onBlur={e => handleUseValue().password.onBlur(e)}
-                    />
-                    <TextChangeType
-                        onClick={() => handleShowPassword()}>{handleBooleanForms().showPassword ? eye_slash : eye}</TextChangeType>
-                    <ErrorBlockModal
-                        valueOne={handleUseValue().password.isDirty}
-                        valueTwo={handleUseValue().password.isEmpty}
-                        text={'Field is empty'} left={'0'} bottom={'-35px'}
-                    />
-                    <ErrorBlockModal
-                        valueOne={handleUseValue().password.isDirty}
-                        valueTwo={handleUseValue().password.passwordError}
-                        right={'0'} bottom={'-35px'}
-                        text={'Wrong Password'}
-                    />
-                </BlockInput>
-            </MainBlockInput>
+            <Formik
+                initialValues={{email: '', password: ''}}
+                validationSchema={yupHandle}
+                onSubmit={(values, {setSubmitting}) => {
+                    dispatch(postLogin({...values}))
+                    dispatch(getUserInform({...values}))
+                    dispatch(getUserProfile(values.email))
+                    setSubmitting(false)
+                    console.log(values.email)
+                }}
+            >
+                {formik => (
+                    <form onSubmit={formik.handleSubmit}>
+                        <MainBlockInput>
+                            <BlockInput>
+                                <LabelInput htmlFor={'email'}>{envelope}</LabelInput>
+                                <Input id={'email'} type={'email'}
+                                       placeholder={'E-mail'}{...formik.getFieldProps('email')}/>
+                                <ErrorBlockModal valueOne={formik.touched.email} valueTwo={formik.errors.email}
+                                                 text={formik.errors.email} left={'0'} bottom={'-35px'}
+                                />
+                            </BlockInput>
+                            <BlockInput>
+                                <LabelInput>{key}</LabelInput>
+                                <Input id={'password'} {...formik.getFieldProps('password')}
+                                       type={handleBooleanForms().showPassword ? 'password' : 'text'}
+                                       placeholder={'Password'}
+                                />
+                                <TextChangeType
+                                    onClick={() => handleShowPassword()}>{handleBooleanForms().showPassword ? eye_slash : eye}</TextChangeType>
+                                <ErrorBlockModal valueOne={formik.touched.password} valueTwo={formik.errors.password}
+                                                 text={formik.errors.password} left={'0'} bottom={'-35px'}
+                                />
+                            </BlockInput>
+                        </MainBlockInput>
+
+                        <ButtonSend
+                            disabled={!formik.values.email || !formik.values.password || !formik.isValid}
+                            type="submit">
+                            Login
+                        </ButtonSend>
+                    </form>
+                )}
+            </Formik>
             <BlockForgetPasswordTextBackSignIn>
                 <ForgetPasswordSignInText onClick={() => handleForgetPassword(true)}>
                     Forgot your password ?
                 </ForgetPasswordSignInText>
             </BlockForgetPasswordTextBackSignIn>
-            <BlockInput>
-                <ButtonSend
-                    disabled={!handleUseValue().email.inputValid || !handleUseValue().password.inputValid}
-                    onClick={() => handleSwitchRequest(handleUseValue().email.value, handleUseValue().password.value, 1)}
-                >
-                    Login
-                </ButtonSend>
-            </BlockInput>
         </BlockSignInSignUp>
     );
 };
 
 export default SignIn;
+
+// <MainBlockInput>
+//     <BlockInput>
+//         <LabelInput>{envelope}</LabelInput>
+//         <Input
+//             name={'email'}
+//             type={'email'}
+//             value={handleUseValue().email.value}
+//             placeholder={'E-mail'}
+//             onChange={e => handleUseValue().email.onChange(e)}
+//             onBlur={e => handleUseValue().email.onBlur(e)}
+//         />
+//         <ErrorBlockModal
+//             valueOne={handleUseValue().email.isDirty}
+//             valueTwo={handleUseValue().email.isEmpty}
+//             text={'Field is empty'} left={'0'} bottom={'-35px'}
+//         />
+//         <ErrorBlockModal
+//             valueOne={handleUseValue().email.isDirty}
+//             valueTwo={handleUseValue().email.emailError}
+//             right={'0'} bottom={'-35px'}
+//             text={'Wrong email'}
+//         />
+//     </BlockInput>
+//     <BlockInput>
+//         <LabelInput>{key}</LabelInput>
+//         <Input
+//             name={'password'}
+//             type={handleBooleanForms().showPassword ? 'password' : 'text'}
+//             placeholder={'Password'}
+//             value={handleUseValue().password.value}
+//             onChange={e => handleUseValue().password.onChange(e)}
+//             onBlur={e => handleUseValue().password.onBlur(e)}
+//         />
+//         <TextChangeType
+//             onClick={() => handleShowPassword()}>{handleBooleanForms().showPassword ? eye_slash : eye}</TextChangeType>
+//         <ErrorBlockModal
+//             valueOne={handleUseValue().password.isDirty}
+//             valueTwo={handleUseValue().password.isEmpty}
+//             text={'Field is empty'} left={'0'} bottom={'-35px'}
+//         />
+//         <ErrorBlockModal
+//             valueOne={handleUseValue().password.isDirty}
+//             valueTwo={handleUseValue().password.passwordError}
+//             right={'0'} bottom={'-35px'}
+//             text={'Wrong Password'}
+//         />
+//     </BlockInput>
+// </MainBlockInput>

@@ -1,6 +1,12 @@
 import React from 'react';
 import {times} from "../../Utils/Font Awesome/Solid";
-import {BlockCloseModal, BlockFormRegLog, CloseModal, SignInSignUp, Switcher, WrapperModal} from "../../StyledComponents/SrtyledModal";
+import {
+    BlockCloseModal,
+    BlockFormRegLog,
+    CloseModal,
+    SignInSignUp,
+    Switcher,
+    WrapperModal} from "../../StyledComponents/SrtyledModal";
 import SignUp from "./SignUp";
 import ForgetPassword from "./ForgetPassword";
 import {useDispatch} from "react-redux";
@@ -76,15 +82,12 @@ const Modal = ({clearState, handleUseValue, handleBooleanForms, handleShowPasswo
             return (
                 <SignIn
                     handleShowPassword={handleShowPassword}
-                    handleUseValue={handleUseValue}
                     handleBooleanForms={handleBooleanForms}
-                    clearState={clearState}
                     handleForgetPassword={handleForgetPassword}
-                    handleSwitchRequest={handleSwitchRequest}
                 />
             )
         } else {
-            return  (
+            return (
                 <SignUp
                     width={'100%'}
                     handleShowPassword={handleShowPassword}
@@ -100,7 +103,8 @@ const Modal = ({clearState, handleUseValue, handleBooleanForms, handleShowPasswo
         <WrapperModal
             openModal={handleBooleanForms().openModal}
             closeModal={!handleBooleanForms().openModal}
-            className={!handleBooleanForms().openModal ? 'openModal' : 'closeModal'}>
+            className={!handleBooleanForms().openModal ? 'openModal' : 'closeModal'}
+        >
             <BlockFormRegLog
                 width={'600px'}
                 active={handleBooleanForms().form}
