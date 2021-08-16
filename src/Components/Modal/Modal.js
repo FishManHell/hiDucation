@@ -14,6 +14,7 @@ import {useDispatch} from "react-redux";
 import {changePassword, getUserInform, postLogin, regUser} from "../../ReduxToolkit/ReducerUserAuth";
 import {getUserProfile} from "../../ReduxToolkit/ReducerUserGetByEmail";
 import SignIn from "./SignIn";
+import {funcCheckYup} from "../../Utils/YupCheck";
 
 const Modal = ({clearState, handleBooleanForms, handleShowPassword}) => {
     const dispatch = useDispatch()
@@ -73,6 +74,7 @@ const Modal = ({clearState, handleBooleanForms, handleShowPassword}) => {
                     width={'100%'}
                     handleShowPassword={handleShowPassword}
                     handleBooleanForms={handleBooleanForms}
+                    funcCheckYup={funcCheckYup('reg')}
                 />
             )
         }

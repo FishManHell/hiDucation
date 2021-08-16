@@ -1,14 +1,14 @@
 import React from 'react';
 import {BlockInput, BlockSignInSignUp, ButtonSend, Input, LabelInput, MainBlockInput, TextChangeType} from "./SignIn";
-import {envelope, eye, graduation_cap, key, university, user} from "../../Utils/Font Awesome/Solid";
+import {envelope, eye, graduation_cap, key, repeat, university, user} from "../../Utils/Font Awesome/Solid";
 import {eye_slash} from "../../Utils/Font Awesome/Regular";
 import {useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
 import {device} from "../../Utils/MediaSize";
 import ErrorBlockModal from "./ErrorBlockModal";
 import {Formik} from 'formik';
-import {funcCheckYup} from "../../Utils/YupCheck";
 import {regUser} from "../../ReduxToolkit/ReducerUserAuth";
+import {Form} from "../../StyledComponents/SrtyledModal";
 
 const BlockWithProfile = styled.div`
   width: ${props => props.width};
@@ -18,7 +18,7 @@ const BlockWithProfile = styled.div`
   }
 `
 
-const SignUp = ({width, handleBooleanForms, handleShowPassword}) => {
+const SignUp = ({width, handleBooleanForms, handleShowPassword, funcCheckYup}) => {
     const emailRedux = useSelector(state => state.userAuth.user.email);
     const dispatch = useDispatch()
     const objectValueFormik = {
@@ -33,10 +33,10 @@ const SignUp = ({width, handleBooleanForms, handleShowPassword}) => {
 
     return (
         <BlockSignInSignUp width={width} margin={emailRedux ? '50px 0 0 0 ' : '0'}>
-            <MainBlockInput display={emailRedux ? 'flex' : 'block'}>
+            <MainBlockInput>
                 <Formik
                     initialValues={objectValueFormik}
-                    validationSchema={funcCheckYup('reg')}
+                    validationSchema={funcCheckYup}
                     onSubmit={(values, {setSubmitting}) => {
                         dispatch(regUser({email: values.email, password: values.password}))
                         setSubmitting(false)
@@ -44,7 +44,7 @@ const SignUp = ({width, handleBooleanForms, handleShowPassword}) => {
                     }}
                 >
                     {formik => (
-                        <form onSubmit={formik.handleSubmit}>
+                        <Form onSubmit={formik.handleSubmit} display={emailRedux ? 'flex' : 'block'}>
                             <BlockWithProfile width={emailRedux ? '49%' : '100%'}>
                                 <BlockInput>
                                     <LabelInput htmlFor={'firstName'}>{user}</LabelInput>
@@ -143,7 +143,7 @@ const SignUp = ({width, handleBooleanForms, handleShowPassword}) => {
                                     />
                                 </BlockInput>
                                 <BlockInput>
-                                    <LabelInput htmlFor={'confirmPassword'}>{key}</LabelInput>
+                                    <LabelInput htmlFor={'confirmPassword'}>{repeat}</LabelInput>
                                     <Input
                                         type={handleBooleanForms().showPassword ? 'password' : 'text'}
                                         placeholder={'Repeat Password'}
@@ -168,7 +168,7 @@ const SignUp = ({width, handleBooleanForms, handleShowPassword}) => {
                                     Registration
                                 </ButtonSend>
                             }
-                        </form>
+                        </Form>
                     )}
                 </Formik>
             </MainBlockInput>

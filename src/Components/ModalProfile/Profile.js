@@ -2,6 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 import AvatarProfile from "./AvatarProfile";
 import SignUp from "../Modal/SignUp";
+import {funcCheckYup} from "../../Utils/YupCheck";
 
 const MainBlockProfileAndImgProfile = styled.div`
   position: relative;
@@ -17,6 +18,7 @@ const Profile = ({handleUseValue, handleBooleanForms, handleShowPassword}) => {
                 handleBooleanForms={handleBooleanForms}
                 handleUseValue={handleUseValue}
                 handleShowPassword={handleShowPassword}
+                funcCheckYup={funcCheckYup('profile')}
             />
         </MainBlockProfileAndImgProfile>
     );

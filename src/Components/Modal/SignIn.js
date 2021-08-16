@@ -84,8 +84,6 @@ const TextOr = styled.p`
 
 export const MainBlockInput = styled.div`
   width: 100%;
-  display: ${props => props.display};
-  justify-content: space-between;
 
   @media all and ${device.tabletS} {
     flex-direction: column;
