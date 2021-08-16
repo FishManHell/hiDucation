@@ -29,6 +29,7 @@ const SignUp = ({width, handleBooleanForms, handleShowPassword, funcCheckYup}) =
         password: '',
         confirmPassword: ''
     }
+    const test = []
 
 
     return (
