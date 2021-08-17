@@ -20,16 +20,16 @@ const BlockWithProfile = styled.div`
 
 const SignUp = ({width, handleBooleanForms, handleShowPassword, funcCheckYup}) => {
     const emailRedux = useSelector(state => state.userAuth.user.email);
+    const passwordRedux = useSelector(state => state.userAuth.user.password);
     const dispatch = useDispatch()
     const objectValueFormik = {
         firstName: '',
         learning: '',
         study: '',
-        email: '',
-        password: '',
+        email: '' || emailRedux,
+        password: '' || passwordRedux,
         confirmPassword: ''
     }
-    const test = []
 
 
     return (
@@ -173,7 +173,6 @@ const SignUp = ({width, handleBooleanForms, handleShowPassword, funcCheckYup}) =
                     )}
                 </Formik>
             </MainBlockInput>
-
         </BlockSignInSignUp>
     );
 };
