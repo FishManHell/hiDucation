@@ -15,9 +15,12 @@ const ListItem = styled.li`
 const NavHeader = ({setOpenModal}) => {
     const email = useSelector(state => state.userAuth.user.email)
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     const handleBurgerMenu = () => setIsMenuOpen(!isMenuOpen);
+    const handleCloseModal = () => setIsMenuOpen(false)
 
     const handleOpenModal = () => {
+        handleCloseModal()
         setOpenModal(true)
         if (document.body.style.overflow !== "hidden") {
             document.body.style.overflow = "hidden";
@@ -46,28 +49,76 @@ const NavHeader = ({setOpenModal}) => {
                     <BlockList>
                         <WrapperBurgerMenu open={isMenuOpen} className={isMenuOpen ? 'open' : ''}/>
 
-                        <BlockBurgerMenu className={isMenuOpen ? 'open' : ''} onClick={() => handleBurgerMenu()} open={isMenuOpen}>
+                        <BlockBurgerMenu
+                            className={isMenuOpen ? 'open' : ''}
+                            onClick={() => handleBurgerMenu()}
+                            open={isMenuOpen}>
                             <BurgerMenu open={isMenuOpen}/>
                         </BlockBurgerMenu>
 
                         <List open={isMenuOpen} close={!isMenuOpen} className={isMenuOpen ? 'open' : ''}>
                             <ListItem className={'list_header'}>
-                                <Link to={'home'} activeClass={'active'} className={'list_header-button'} spy={true} smooth={true} duration={1000}>home</Link>
+                                <Link
+                                    to={'home'}
+                                    activeClass={'active'}
+                                    className={'list_header-button'}
+                                    spy={true}
+                                    smooth={true}
+                                    duration={1000}
+                                    onClick={() => handleCloseModal()}
+                                >home</Link>
                             </ListItem>
                             <ListItem className={'list_header'}>
-                                <Link to={'product'} activeClass={'active'} className={'list_header-button'} spy={true} smooth={true} duration={1000}>product</Link>
+                                <Link
+                                    to={'product'}
+                                    activeClass={'active'}
+                                    className={'list_header-button'}
+                                    spy={true}
+                                    smooth={true}
+                                    duration={1000}
+                                    onClick={() => handleCloseModal()}
+                                >product</Link>
                             </ListItem>
                             <ListItem className={'list_header'}>
-                                <Link to={'about'} activeClass={'active'} className={'list_header-button'} spy={true} smooth={true} duration={1000}>about</Link>
+                                <Link
+                                    to={'about'}
+                                    activeClass={'active'}
+                                    className={'list_header-button'}
+                                    spy={true}
+                                    smooth={true}
+                                    duration={1000}
+                                    onClick={() => handleCloseModal()}
+                                >about</Link>
                             </ListItem>
                             <ListItem className={'list_header'}>
-                                <Link to={'team'} activeClass={'active'} className={'list_header-button'} spy={true} smooth={true} duration={1000}>team</Link>
+                                <Link
+                                    to={'team'}
+                                    activeClass={'active'}
+                                    className={'list_header-button'}
+                                    spy={true}
+                                    smooth={true}
+                                    duration={1000}
+                                    onClick={() => handleCloseModal()}
+                                >team</Link>
                             </ListItem>
                             <ListItem className={'list_header'}>
-                                <Link to={'contact'} activeClass={'active'} className={'list_header-button'} spy={true} smooth={true} duration={1000}>contact</Link>
+                                <Link
+                                    to={'contact'}
+                                    activeClass={'active'}
+                                    className={'list_header-button'}
+                                    spy={true}
+                                    smooth={true}
+                                    duration={1000}
+                                    onClick={() => handleCloseModal()}
+                                >contact</Link>
                             </ListItem>
                             <ListItem className={'list_header'}>
-                                <button className={'list_header-button'} onClick={() => handleOpenModal()}>{email ? 'Profile' : 'login'}</button>
+                                <button
+                                    className={'list_header-button'}
+                                    onClick={() => handleOpenModal()}
+                                >
+                                    {email ? 'Profile' : 'login'}
+                                </button>
                             </ListItem>
                         </List>
                     </BlockList>

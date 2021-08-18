@@ -1,43 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {BlockFormRegLog, SignInSignUp, Switcher, WrapperModal} from "../../StyledComponents/SrtyledModal";
-import FooterModalProfile from "./FooterModalProfile";
-import {editProfileInform, editUserProfile} from "../../ReduxToolkit/ReducerUserGetByEmail";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import LoadingProfile from "../Loading/LoadingProfile";
 import Profile from "./Profile";
 import Statistics from "./Statistics";
 
-const ModalProfile = ({clearState, handleUseValue, handleBooleanForms, handleShowPassword}) => {
-    const dispatch = useDispatch()
-    const edit = useSelector(state => state.getUserInform.userProfile);
+const ModalProfile = ({handleBooleanForms}) => {
     const loaderProfile = useSelector(state => state.getUserInform.loading);
-    const [changeText, setChangeText] = useState(true)
-
     const handleProfileChangeStatistic = (formik) => handleBooleanForms().setForm(formik)
-
-    const handleCollectInform = () => {
-        const userProfile = {
-            degree: handleUseValue().study.value,
-            email: handleUseValue().email.value,
-            firstName: handleUseValue().userName.value,
-            institute: handleUseValue().learning.value,
-            lastName: handleUseValue().userLastName.value,
-            password: handleUseValue().password.value,
-        }
-        dispatch(editProfileInform({userProfile}))
-        setChangeText(false)
-    }
-
-    const handleSendInform = () => dispatch(editUserProfile(edit))
-
-    const handleCloseModal = () => {
-        handleBooleanForms().setOpenModal(false)
-        handleBooleanForms().setShowPassword(true)
-        handleBooleanForms().setForm(true)
-        if (document.body.style.overflow === "hidden") {
-            document.body.style.overflow = "auto"
-        }
-    }
 
     return (
         <WrapperModal
@@ -67,21 +37,10 @@ const ModalProfile = ({clearState, handleUseValue, handleBooleanForms, handleSho
 
                 {handleBooleanForms().form
                     ?
-                    <Profile
-                        handleBooleanForms={handleBooleanForms}
-                        handleUseValue={handleUseValue}
-                        handleShowPassword={handleShowPassword}
-                    />
+                    <Profile handleBooleanForms={handleBooleanForms}/>
                     :
                     <Statistics/>
                 }
-                <FooterModalProfile
-                    clearState={clearState}
-                    handleCloseModal={handleCloseModal}
-                    handleCollectInform={handleCollectInform}
-                    handleSendInform={handleSendInform}
-                    changeText={changeText}
-                />
             </BlockFormRegLog>
         </WrapperModal>
     );

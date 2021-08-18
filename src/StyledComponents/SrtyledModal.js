@@ -1,4 +1,5 @@
 import styled, {css} from "styled-components";
+import {device} from "../Utils/MediaSize";
 
 export const WrapperModal = styled.div`
   cursor: pointer;
@@ -76,32 +77,27 @@ export const ErrorTextModalForm = styled.span`
     border-right: 8px solid transparent;
     border-bottom: 8px solid rgba(215, 102, 102, 0.9);
   }
-
 `
 
 export const Input = styled.input`
-  height: 40px;
-  width: ${props => props.width};
-  border-radius: 10px;
-  outline: none;
-  margin: ${props => props.margin};
-
-  &::placeholder {
-    font-size: 0.9rem;
-    font-weight: 500;
-    padding-left: 5px;
-  }
+  width: 100%;
+  border: 2px solid #d2d8d8;
+  padding: 16px 20px 16px 50px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0.25em;
 `
 
 export const LabelInput = styled.label`
-  font-size: 1rem;
-  font-family: 'Noto Sans JP', sans-serif;
-  width: ${props => props.width};
-  margin: ${props => props.margin};
-  text-align: ${props => props.text_align};
-  color: #FF7400;
-  font-weight: 600;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 15px;
+  font-size: 1.5rem;
 `
+
+
 
 export const BlockFormRegLog = styled.div`
   max-width: ${props => props.width};
@@ -157,4 +153,167 @@ export const BlockCloseModal = styled.div`
 export const Form = styled.form`
   display: ${props => props.display};
   justify-content: space-between;
+  flex-wrap: wrap;
+`
+
+
+export const BlockSignInSignUp = styled.div`
+  width: ${props => props.width};
+  padding: 1em 2em 2em 2em;
+  margin: ${props => props.margin};
+`
+
+export const BlockConnectLink = styled.div`
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
+export const ButtonConnectLink = styled.button`
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  font-size: 2rem;
+  line-height: 2rem;
+  color: #ffffff;
+
+  &:first-child {
+    background: #EB4C42;
+  }
+
+  &:nth-child(2) {
+    background: #455CAA;
+  }
+
+  &:last-child {
+    background: #3D3737;
+  }
+
+  &:hover {
+    transform: scale(1.3);
+    transition: all 0.4s;
+    background: black;
+  }
+`
+
+export const TextOr = styled.p`
+  text-align: center;
+  margin-top: 30px;
+  position: relative;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  color: #BD0452;
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 45%;
+    height: 2px;
+    background: black;
+    top: 10px;
+    left: 0;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 45%;
+    height: 2px;
+    background: black;
+    top: 10px;
+    right: 0;
+  }
+`
+
+export const MainBlockInput = styled.div`
+  width: 100%;
+
+  @media all and ${device.tabletS} {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+`
+
+export const BlockInput = styled.div`
+  position: relative;
+  width: 100%;
+  margin: 0 0 2.3em 0;
+`
+
+
+
+export const TextChangeType = styled.span`
+  display: inline-block;
+  padding: 6px 15px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  border-left: 2px solid #d2d8d8;
+`
+
+export const ButtonSend = styled.button`
+  position: relative;
+  width: 100%;
+  background: #2f889a;
+  color: #FFF;
+  font-weight: 600;
+  padding: 16px 0;
+  border-radius: 0.25em;
+  border: none;
+
+  ${props => props.disabled && css`
+    background: #6E7F80;
+  `}
+  &:hover {
+    opacity: 0.8;
+  }
+`
+
+export const BlockForgetPasswordTextBackSignIn = styled.div`
+  cursor: pointer;
+  width: 100%;
+  position: absolute;
+  bottom: -30px;
+  text-align: center;
+
+  &:hover {
+    transform: scale(1.2);
+    transition: all 0.3s;
+  }
+`
+
+export const ForgetPasswordSignInText = styled.span`
+  color: #ffffff;
+  font-weight: 500;
+
+
+  &:hover {
+    text-decoration: underline;
+    transition: all 0.4s;
+  }
+`
+
+export const BlockWithProfile = styled.div`
+  width: ${props => props.width};
+
+  @media all and ${device.tabletS} {
+    width: 100%;
+  }
+`
+
+export const MessageChangePasswordBlock = styled.div`
+  margin-bottom: 20px;
+  text-align: center;
+`
+
+export const TextMessage = styled.span`
+  font-weight: 600;
+  color: #A72537;
 `

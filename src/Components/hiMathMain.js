@@ -8,45 +8,16 @@ import FooterContact from "./FooterContact";
 import Modal from "./Modal/Modal";
 import {useSelector} from "react-redux";
 import ModalProfile from "./ModalProfile/ModalProfile";
-import {useInput} from "../Utils/Hook/HookFormModal";
 
 const HiMathMain = () => {
-    const passwordRedux = useSelector(state => state.userAuth.user.password);
     const emailRedux = useSelector(state => state.userAuth.user.email);
-
     const [openModal, setOpenModal] = useState(false);
     const [form, setForm] = useState(true);
     const [showPassword, setShowPassword] = useState(true);
     const [forgetPassword, setForgetPassword] = useState(false);
+    const [changeTextButtonProfile, setChangeTextButtonProfile] = useState(true);
 
-    const email = useInput('' || emailRedux, {isEmpty: true, isEmail: true});
-    const password = useInput('' || passwordRedux, {isEmpty: true, isPassword: true});
-    const userName = useInput('', {isEmpty: true, isName: true});
-    const userLastName = useInput('', {isEmpty: true, isLastName: true});
-    const learning = useInput('', {isEmpty: true});
-    const study = useInput('', {isEmpty: true});
-    const repeatPassword = useInput('', {isEmpty: true});
-
-    const clearState = () => {
-        email.onClear()
-        password.onClear()
-        userName.onClear()
-        learning.onClear()
-        study.onClear()
-        repeatPassword.onClear()
-    }
-
-    const handleUseValue = () => ({
-        email,
-        password,
-        userName,
-        userLastName,
-        learning,
-        study,
-        repeatPassword
-    })
-
-    const handleChangeValuesBooleanForms = () => ({
+    const handleChangeBooleanForms = () => ({
         openModal,
         setOpenModal,
         form,
@@ -54,10 +25,11 @@ const HiMathMain = () => {
         showPassword,
         setShowPassword,
         forgetPassword,
-        setForgetPassword
+        setForgetPassword,
+        changeTextButtonProfile,
+        setChangeTextButtonProfile
     })
 
-    const handleShowPassword = () => setShowPassword(!showPassword)
 
     return (
         <div>
@@ -69,15 +41,10 @@ const HiMathMain = () => {
             <FooterContact/>
             {emailRedux
                 ? <ModalProfile
-                    handleShowPassword={handleShowPassword}
-                    handleBooleanForms={handleChangeValuesBooleanForms}
-                    handleUseValue={handleUseValue}
-                    clearState={clearState}
+                    handleBooleanForms={handleChangeBooleanForms}
                 />
                 : <Modal
-                    handleShowPassword={handleShowPassword}
-                    handleBooleanForms={handleChangeValuesBooleanForms}
-                    clearState={clearState}
+                    handleBooleanForms={handleChangeBooleanForms}
                 />
             }
         </div>

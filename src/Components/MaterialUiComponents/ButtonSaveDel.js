@@ -35,7 +35,7 @@ const ButtonSaveDel = ({setSrc, avatarOne}) => {
         <BlockSaveDeleteButton>
             <Button
                 variant="contained"
-                color={"#e0e0e0"}
+                color={'default'}
                 size="small"
                 className={classes.button}
                 startIcon={<SaveIcon/>}
@@ -46,7 +46,7 @@ const ButtonSaveDel = ({setSrc, avatarOne}) => {
             </Button>
             <Button
                 variant="contained"
-                color={"#e0e0e0"}
+                color={"default"}
                 size="small"
                 className={classes.button}
                 startIcon={<DeleteIcon/>}

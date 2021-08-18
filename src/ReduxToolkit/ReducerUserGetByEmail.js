@@ -36,6 +36,20 @@ export const getUserProfile = createAsyncThunk('userProfile/getProfile',
     }
 })
 
+// export const getUserProfile = createAsyncThunk('userProfile/getProfile',
+//     async (endpoint) => {
+//         try {
+//             const response = await axios.get(`https://telran-hiducation.herokuapp.com/user/${endpoint}`);
+//             const data = response
+//             console.log(data)
+//             return data
+//         }
+//         catch (error) {
+//             throw Error (error)
+//         }
+//     })
+
+
 export const editUserProfile = createAsyncThunk('userProfile/PostEditUserProfile',
     async (endpoint, {getState}) => {
         try {
@@ -52,6 +66,24 @@ export const editUserProfile = createAsyncThunk('userProfile/PostEditUserProfile
         }
     }
 )
+
+
+// export const editUserProfile = createAsyncThunk('userProfile/PostEditUserProfile',
+//     async (endpoint, {getState}) => {
+//         try {
+//             const response = await axios.put(
+//                 `https://telran-hiducation.herokuapp.com/user/${getState().userAuth.user.email}`,
+//                 endpoint,
+//                 {headers: {'Content-Type' : 'application/json'}}
+//             )
+//             const data = await response
+//             console.log(data)
+//             return response
+//         } catch (error) {
+//             throw Error (error)
+//         }
+//     }
+// )
 
 const userProfileSlice = createSlice({
     name: "userProfile",

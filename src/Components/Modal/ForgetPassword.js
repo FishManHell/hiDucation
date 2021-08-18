@@ -1,33 +1,20 @@
 import React from 'react';
-import {
-    BlockForgetPasswordTextBackSignIn,
-    BlockInput,
-    BlockSignInSignUp, ButtonSend, ForgetPasswordSignInText,
-    Input,
-    LabelInput,
-    MainBlockInput, TextChangeType,
-} from "./SignIn";
 import {eye, key, passport, repeat} from "../../Utils/Font Awesome/Solid";
-import styled from "styled-components";
 import {eye_slash} from "../../Utils/Font Awesome/Regular";
 import ErrorBlockModal from "./ErrorBlockModal";
 import {Formik} from 'formik';
 import {funcCheckYup} from "../../Utils/YupCheck";
 import {useDispatch} from "react-redux";
 import {changePassword} from "../../ReduxToolkit/ReducerUserAuth";
+import {
+    BlockForgetPasswordTextBackSignIn, BlockInput, BlockSignInSignUp,
+    ButtonSend,
+    ForgetPasswordSignInText,
+    Input, LabelInput, MainBlockInput, MessageChangePasswordBlock, TextChangeType, TextMessage
+} from "../../StyledComponents/SrtyledModal";
 
-const MessageChangePasswordBlock = styled.div`
-  margin-bottom: 20px;
-  text-align: center;
-`
 
-const TextMessage = styled.span`
-  font-weight: 600;
-  color: #A72537;
-`
-
-const ForgetPassword = ({handleForgetPassword, handleBooleanForms, handleShowPassword}) => {
-
+const ForgetPassword = ({handleForgetPassword, handleBooleanForms}) => {
     const dispatch = useDispatch()
     const valueForgetPassword = {
         oldPassword: '',
@@ -35,6 +22,9 @@ const ForgetPassword = ({handleForgetPassword, handleBooleanForms, handleShowPas
         confirmPassword: ''
     }
 
+    const handleShowPassword = () => {
+        handleBooleanForms().setShowPassword(!handleBooleanForms().showPassword)
+    }
 
     return (
         <BlockSignInSignUp>
@@ -119,7 +109,6 @@ const ForgetPassword = ({handleForgetPassword, handleBooleanForms, handleShowPas
                     Back to Log-in
                 </ForgetPasswordSignInText>
             </BlockForgetPasswordTextBackSignIn>
-
         </BlockSignInSignUp>
     );
 };

@@ -11,18 +11,16 @@ import {
 import SignUp from "./SignUp";
 import ForgetPassword from "./ForgetPassword";
 import {useDispatch} from "react-redux";
-import {changePassword, getUserInform, postLogin, regUser} from "../../ReduxToolkit/ReducerUserAuth";
-import {getUserProfile} from "../../ReduxToolkit/ReducerUserGetByEmail";
+import {changePassword, regUser} from "../../ReduxToolkit/ReducerUserAuth";
 import SignIn from "./SignIn";
 import {funcCheckYup} from "../../Utils/YupCheck";
 
-const Modal = ({clearState, handleBooleanForms, handleShowPassword}) => {
+const Modal = ({handleBooleanForms}) => {
     const dispatch = useDispatch()
 
     const handleForgetPassword = (change) => {
         handleBooleanForms().setForgetPassword(change)
         handleBooleanForms().setShowPassword(true);
-        clearState()
     }
 
     const handleCloseModal = () => {
@@ -30,7 +28,6 @@ const Modal = ({clearState, handleBooleanForms, handleShowPassword}) => {
         handleBooleanForms().setForgetPassword(false);
         handleBooleanForms().setShowPassword(true);
         handleBooleanForms().setForm(true);
-        clearState()
         if (document.body.style.overflow === "hidden") {
             document.body.style.overflow = "auto"
         }
@@ -40,30 +37,23 @@ const Modal = ({clearState, handleBooleanForms, handleShowPassword}) => {
         handleBooleanForms().setForm(formik)
         handleBooleanForms().setForgetPassword(forget)
         handleBooleanForms().setShowPassword(true);
-        clearState()
     }
 
-    const handleCloseClearAll = () => {
-        clearState()
-        handleCloseModal()
+    const requestReg = (value) => {
+        const regObj = {
+            email: value.email,
+            password: value.password
+        }
+        dispatch(regUser({...regObj}))
     }
-
-    const requestLogin = (email, password) => {
-        dispatch(postLogin({email, password}))
-        dispatch(getUserInform({email, password}))
-        dispatch(getUserProfile(email))
-    }
-
-    const requestReg = (email, password) => dispatch(regUser({email, password}))
 
     const requestForgetPass = (email, password) => dispatch(changePassword({email, password}))
-
+        // TODO приепить позже это к форме forget
 
     const changeSignInSignUp = () => {
         if (handleBooleanForms().form) {
             return (
                 <SignIn
-                    handleShowPassword={handleShowPassword}
                     handleBooleanForms={handleBooleanForms}
                     handleForgetPassword={handleForgetPassword}
                 />
@@ -72,9 +62,9 @@ const Modal = ({clearState, handleBooleanForms, handleShowPassword}) => {
             return (
                 <SignUp
                     width={'100%'}
-                    handleShowPassword={handleShowPassword}
                     handleBooleanForms={handleBooleanForms}
                     funcCheckYup={funcCheckYup('reg')}
+                    requestSend={requestReg}
                 />
             )
         }
@@ -112,7 +102,6 @@ const Modal = ({clearState, handleBooleanForms, handleShowPassword}) => {
                     handleBooleanForms().forgetPassword
                         ?
                         <ForgetPassword
-                            handleShowPassword={handleShowPassword}
                             handleBooleanForms={handleBooleanForms}
                             handleForgetPassword={handleForgetPassword}
                         />

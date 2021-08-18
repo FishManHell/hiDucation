@@ -3,6 +3,8 @@ import styled from "styled-components";
 import AvatarProfile from "./AvatarProfile";
 import SignUp from "../Modal/SignUp";
 import {funcCheckYup} from "../../Utils/YupCheck";
+import {editProfileInform, editUserProfile} from "../../ReduxToolkit/ReducerUserGetByEmail";
+import {useDispatch, useSelector} from "react-redux";
 
 const MainBlockProfileAndImgProfile = styled.div`
   position: relative;
@@ -10,15 +12,35 @@ const MainBlockProfileAndImgProfile = styled.div`
   flex-direction: column;
 `
 
-const Profile = ({handleUseValue, handleBooleanForms, handleShowPassword}) => {
+const Profile = ({handleBooleanForms}) => {
+    const dispatch = useDispatch()
+    const edit = useSelector(state => state.getUserInform.userProfile);
+
+    const requestChangeProfile = (value) => {
+        const userProfile = {
+            degree: value.study,
+            email: value.email,
+            firstName: value.firstName,
+            institute: value.learning,
+            lastName: value.lastName,
+            password: value.password,
+        }
+        if (handleBooleanForms().changeTextButtonProfile) {
+            dispatch(editProfileInform({userProfile}))
+            handleBooleanForms().setChangeTextButtonProfile(false)
+        } else {
+            dispatch(editUserProfile(edit))
+        }
+    }
+
+
     return (
         <MainBlockProfileAndImgProfile>
             <AvatarProfile/>
             <SignUp
                 handleBooleanForms={handleBooleanForms}
-                handleUseValue={handleUseValue}
-                handleShowPassword={handleShowPassword}
                 funcCheckYup={funcCheckYup('profile')}
+                requestSend={requestChangeProfile}
             />
         </MainBlockProfileAndImgProfile>
     );

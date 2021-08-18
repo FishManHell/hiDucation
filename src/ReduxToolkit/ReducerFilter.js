@@ -77,7 +77,7 @@ const filterSlice = createSlice({
     reducers: {},
     extraReducers: {
         [filterProduct] (state, action) {
-            const filProducts = state.products.filter(product => product.mainName .includes(action.payload))
+            const filProducts = state.products.filter(product => product.mainName.includes(action.payload))
             state.filterArrayProducts = [...filProducts];
         }
     }

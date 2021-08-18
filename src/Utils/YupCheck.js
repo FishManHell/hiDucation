@@ -55,6 +55,7 @@ const changePasswordObject = {
     ,
 }
 
+
 export const funcCheckYup = (value) => {
     switch (value) {
         case 'login':

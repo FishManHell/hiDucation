@@ -8,7 +8,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {device} from "../../Utils/MediaSize";
 
 const BlockFooterModalProfile = styled.footer`
-  width: 80%;
+  width: 90%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,23 +22,29 @@ const BlockFooterModalProfile = styled.footer`
   
 `
 
-const FooterModalProfile = ({handleCollectInform, clearState, handleCloseModal, changeText, handleSendInform}) => {
+const FooterModalProfileStatistics = ({handleBooleanForms}) => {
     const dispatch = useDispatch()
 
+    const handleCloseModal = () => {
+        handleBooleanForms().setOpenModal(false)
+        handleBooleanForms().setShowPassword(true)
+        handleBooleanForms().setForm(true)
+        if (document.body.style.overflow === "hidden") {
+            document.body.style.overflow = "auto"
+        }
+    }
     const handleLogout = () => {
         dispatch(logoutProfile())
         handleCloseModal()
-        clearState()
     }
-    const handleExit = () => handleCloseModal()
 
     return (
         <BlockFooterModalProfile>
-            <ButtonFooterBlockProfile startIcon={<ExitToAppIcon/>} text={'Exit'} click={handleExit}/>
-            <ButtonFooterBlockProfile startIcon={<EditIcon/>} text={`${changeText ? 'Edit' : 'Save'}`} click={changeText ? handleCollectInform : handleSendInform}/>
+            <ButtonFooterBlockProfile startIcon={<ExitToAppIcon/>} text={'Exit'} click={handleCloseModal}/>
+            <ButtonFooterBlockProfile startIcon={<EditIcon/>} type={'submit'} text={`${handleBooleanForms().changeTextButtonProfile ? 'Edit' : 'Save'}`}/>
             <ButtonFooterBlockProfile startIcon={<ExitToAppIcon/>} text={'Logout'} click={handleLogout}/>
         </BlockFooterModalProfile>
     );
 };
 
-export default FooterModalProfile;
+export default FooterModalProfileStatistics;

@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ButtonFooterBlockProfile = ({startIcon, text, click}) => {
+const ButtonFooterBlockProfile = ({startIcon, text, type, click}) => {
     const classes = useStyles();
 
     return (
@@ -18,7 +18,8 @@ const ButtonFooterBlockProfile = ({startIcon, text, click}) => {
             color="default"
             className={classes.button}
             startIcon={startIcon}
-            onClick={() => click()}
+            onClick={click}
+            type={type}
         >
             {text}
         </Button>
