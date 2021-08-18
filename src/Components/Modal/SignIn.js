@@ -29,7 +29,6 @@ const SignIn = ({handleForgetPassword, handleBooleanForms}) => {
         dispatch(getUserProfile(values.email))
     }
 
-
     return (
         <BlockSignInSignUp width={'100%'}>
             <BlockConnectLink>
@@ -91,52 +90,3 @@ const SignIn = ({handleForgetPassword, handleBooleanForms}) => {
 };
 
 export default SignIn;
-
-// <MainBlockInput>
-//     <BlockInput>
-//         <LabelInput>{envelope}</LabelInput>
-//         <Input
-//             name={'email'}
-//             type={'email'}
-//             value={handleUseValue().email.value}
-//             placeholder={'E-mail'}
-//             onChange={e => handleUseValue().email.onChange(e)}
-//             onBlur={e => handleUseValue().email.onBlur(e)}
-//         />
-//         <ErrorBlockModal
-//             valueOne={handleUseValue().email.isDirty}
-//             valueTwo={handleUseValue().email.isEmpty}
-//             text={'Field is empty'} left={'0'} bottom={'-35px'}
-//         />
-//         <ErrorBlockModal
-//             valueOne={handleUseValue().email.isDirty}
-//             valueTwo={handleUseValue().email.emailError}
-//             right={'0'} bottom={'-35px'}
-//             text={'Wrong email'}
-//         />
-//     </BlockInput>
-//     <BlockInput>
-//         <LabelInput>{key}</LabelInput>
-//         <Input
-//             name={'password'}
-//             type={handleBooleanForms().showPassword ? 'password' : 'text'}
-//             placeholder={'Password'}
-//             value={handleUseValue().password.value}
-//             onChange={e => handleUseValue().password.onChange(e)}
-//             onBlur={e => handleUseValue().password.onBlur(e)}
-//         />
-//         <TextChangeType
-//             onClick={() => handleShowPassword()}>{handleBooleanForms().showPassword ? eye_slash : eye}</TextChangeType>
-//         <ErrorBlockModal
-//             valueOne={handleUseValue().password.isDirty}
-//             valueTwo={handleUseValue().password.isEmpty}
-//             text={'Field is empty'} left={'0'} bottom={'-35px'}
-//         />
-//         <ErrorBlockModal
-//             valueOne={handleUseValue().password.isDirty}
-//             valueTwo={handleUseValue().password.passwordError}
-//             right={'0'} bottom={'-35px'}
-//             text={'Wrong Password'}
-//         />
-//     </BlockInput>
-// </MainBlockInput>

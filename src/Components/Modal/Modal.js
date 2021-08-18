@@ -40,15 +40,12 @@ const Modal = ({handleBooleanForms}) => {
     }
 
     const requestReg = (value) => {
-        const regObj = {
-            email: value.email,
-            password: value.password
-        }
+        const regObj = {email: value.email, password: value.password}
         dispatch(regUser({...regObj}))
     }
 
     const requestForgetPass = (email, password) => dispatch(changePassword({email, password}))
-        // TODO приепить позже это к форме forget
+    // TODO приепить позже это к форме forget
 
     const changeSignInSignUp = () => {
         if (handleBooleanForms().form) {
@@ -103,8 +100,7 @@ const Modal = ({handleBooleanForms}) => {
                         ?
                         <ForgetPassword
                             handleBooleanForms={handleBooleanForms}
-                            handleForgetPassword={handleForgetPassword}
-                        />
+                            handleForgetPassword={handleForgetPassword}/>
                         :
                         changeSignInSignUp()
                 }

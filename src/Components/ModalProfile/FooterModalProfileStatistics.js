@@ -19,13 +19,13 @@ const BlockFooterModalProfile = styled.footer`
     width: 90%;
     flex-direction: column;
   }
-  
 `
 
-const FooterModalProfileStatistics = ({handleBooleanForms}) => {
+const FooterModalProfileStatistics = ({handleBooleanForms, formik}) => {
     const dispatch = useDispatch()
 
     const handleCloseModal = () => {
+        formik.handleReset()
         handleBooleanForms().setOpenModal(false)
         handleBooleanForms().setShowPassword(true)
         handleBooleanForms().setForm(true)
@@ -41,7 +41,11 @@ const FooterModalProfileStatistics = ({handleBooleanForms}) => {
     return (
         <BlockFooterModalProfile>
             <ButtonFooterBlockProfile startIcon={<ExitToAppIcon/>} text={'Exit'} click={handleCloseModal}/>
-            <ButtonFooterBlockProfile startIcon={<EditIcon/>} type={'submit'} text={`${handleBooleanForms().changeTextButtonProfile ? 'Edit' : 'Save'}`}/>
+            <ButtonFooterBlockProfile
+                startIcon={<EditIcon/>}
+                type={'submit'}
+                text={`${handleBooleanForms().changeTextButtonProfile ? 'Edit' : 'Save'}`}
+                disabled={!formik.values.email || !formik.values.confirmPassword || !formik.isValid}/>
             <ButtonFooterBlockProfile startIcon={<ExitToAppIcon/>} text={'Logout'} click={handleLogout}/>
         </BlockFooterModalProfile>
     );

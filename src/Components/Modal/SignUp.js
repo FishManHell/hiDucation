@@ -14,7 +14,6 @@ import {
 import FooterModalProfileStatistics from "../ModalProfile/FooterModalProfileStatistics";
 
 
-
 const SignUp = ({width, handleBooleanForms, funcCheckYup, requestSend}) => {
     const emailRedux = useSelector(state => state.userAuth.user.email);
     const passwordRedux = useSelector(state => state.userAuth.user.password);
@@ -29,6 +28,7 @@ const SignUp = ({width, handleBooleanForms, funcCheckYup, requestSend}) => {
         confirmPassword: ''
     }
 
+
     const handleShowPassword = () => {
         handleBooleanForms().setShowPassword(!handleBooleanForms().showPassword)
     }
@@ -39,10 +39,9 @@ const SignUp = ({width, handleBooleanForms, funcCheckYup, requestSend}) => {
                 <Formik
                     initialValues={objectStateProfile}
                     validationSchema={funcCheckYup}
-                    onSubmit={(values, {setSubmitting}) => {
-                        requestSend(values)
-                        setSubmitting(false)
-                        console.log(values)
+                    onSubmit={(values, onSubmitProps) => {
+                        requestSend(values, onSubmitProps.resetForm)
+                        onSubmitProps.setSubmitting(false)
                     }}
                 >
                     {formik => (
@@ -161,7 +160,7 @@ const SignUp = ({width, handleBooleanForms, funcCheckYup, requestSend}) => {
                             </BlockWithProfile>
                             {emailRedux
                                 ?
-                                <FooterModalProfileStatistics handleBooleanForms={handleBooleanForms}/>
+                                <FooterModalProfileStatistics handleBooleanForms={handleBooleanForms} formik={formik}/>
                                 :
                                 <ButtonSend
                                     type={'submit'}

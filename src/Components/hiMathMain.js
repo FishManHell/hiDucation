@@ -40,11 +40,9 @@ const HiMathMain = () => {
             <Team/>
             <FooterContact/>
             {emailRedux
-                ? <ModalProfile
-                    handleBooleanForms={handleChangeBooleanForms}
+                ? <ModalProfile handleBooleanForms={handleChangeBooleanForms}
                 />
-                : <Modal
-                    handleBooleanForms={handleChangeBooleanForms}
+                : <Modal handleBooleanForms={handleChangeBooleanForms}
                 />
             }
         </div>

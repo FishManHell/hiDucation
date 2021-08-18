@@ -16,7 +16,7 @@ const Profile = ({handleBooleanForms}) => {
     const dispatch = useDispatch()
     const edit = useSelector(state => state.getUserInform.userProfile);
 
-    const requestChangeProfile = (value) => {
+    const requestChangeProfile = (value, resetForm) => {
         const userProfile = {
             degree: value.study,
             email: value.email,
@@ -30,6 +30,9 @@ const Profile = ({handleBooleanForms}) => {
             handleBooleanForms().setChangeTextButtonProfile(false)
         } else {
             dispatch(editUserProfile(edit))
+            resetForm()
+            handleBooleanForms().setChangeTextButtonProfile(true)
+
         }
     }
 

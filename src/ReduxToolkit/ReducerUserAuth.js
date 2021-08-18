@@ -16,30 +16,10 @@ const initialState = {
     }
 
 
-export const postLogin = createAsyncThunk('userAuth/getTokenLogin',
-    async (endpoint = {email: '',  password: ''}, {dispatch}) => {
-        try {
-            const response = await fetch(`${BASE_URL}/user/login?userEmail=${endpoint.email}&password=${endpoint.password}`);
-            const data = response.headers.get('token')
-            console.log(data)
-            localStorage.setItem('token', data);
-            dispatch(getToken(data))
-            return response.headers.get('token')
-        } catch (error) {
-            throw Error(error);
-        }
-    }
-)
-
-
 // export const postLogin = createAsyncThunk('userAuth/getTokenLogin',
 //     async (endpoint = {email: '',  password: ''}, {dispatch}) => {
 //         try {
-//             const response = await fetch('https://telran-hiducation.herokuapp.com/user/login', {
-//                 method: 'POST',
-//                 headers:{'Content-Type': 'application/json'},
-//                 body: JSON.stringify(endpoint)
-//             });
+//             const response = await fetch(`${BASE_URL}/user/login?userEmail=${endpoint.email}&password=${endpoint.password}`);
 //             const data = response.headers.get('token')
 //             console.log(data)
 //             localStorage.setItem('token', data);
@@ -50,6 +30,26 @@ export const postLogin = createAsyncThunk('userAuth/getTokenLogin',
 //         }
 //     }
 // )
+
+
+export const postLogin = createAsyncThunk('userAuth/getTokenLogin',
+    async (endpoint = {email: '',  password: ''}, {dispatch}) => {
+        try {
+            const response = await fetch('https://telran-hiducation.herokuapp.com/user/login', {
+                method: 'POST',
+                headers:{'Content-Type': 'application/json'},
+                body: JSON.stringify(endpoint)
+            });
+            const data = response.headers.get('token')
+            console.log(data)
+            localStorage.setItem('token', data);
+            dispatch(getToken(data))
+            return response.headers.get('token')
+        } catch (error) {
+            throw Error(error);
+        }
+    }
+)
 
 export const changePassword = createAsyncThunk('userAuth/changePassword',
     async (endpoint = {email: '', password: ''}) => {

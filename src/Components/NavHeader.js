@@ -42,7 +42,7 @@ const NavHeader = ({setOpenModal}) => {
             <Container width={'85%'}>
                 <BlockHeaderContent>
                     <LogoBlock>
-                        <Link to={'home'} spy={true} smooth={true} duration={1000}>
+                        <Link to={'home'} spy={true} smooth={true} duration={1000} onClick={() => handleCloseModal()}>
                             <LogoImg src={logo} alt={'hiDucation'}/>
                         </Link>
                     </LogoBlock>
