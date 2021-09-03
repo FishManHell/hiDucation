@@ -53,6 +53,7 @@ const Modal = ({handleBooleanForms}) => {
                 <SignIn
                     handleBooleanForms={handleBooleanForms}
                     handleForgetPassword={handleForgetPassword}
+                    handleCloseModal={handleCloseModal}
                 />
             )
         } else {

@@ -42,6 +42,7 @@ const SignUp = ({width, handleBooleanForms, funcCheckYup, requestSend}) => {
                     onSubmit={(values, onSubmitProps) => {
                         requestSend(values, onSubmitProps.resetForm)
                         onSubmitProps.setSubmitting(false)
+
                     }}
                 >
                     {formik => (

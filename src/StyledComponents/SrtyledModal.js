@@ -119,6 +119,7 @@ export const BlockFormRegLog = styled.div`
 
 export const Switcher = styled.div`
   width: 100%;
+  margin-bottom: 50px;
 `
 
 export const SignInSignUp = styled.button`
@@ -260,7 +261,7 @@ export const TextChangeType = styled.span`
 
 export const ButtonSend = styled.button`
   position: relative;
-  width: 100%;
+  width: 200px;
   background: #2f889a;
   color: #FFF;
   font-weight: 600;
@@ -316,4 +317,11 @@ export const MessageChangePasswordBlock = styled.div`
 export const TextMessage = styled.span`
   font-weight: 600;
   color: #A72537;
+`
+
+export const MainBlockWithSubmitButtons = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+
 `
