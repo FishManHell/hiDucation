@@ -9,12 +9,12 @@ import {
     BlockSignInSignUp, BlockWithProfile, ButtonSend,
     Form,
     Input, LabelInput,
-    MainBlockInput, TextChangeType
+    MainBlockInput, MainBlockWithSubmitButtons, TextChangeType
 } from "../../StyledComponents/SrtyledModal";
 import FooterModalProfileStatistics from "../ModalProfile/FooterModalProfileStatistics";
 
 
-const SignUp = ({width, handleBooleanForms, funcCheckYup, requestSend}) => {
+const SignUp = ({width, handleBooleanForms, funcCheckYup, requestSend, handleCloseModal}) => {
     const emailRedux = useSelector(state => state.userAuth.user.email);
     const passwordRedux = useSelector(state => state.userAuth.user.password);
 
@@ -27,7 +27,10 @@ const SignUp = ({width, handleBooleanForms, funcCheckYup, requestSend}) => {
         password: '' || passwordRedux,
         confirmPassword: ''
     }
-
+    const modalClose = (value) => {
+        value.handleReset()
+        handleCloseModal()
+    }
 
     const handleShowPassword = () => {
         handleBooleanForms().setShowPassword(!handleBooleanForms().showPassword)
@@ -163,12 +166,17 @@ const SignUp = ({width, handleBooleanForms, funcCheckYup, requestSend}) => {
                                 ?
                                 <FooterModalProfileStatistics handleBooleanForms={handleBooleanForms} formik={formik}/>
                                 :
-                                <ButtonSend
-                                    type={'submit'}
-                                    disabled={!formik.values.email || !formik.values.confirmPassword || !formik.isValid}
-                                >
-                                    Registration
-                                </ButtonSend>
+                                <MainBlockWithSubmitButtons>
+                                    <ButtonSend onClick={() => modalClose(formik)} type={'reset'}>Close</ButtonSend>
+
+                                    <ButtonSend
+                                        type={'submit'}
+                                        disabled={!formik.values.email || !formik.values.confirmPassword || !formik.isValid}
+                                    >
+                                        Registration
+                                    </ButtonSend>
+                                </MainBlockWithSubmitButtons>
+
                             }
                         </Form>
                     )}

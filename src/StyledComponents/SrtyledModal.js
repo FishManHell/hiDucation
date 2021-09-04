@@ -275,6 +275,10 @@ export const ButtonSend = styled.button`
   &:hover {
     opacity: 0.8;
   }
+  @media all and ${device.tabletS} {
+    margin-bottom: 10px;
+    
+  }
 `
 
 export const BlockForgetPasswordTextBackSignIn = styled.div`
@@ -323,5 +327,11 @@ export const MainBlockWithSubmitButtons = styled.div`
   display: flex;
   justify-content: space-between;
   align-content: center;
+  
+  @media all and ${device.tabletS} {
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+  }
 
 `

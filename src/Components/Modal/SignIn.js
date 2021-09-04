@@ -1,5 +1,5 @@
 import React from 'react';
-import {apple, envelope, eye, facebook, google, key, times} from "../../Utils/Font Awesome/Solid";
+import {apple, envelope, eye, facebook, google, key} from "../../Utils/Font Awesome/Solid";
 import {eye_slash} from "../../Utils/Font Awesome/Regular";
 import ErrorBlockModal from "./ErrorBlockModal";
 import {Formik} from 'formik';
@@ -8,11 +8,10 @@ import {getUserProfile} from "../../ReduxToolkit/ReducerUserGetByEmail";
 import {useDispatch} from "react-redux";
 import {funcCheckYup} from "../../Utils/YupCheck";
 import {
-    BlockCloseModal,
     BlockConnectLink,
     BlockForgetPasswordTextBackSignIn, BlockInput,
     BlockSignInSignUp,
-    ButtonConnectLink, ButtonSend, CloseModal, ForgetPasswordSignInText, Input, LabelInput,
+    ButtonConnectLink, ButtonSend, ForgetPasswordSignInText, Input, LabelInput,
     MainBlockInput, MainBlockWithSubmitButtons, TextChangeType,
     TextOr
 } from "../../StyledComponents/SrtyledModal";
@@ -24,14 +23,13 @@ const SignIn = ({handleForgetPassword, handleBooleanForms, handleCloseModal}) =>
         handleBooleanForms().setShowPassword(!handleBooleanForms().showPassword)
     }
 
-    const close = (value) => {
+    const modalClose = (value) => {
         value.handleReset()
         handleCloseModal()
     }
 
     const handleRequest = (values) => {
         dispatch(postLogin({...values}))
-        console.log(dispatch(postLogin({...values})))
         dispatch(getUserInform({...values}))
         dispatch(getUserProfile(values.email))
     }
@@ -79,9 +77,7 @@ const SignIn = ({handleForgetPassword, handleBooleanForms, handleCloseModal}) =>
                             </BlockInput>
                         </MainBlockInput>
                         <MainBlockWithSubmitButtons>
-                            <ButtonSend onClick={() => handleCloseModal()}>
-                                Close
-                            </ButtonSend>
+                            <ButtonSend onClick={() => modalClose(formik)} type={'reset'}>Close</ButtonSend>
 
                             <ButtonSend
                                 disabled={!formik.values.email || !formik.values.password || !formik.isValid}

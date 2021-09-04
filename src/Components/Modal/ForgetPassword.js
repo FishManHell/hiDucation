@@ -7,19 +7,32 @@ import {funcCheckYup} from "../../Utils/YupCheck";
 import {useDispatch} from "react-redux";
 import {changePassword} from "../../ReduxToolkit/ReducerUserAuth";
 import {
-    BlockForgetPasswordTextBackSignIn, BlockInput, BlockSignInSignUp,
+    BlockForgetPasswordTextBackSignIn,
+    BlockInput,
+    BlockSignInSignUp,
     ButtonSend,
     ForgetPasswordSignInText,
-    Input, LabelInput, MainBlockInput, MessageChangePasswordBlock, TextChangeType, TextMessage
+    Input,
+    LabelInput,
+    MainBlockInput,
+    MainBlockWithSubmitButtons,
+    MessageChangePasswordBlock,
+    TextChangeType,
+    TextMessage
 } from "../../StyledComponents/SrtyledModal";
 
 
-const ForgetPassword = ({handleForgetPassword, handleBooleanForms}) => {
+const ForgetPassword = ({handleForgetPassword, handleBooleanForms, handleCloseModal}) => {
     const dispatch = useDispatch()
     const valueForgetPassword = {
         oldPassword: '',
         newPassword: '',
         confirmPassword: ''
+    }
+
+    const modalClose = (value) => {
+        value.handleReset()
+        handleCloseModal()
     }
 
     const handleShowPassword = () => {
@@ -95,11 +108,16 @@ const ForgetPassword = ({handleForgetPassword, handleBooleanForms}) => {
                                     text={formik.errors.confirmPassword} left={'0'} bottom={'-35px'}
                                 />
                             </BlockInput>
-                            <ButtonSend
-                                type={'submit'}
-                                disabled={!formik.values.confirmPassword || !formik.isValid}>
-                                Change Password
-                            </ButtonSend>
+                            <MainBlockWithSubmitButtons>
+                                <ButtonSend onClick={() => modalClose(formik)} type={'reset'}>Close</ButtonSend>
+
+                                <ButtonSend
+                                    type={'submit'}
+                                    disabled={!formik.values.confirmPassword || !formik.isValid}>
+                                    Change Password
+                                </ButtonSend>
+                            </MainBlockWithSubmitButtons>
+
                         </form>
                     )}
                 </Formik>

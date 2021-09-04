@@ -63,6 +63,7 @@ const Modal = ({handleBooleanForms}) => {
                     handleBooleanForms={handleBooleanForms}
                     funcCheckYup={funcCheckYup('reg')}
                     requestSend={requestReg}
+                    handleCloseModal={handleCloseModal}
                 />
             )
         }
@@ -101,7 +102,9 @@ const Modal = ({handleBooleanForms}) => {
                         ?
                         <ForgetPassword
                             handleBooleanForms={handleBooleanForms}
-                            handleForgetPassword={handleForgetPassword}/>
+                            handleForgetPassword={handleForgetPassword}
+                            handleCloseModal={handleCloseModal}
+                        />
                         :
                         changeSignInSignUp()
                 }
