@@ -36,7 +36,7 @@ const SignIn = ({handleForgetPassword, handleBooleanForms, handleCloseModal}) =>
         })
             .then(response => {
                 if (response.ok) {
-                    console.log(response.headers.get('server'), response.headers.get('TOKEN'), response.headers.get('Token'))
+                    console.log(response.headers)
                     return response.json()
                 }
             })
