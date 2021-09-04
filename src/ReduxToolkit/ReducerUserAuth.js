@@ -40,17 +40,11 @@ export const postLogin = createAsyncThunk('userAuth/getTokenLogin',
                 headers:{'Content-Type': 'application/json'},
                 body: JSON.stringify(endpoint)
             });
-            const data = await response
-            const headers = await response.headers
-            const token = headers.get('Date')
-            const tokenAwait  = await headers.get('Date')
+            const data = response.headers.get('Token')
             console.log(data)
-            console.log('token')
-            console.log(tokenAwait)
-            console.log(token)
             // localStorage.setItem('Token', data);
             // dispatch(getToken(data))
-            return token
+            return response.json()
         } catch (error) {
             throw Error(error);
         }
