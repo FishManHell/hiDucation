@@ -31,11 +31,11 @@ const SignIn = ({handleForgetPassword, handleBooleanForms, handleCloseModal}) =>
     const handleRequest = (values) => {
         fetch('https://telran-hiducation.herokuapp.com/user/login', {
             method: 'POST',
-            headers:{'Content-Type': 'application/json'},
+            // headers:{'Content-Type': 'application/json'},
             body: JSON.stringify({...values})
         })
             .then(response => {
-                console.log(response.headers, response.headers.get('Authorization'))
+                console.log(response.headers, response.headers.get('Authorization'), response.headers.get('Token'), response.headers.get('Content-Type'))
                 for (let [key, value] of response.headers) {
                     console.log(`${key} = ${value}`);
                 }
