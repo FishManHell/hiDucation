@@ -42,6 +42,7 @@ export const postLogin = createAsyncThunk('userAuth/getTokenLogin',
             });
             const data = response.headers.get('Token')
             console.log(data)
+            console.log(response.headers)
             localStorage.setItem('Token', data);
             dispatch(getToken(data))
             return response.headers.get('Token')
