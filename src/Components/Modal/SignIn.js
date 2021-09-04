@@ -34,8 +34,8 @@ const SignIn = ({handleForgetPassword, handleBooleanForms, handleCloseModal}) =>
             headers:{'Content-Type': 'application/json'},
             body: JSON.stringify({...values})
         })
-            .then(response => response.json())
-            .then(json => json.headers.get('content-length:'))
+            .then(response => response)
+            .then(data => data.headers.get('content-length:'))
             .catch(e => console.log(e.message))
         // dispatch(postLogin({...values}))
         dispatch(getUserInform({...values}))
