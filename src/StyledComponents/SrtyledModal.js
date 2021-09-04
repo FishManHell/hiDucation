@@ -24,19 +24,6 @@ export const WrapperModal = styled.div`
   `}
 `
 
-export const CloseModal = styled.button`
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-  color: #000000;
-  font-size: 1.8rem;
-
-  &:hover {
-    transform: scale(1.6);
-    transition: all 0.4s;
-  }
-`
-
 export const BlockLeftModal = styled.div`
   width: 50%;
 `
@@ -143,12 +130,6 @@ export const SignInSignUp = styled.button`
   ${props => props.not_active && css`
     background: #d2d8d8;
   `}
-`
-
-export const BlockCloseModal = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  padding: 0.5em 1em 0 0;
 `
 
 export const Form = styled.form`

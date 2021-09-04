@@ -1,9 +1,6 @@
 import React from 'react';
-import {times} from "../../Utils/Font Awesome/Solid";
 import {
-    BlockCloseModal,
     BlockFormRegLog,
-    CloseModal,
     SignInSignUp,
     Switcher,
     WrapperModal
@@ -94,9 +91,6 @@ const Modal = ({handleBooleanForms}) => {
                         className={!handleBooleanForms().form ? 'active' : 'not_active'}
                         onClick={() => handleChangeFormSignInSignUp(false, false)}>SignUp</SignInSignUp>
                 </Switcher>
-                <BlockCloseModal>
-                    <CloseModal onClick={() => handleCloseModal()}>{times}</CloseModal>
-                </BlockCloseModal>
                 {
                     handleBooleanForms().forgetPassword
                         ?
