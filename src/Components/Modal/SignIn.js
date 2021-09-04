@@ -34,8 +34,12 @@ const SignIn = ({handleForgetPassword, handleBooleanForms, handleCloseModal}) =>
             headers:{'Content-Type': 'application/json'},
             body: JSON.stringify({...values})
         })
-            .then(response => response)
-            .then(data => console.log(data.headers, data.headers.get('Authorization')))
+            .then(response => {
+                console.log(response.headers, response.headers.get('Authorization'))
+                for (let [key, value] of response.headers) {
+                    console.log(`${key} = ${value}`);
+                }
+            })
             .catch(e => console.log(e.message))
         // dispatch(postLogin({...values}))
         dispatch(getUserInform({...values}))
