@@ -29,7 +29,14 @@ const SignIn = ({handleForgetPassword, handleBooleanForms, handleCloseModal}) =>
     }
 
     const handleRequest = (values) => {
-        dispatch(postLogin({...values}))
+        fetch('https://telran-hiducation.herokuapp.com/user/login', {
+            method: 'POST',
+            headers:{'Content-Type': 'application/json'},
+            body: JSON.stringify({...values})
+        })
+            .then(response => console.log(response.headers))
+            .catch(e => console.log(e.message))
+        // dispatch(postLogin({...values}))
         dispatch(getUserInform({...values}))
         dispatch(getUserProfile(values.email))
     }
